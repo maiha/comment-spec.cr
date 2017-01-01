@@ -1,7 +1,11 @@
 require "./comment-spec/**"
 
 class CommentSpec
-  def self.parse(line)
-    Builder.from_line(line).build
+  def initialize(@line : String)
+    @builder = Builder.from_line(line)
+  end
+
+  def spec
+    @builder.build
   end
 end

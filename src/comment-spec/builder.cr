@@ -12,9 +12,9 @@ class CommentSpec
   abstract class BaseBuilder(T)
     include Builder
     getter line
-    getter data
+    getter! data
 
-    def initialize(@line : String, @data : T)
+    def initialize(@line : String, @data : T = nil)
     end
 
     def name

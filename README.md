@@ -20,10 +20,19 @@ dependencies:
 ```crystal
 require "comment-spec"
 
-CommentSpec.parse("1 + 2 # => 3") # => "( 1 + 2 ).should eq( 3 )"
+line = CommentSpec.new("1 + 2 # => 3") # => #<CommentSpec:0x1ae6ee0>
+line.spec                              # => "( 1 + 2 ).should eq( 3 )"
 ```
 
+## Converting Rules
+
+- [src/comment-spec/rules.cr](./src/comment-spec/rules.cr)
+
 ## Development
+
+```shell
+make spec
+```
 
 ## Contributing
 
