@@ -1,4 +1,4 @@
-# comment-spec.cr
+# comment-spec.cr [![Build Status](https://travis-ci.org/maiha/comment-spec.cr.svg?branch=master)](https://travis-ci.org/maiha/comment-spec.cr)
 
 Comment driven spec builder for [Crystal](http://crystal-lang.org/).
 
