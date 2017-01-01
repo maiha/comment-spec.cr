@@ -24,6 +24,11 @@ class CommentSpec
   )
 
   rule(
+    regex: /^\s*#/,
+    klass: Nop,
+  )
+
+  rule(
     regex: /^(.*?)\.(object_id|mtime|hash|sample|to_utc|to_local|local_offset_in_minutes)\b[^#]*#\s*=>/,
     klass: Nop
   )

@@ -1,16 +1,20 @@
 require "./spec_helper"
 
 private macro rule(klass, line, data = nil)
-  name = {{klass.stringify}}
   it {{line}} do
-    spec = CommentSpec::Builder.from_line({{line}})
-    spec.data.should eq({{data}}) if {{data}}
+    builder = CommentSpec::Builder.from_line({{line}})
+    builder.should be_a(CommentSpec::{{klass}})
+    builder.data.should eq({{data}}) if {{data}}
   end
 end
 
 describe CommentSpec::Builder do
   # require
   rule CommentOut, "require \"json\""
+
+  # comment
+  rule Nop, "# => 1"
+  rule Nop, %(# => #<HTTP::Params @raw_params = {"foo" => ["bar", "baz"]>)
 
   # dynamic values
   rule Nop, "a.object_id # => 1"

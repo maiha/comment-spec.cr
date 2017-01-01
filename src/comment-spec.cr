@@ -10,4 +10,8 @@ class CommentSpec
   def spec
     @builder.build
   end
+
+  def self.parse(line)
+    new(line).spec
+  end
 end
