@@ -2,6 +2,8 @@
 
 Comment driven spec builder for [Crystal](http://crystal-lang.org/).
 
+- This **is** a spec string generator.
+- This **is not** a kind of spec tools.
 - crystal: 0.20.3
 
 ## Installation
@@ -12,7 +14,7 @@ Add this to your application's `shard.yml`:
 dependencies:
   comment-spec:
     github: maiha/comment-spec.cr
-    version: 0.1.2
+    version: 0.1.3
 ```
 
 ## Usage
@@ -20,8 +22,13 @@ dependencies:
 ```crystal
 require "comment-spec"
 
-line = CommentSpec.new("1 + 2 # => 3") # => #<CommentSpec:0x1ae6ee0>
-line.spec                              # => "( 1 + 2 ).should eq( 3 )"
+def gen(line)
+  CommentSpec.new(line).spec
+end
+
+gen "1 + 2 # => 3"                   # => "( 1 + 2 ).should eq( 3 )"
+gen "value # => 2016-03-31 12:36:21" # => "( value ).should eq( Time.parse(\"2016-03-31 12:36:21\", \"%F %T\") )"
+gen "v[10] # raises IndexError")     # => "expect_raises(IndexError) { v[10] }"
 ```
 
 ## Converting Rules

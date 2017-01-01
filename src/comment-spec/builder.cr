@@ -2,6 +2,10 @@ class CommentSpec
   module Builder
     abstract def build : String
 
+    def name
+      self.class.name.split(/::/).last
+    end
+
     def self.from_line(line) : Builder
       line = line.strip
       Rules.each(&.builder?(line).try{|p| return p})
@@ -15,10 +19,6 @@ class CommentSpec
     getter! data
 
     def initialize(@line : String, @data : T = nil)
-    end
-
-    def name
-      self.class.name.split(/::/).last
     end
   end
 

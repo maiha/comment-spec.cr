@@ -13,13 +13,13 @@ describe CommentSpec::Builder do
   rule CommentOut, "require \"json\""
 
   # dynamic values
-  rule Nop, "a.object_id # => 1", nil
-  rule Nop, "file.mtime # => 2015-10-20 13:11:12 UTC", nil
-  rule Nop, "foo.hash # => 1234", nil
-  rule Nop, "a.sample(2) # => [2, 1]", nil
-  rule Nop, "time.to_utc # => xxx", nil
-  rule Nop, "time.to_local # => xxx", nil
-  rule Nop, "time.local_offset_in_minutes # => xxx", nil
+  rule Nop, "a.object_id # => 1"
+  rule Nop, "file.mtime # => 2015-10-20 13:11:12 UTC"
+  rule Nop, "foo.hash # => 1234"
+  rule Nop, "a.sample(2) # => [2, 1]"
+  rule Nop, "time.to_utc # => xxx"
+  rule Nop, "time.to_local # => xxx"
+  rule Nop, "time.local_offset_in_minutes # => xxx"
 
   # raises
   rule ExpectRaises, "value # raises IO::Error",
@@ -46,17 +46,18 @@ describe CommentSpec::Builder do
        {code: "value", eq: "Time::Span.new(0, 0, 0, 0, 10)"}
   
   # Time
-  rule ExpectEqual, "value # => 2016-04-05 12:36:21", # %F %T
+  rule ExpectEqual, "value # => 2016-04-05 12:36:21",
        {code: "value", eq: %(Time.parse("2016-04-05 12:36:21", "%F %T"))}
+
   rule ExpectEqual, "value # => 2016-04-05 12:36:21 UTC",
        {code: "value", eq: %(Time.parse("2016-04-05 12:36:21 UTC", "%F %T %z"))}
   rule ExpectEqual, "value # => 2016-04-05 12:36:21.023 UTC",
        {code: "value", eq: %(Time.parse("2016-04-05 12:36:21.023 UTC", "%F %T.%L %z"))}
 
   # nop when `=>` found but contains comment
-  rule Nop, "value # => [9, #<Indexable::ItemIterator>]", nil
+  rule Nop, "value # => [9, #<Indexable::ItemIterator>]"
   # nop when `=>` found but contains no codes
-  rule Nop, "# => 1", nil
+  rule Nop, "# => 1"
 
   # empty array
   rule ExpectStringEqual, "value # => []",
@@ -93,7 +94,7 @@ describe CommentSpec::Builder do
        {code: "value", eq: "CSV::Token(@kind=Cell, @value=\\\"one\\\")"}
   
   # Compilation Errors
-  rule CommentOut, "[] # syntax error", nil
+  rule CommentOut, "[] # syntax error"
 
   # remove trailing string as comment
   rule ExpectEqual, "value # => 1 (Bob's index)",
@@ -109,8 +110,8 @@ describe CommentSpec::Builder do
        {code: "value", eq: "2"}
 
   # pp
-  rule Nop, "pp a # => \"1\"", nil
+  rule Nop, "pp a # => \"1\""
 
   # default
-  rule Nop, "1", nil
+  rule Nop, "1"
 end
