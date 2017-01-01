@@ -104,7 +104,6 @@ describe CommentSpec::Builder do
   rule ExpectEqual, "value # => 1 (Bob's index)",
        {code: "value", eq: "1"}
 
-
   # remove puts and compare by to_s
   rule ExpectStringEqual, "puts ary # => [1]",
        {code: "ary", eq: "[1]"}

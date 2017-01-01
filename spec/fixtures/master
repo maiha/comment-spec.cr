@@ -1,0 +1,5289 @@
+# Tests are groups of two lines: source, expected
+# Blank lines and lines starting with # are ignored
+
+"    hello    ".lstrip # => "hello    "
+( "    hello    ".lstrip ).to_s.should eq( "hello    " )
+
+"    hello    ".rstrip # => "    hello"
+( "    hello    ".rstrip ).to_s.should eq( "    hello" )
+
+"    hello    ".strip # => "hello"
+( "    hello    ".strip ).to_s.should eq( "hello" )
+
+"   ".blank?     # => true
+( "   ".blank? ).should eq( true )
+
+"   a   ".blank? # => false
+( "   a   ".blank? ).should eq( false )
+
+"  12345  ".to_i                    # => 12345
+( "  12345  ".to_i ).should eq( 12345 )
+
+" 1.2".to_f?(whitespace: false) # => nil
+( " 1.2".to_f?(whitespace: false) ).should eq( nil )
+
+"".blank?        # => true
+( "".blank? ).should eq( true )
+
+"((koala))".succ # => "((koalb))"
+( "((koala))".succ ).to_s.should eq( "((koalb))" )
+
+"***".succ       # => "**+"
+( "***".succ ).to_s.should eq( "**+" )
+
+"0a".to_i(16)            # => 10
+( "0a".to_i(16) ).should eq( 10 )
+
+"0a".to_i?(strict: false) # => 0
+( "0a".to_i?(strict: false) ).should eq( 0 )
+
+"0x123abc".to_i(prefix: true) # => 1194684
+( "0x123abc".to_i(prefix: true) ).should eq( 1194684 )
+
+"1.2foo".to_f(strict: false)   # => 1.2
+( "1.2foo".to_f(strict: false) ).try(&.to_f).to_s.should eq( "1.2" )
+
+"1.2foo".to_f?(strict: false)   # => 1.2
+( "1.2foo".to_f?(strict: false) ).try(&.to_f).to_s.should eq( "1.2" )
+
+"1100101".to_i(10)       # => 1100101
+( "1100101".to_i(10) ).should eq( 1100101 )
+
+"1100101".to_i(2)        # => 101
+( "1100101".to_i(2) ).should eq( 101 )
+
+"1100101".to_i(8)        # => 294977
+( "1100101".to_i(8) ).should eq( 294977 )
+
+"1100101".to_i(base: 16) # => 17826049
+( "1100101".to_i(base: 16) ).should eq( 17826049 )
+
+"123.45e1".to_f                # => 1234.5
+( "123.45e1".to_f ).to_s.should eq( "1234.5" )
+
+"123.45e1".to_f?                # => 1234.5
+( "123.45e1".to_f? ).to_s.should eq( "1234.5" )
+
+"12345".to_i             # => 12345
+( "12345".to_i ).should eq( 12345 )
+
+"12345".to_i { 0 } # => 12345
+( "12345".to_i { 0 } ).should eq( 12345 )
+
+"12345".to_i?             # => 12345
+( "12345".to_i? ).should eq( 12345 )
+
+"12_345".to_i(underscore: true) # => 12345
+( "12_345".to_i(underscore: true) ).should eq( 12345 )
+
+"1999zzz".succ   # => "2000aaa"
+( "1999zzz".succ ).to_s.should eq( "2000aaa" )
+
+"45.67 degrees".to_f?           # => nil
+( "45.67 degrees".to_f? ).should eq( nil )
+
+"99 red balloons".to_i(strict: false) # => 99
+( "99 red balloons".to_i(strict: false) ).should eq( 99 )
+
+"99 red balloons".to_i?   # => nil
+( "99 red balloons".to_i? ).should eq( nil )
+
+"Argentina".reverse # => "anitnegrA"
+( "Argentina".reverse ).to_s.should eq( "anitnegrA" )
+
+"Aubergine".ljust(8)   # => "Aubergine"
+( "Aubergine".ljust(8) ).to_s.should eq( "Aubergine" )
+
+"Aubergine".rjust(8)   # => "Aubergine"
+( "Aubergine".rjust(8) ).to_s.should eq( "Aubergine" )
+
+"Crystal".match(/[p-s]/).not_nil!.regex # => /[p-s]/
+( "Crystal".match(/[p-s]/).not_nil!.regex ).should eq( /[p-s]/ )
+
+"Crystal".match(/[p-s]/).not_nil!.size          # => 0
+( "Crystal".match(/[p-s]/).not_nil!.size ).should eq( 0 )
+
+"Crystal".match(/[p-s]/).not_nil!.string # => "Crystal"
+( "Crystal".match(/[p-s]/).not_nil!.string ).to_s.should eq( "Crystal" )
+
+"Crystal".match(/r(?<ok>ys)/).not_nil!["ng"]? # => nil
+( "Crystal".match(/r(?<ok>ys)/).not_nil!["ng"]? ).should eq( nil )
+
+"Crystal".match(/r(?<ok>ys)/).not_nil!["ok"] # => "ys"
+( "Crystal".match(/r(?<ok>ys)/).not_nil!["ok"] ).to_s.should eq( "ys" )
+
+"Crystal".match(/r(?<ok>ys)/).not_nil!["ok"]? # => "ys"
+( "Crystal".match(/r(?<ok>ys)/).not_nil!["ok"]? ).to_s.should eq( "ys" )
+
+"Crystal".match(/r(ys)(?<ok>ta)/).not_nil!.size # => 2
+( "Crystal".match(/r(ys)(?<ok>ta)/).not_nil!.size ).should eq( 2 )
+
+"Crystal".match(/r(ys)/).not_nil!.begin(1) # => 2
+( "Crystal".match(/r(ys)/).not_nil!.begin(1) ).should eq( 2 )
+
+"Crystal".match(/r(ys)/).not_nil!.byte_begin(1) # => 2
+( "Crystal".match(/r(ys)/).not_nil!.byte_begin(1) ).should eq( 2 )
+
+"Crystal".match(/r(ys)/).not_nil!.byte_end(1) # => 4
+( "Crystal".match(/r(ys)/).not_nil!.byte_end(1) ).should eq( 4 )
+
+"Crystal".match(/r(ys)/).not_nil!.end(1) # => 4
+( "Crystal".match(/r(ys)/).not_nil!.end(1) ).should eq( 4 )
+
+"Crystal".match(/r(ys)/).not_nil!.size          # => 1
+( "Crystal".match(/r(ys)/).not_nil!.size ).should eq( 1 )
+
+"Crystal".match(/r(ys)/).not_nil![0]? # => "rys"
+( "Crystal".match(/r(ys)/).not_nil![0]? ).to_s.should eq( "rys" )
+
+"Crystal".match(/r(ys)/).not_nil![1] # => "ys"
+( "Crystal".match(/r(ys)/).not_nil![1] ).to_s.should eq( "ys" )
+
+"Crystal".match(/r(ys)/).not_nil![1]? # => "ys"
+( "Crystal".match(/r(ys)/).not_nil![1]? ).to_s.should eq( "ys" )
+
+"Crystal".match(/r(ys)/).not_nil![2]? # => nil
+( "Crystal".match(/r(ys)/).not_nil![2]? ).should eq( nil )
+
+"Crystal".match(/r/).not_nil!.begin(0)     # => 1
+( "Crystal".match(/r/).not_nil!.begin(0) ).should eq( 1 )
+
+"Crystal".match(/r/).not_nil!.byte_begin(0)     # => 1
+( "Crystal".match(/r/).not_nil!.byte_begin(0) ).should eq( 1 )
+
+"Crystal".match(/r/).not_nil!.byte_end(0)     # => 2
+( "Crystal".match(/r/).not_nil!.byte_end(0) ).should eq( 2 )
+
+"Crystal".match(/r/).not_nil!.end(0)     # => 2
+( "Crystal".match(/r/).not_nil!.end(0) ).should eq( 2 )
+
+"Crystal".match(/t#{re}l/) # => #<Regex::MatchData "tal">
+( "Crystal".match(/t#{re}l/) ).class.to_s.should eq( "Regex::MatchData" )
+
+"Crystal".match(/t#{re}l/) # => nil
+( "Crystal".match(/t#{re}l/) ).should eq( nil )
+
+"Crystal".match(/yst/).not_nil!.post_match # => "al"
+( "Crystal".match(/yst/).not_nil!.post_match ).to_s.should eq( "al" )
+
+"Crystal".match(/yst/).not_nil!.pre_match # => "Cr"
+( "Crystal".match(/yst/).not_nil!.pre_match ).to_s.should eq( "Cr" )
+
+"DoesWhatItSaysOnTheTin".underscore # => "does_what_it_says_on_the_tin"
+( "DoesWhatItSaysOnTheTin".underscore ).to_s.should eq( "does_what_it_says_on_the_tin" )
+
+"Dysfunctional".includes?("fun") # => true
+( "Dysfunctional".includes?("fun") ).should eq( true )
+
+"HTTP_CLIENT".underscore            # => "http_client"
+( "HTTP_CLIENT".underscore ).to_s.should eq( "http_client" )
+
+"Haystack" =~ /ay/ # => 1
+( "Haystack" =~ /ay/ ).should eq( 1 )
+
+"Haystack" =~ /z/  # => nil
+( "Haystack" =~ /z/ ).should eq( nil )
+
+"Haystack" =~ 45 # => nil
+( "Haystack" =~ 45 ).should eq( nil )
+
+"Hello, World".index("H", 2) # => nil
+( "Hello, World".index("H", 2) ).should eq( nil )
+
+"Hello, World".index("o", 5) # => 8
+( "Hello, World".index("o", 5) ).should eq( 8 )
+
+"Hello, World".index('Z')    # => nil
+( "Hello, World".index('Z') ).should eq( nil )
+
+"Hello, World".index('o')    # => 4
+( "Hello, World".index('o') ).should eq( 4 )
+
+"Hello, World".index(/[ ]+/) # => 6
+( "Hello, World".index(/[ ]+/) ).should eq( 6 )
+
+"Hello, World".index(/\d+/)  # => nil
+( "Hello, World".index(/\d+/) ).should eq( nil )
+
+"Hello, World".rindex("W", 2) # => nil
+( "Hello, World".rindex("W", 2) ).should eq( nil )
+
+"Hello, World".rindex("o", 5) # => 4
+( "Hello, World".rindex("o", 5) ).should eq( 4 )
+
+"Hello, World".rindex('Z')    # => nil
+( "Hello, World".rindex('Z') ).should eq( nil )
+
+"Hello, World".rindex('o')    # => 8
+( "Hello, World".rindex('o') ).should eq( 8 )
+
+"Party like it's %d!!!" % 1999 # => "Party like it's 1999!!!"
+( "Party like it's %d!!!" % 1999 ).to_s.should eq( "Party like it's 1999!!!" )
+
+"PartyInTheUSA".underscore          # => "party_in_the_usa"
+( "PartyInTheUSA".underscore ).to_s.should eq( "party_in_the_usa" )
+
+"Purple".ljust(8)      # => "Purple  "
+( "Purple".ljust(8) ).to_s.should eq( "Purple  " )
+
+"Purple".ljust(8, '-') # => "Purple--"
+( "Purple".ljust(8, '-') ).to_s.should eq( "Purple--" )
+
+"Purple".rjust(8)      # => "  Purple"
+( "Purple".rjust(8) ).to_s.should eq( "  Purple" )
+
+"Purple".rjust(8, '-') # => "--Purple"
+( "Purple".rjust(8, '-') ).to_s.should eq( "--Purple" )
+
+"THX1138".succ   # => "THX1139"
+( "THX1138".succ ).to_s.should eq( "THX1139" )
+
+"Team".includes?('i')            # => false
+( "Team".includes?('i') ).should eq( false )
+
+"ZZZ9999".succ   # => "AAAA0000"
+( "ZZZ9999".succ ).to_s.should eq( "AAAA0000" )
+
+"\"" # double quote
+"\"" # double quote
+
+"\1"   # string with one character with code point 1
+"\1"   # string with one character with code point 1
+
+"\101" # == "A"
+"\101" # == "A"
+
+"\12"  # == "\n"
+"\12"  # == "\n"
+
+"\123" # == "S"
+"\123" # == "S"
+
+"\\" # backslash
+"\\" # backslash
+
+"\e" # escape
+"\e" # escape
+
+"\f" # form feed
+"\f" # form feed
+
+"\n" # newline
+"\n" # newline
+
+"\r" # carriage return
+"\r" # carriage return
+
+"\t" # tab
+"\t" # tab
+
+"\tgoodbye\r\n".lstrip # => "goodbye\r\n"
+( "\tgoodbye\r\n".lstrip ).to_s.should eq( "goodbye\r\n" )
+
+"\tgoodbye\r\n".rstrip # => "\tgoodbye"
+( "\tgoodbye\r\n".rstrip ).to_s.should eq( "\tgoodbye" )
+
+"\tgoodbye\r\n".strip # => "goodbye"
+( "\tgoodbye\r\n".strip ).to_s.should eq( "goodbye" )
+
+"\u0041" # == "A"
+"\u0041" # == "A"
+
+"\u{41}" # == "A"
+"\u{41}" # == "A"
+
+"\v" # vertical tab
+"\v" # vertical tab
+
+"a       bbb".squeeze         # => "a b"
+( "a       bbb".squeeze ).to_s.should eq( "a b" )
+
+"a       bbb".squeeze # => "a b"
+( "a       bbb".squeeze ).to_s.should eq( "a b" )
+
+"a    bbb".squeeze(' ') # => "a bbb"
+( "a    bbb".squeeze(' ') ).to_s.should eq( "a bbb" )
+
+"aaabbbccc".squeeze { |c| ['a', 'b'].includes?(c) } # => "abccc"
+( "aaabbbccc".squeeze { |c| ['a', 'b'].includes?(c) } ).to_s.should eq( "abccc" )
+
+"aaabbbccc".squeeze { |c| ['a', 'c'].includes?(c) } # => "abbbc"
+( "aaabbbccc".squeeze { |c| ['a', 'c'].includes?(c) } ).to_s.should eq( "abbbc" )
+
+"aaabbbcccddd".squeeze("b-d") # => "aaabcd"
+( "aaabbbcccddd".squeeze("b-d") ).to_s.should eq( "aaabcd" )
+
+"aabbcc".count { |c| ['a', 'b'].includes?(c) } # => 4
+( "aabbcc".count { |c| ['a', 'b'].includes?(c) } ).should eq( 4 )
+
+"aabbcc".count('a') # => 2
+( "aabbcc".count('a') ).should eq( 2 )
+
+"aabbcc".delete { |c| ['a', 'b'].includes?(c) } # => "cc"
+( "aabbcc".delete { |c| ['a', 'b'].includes?(c) } ).to_s.should eq( "cc" )
+
+"aabbcc".delete('b') # => "aacc"
+( "aabbcc".delete('b') ).to_s.should eq( "aacc" )
+
+"aabbcc".tr("a", "xyz")   # => "xxbbcc"
+( "aabbcc".tr("a", "xyz") ).to_s.should eq( "xxbbcc" )
+
+"aabbcc".tr("abc", "x")   # => "xxxxxx"
+( "aabbcc".tr("abc", "x") ).to_s.should eq( "xxxxxx" )
+
+"aabbcc".tr("abc", "xyz") # => "xxyyzz"
+( "aabbcc".tr("abc", "xyz") ).to_s.should eq( "xxyyzz" )
+
+"aabbccdd".delete("a-c") # => "dd"
+( "aabbccdd".delete("a-c") ).to_s.should eq( "dd" )
+
+"ab☃".chars # => ['a', 'b', '☃']
+( "ab☃".chars ).should eq( ['a', 'b', '☃'] )
+
+"ab☃".codepoints # => [97, 98, 9731]
+( "ab☃".codepoints ).should eq( [97, 98, 9731] )
+
+"abc" + "def" # => "abcdef"
+( "abc" + "def" ).to_s.should eq( "abcdef" )
+
+"abc" + 'd'   # => "abcd"
+( "abc" + 'd' ).to_s.should eq( "abcd" )
+
+"abcd".insert(-1, "FOO") # => "abcdFOO"
+( "abcd".insert(-1, "FOO") ).to_s.should eq( "abcdFOO" )
+
+"abcd".insert(-1, 'X') # => "abcdX"
+( "abcd".insert(-1, 'X') ).to_s.should eq( "abcdX" )
+
+"abcd".insert(-3, "FOO") # => "abFOOcd"
+( "abcd".insert(-3, "FOO") ).to_s.should eq( "abFOOcd" )
+
+"abcd".insert(-3, 'X') # => "abXcd"
+( "abcd".insert(-3, 'X') ).to_s.should eq( "abXcd" )
+
+"abcd".insert(0, "FOO")  # => "FOOabcd"
+( "abcd".insert(0, "FOO") ).to_s.should eq( "FOOabcd" )
+
+"abcd".insert(0, 'X')  # => "Xabcd"
+( "abcd".insert(0, 'X') ).to_s.should eq( "Xabcd" )
+
+"abcd".insert(3, "FOO")  # => "abcFOOd"
+( "abcd".insert(3, "FOO") ).to_s.should eq( "abcFOOd" )
+
+"abcd".insert(3, 'X')  # => "abcXd"
+( "abcd".insert(3, 'X') ).to_s.should eq( "abcXd" )
+
+"abcd".insert(4, "FOO")  # => "abcdFOO"
+( "abcd".insert(4, "FOO") ).to_s.should eq( "abcdFOO" )
+
+"abcd".insert(4, 'X')  # => "abcdX"
+( "abcd".insert(4, 'X') ).to_s.should eq( "abcdX" )
+
+"abcd".succ      # => "abce"
+( "abcd".succ ).to_s.should eq( "abce" )
+
+"abcdef" <=> "ABCDEF"  # => 1
+( "abcdef" <=> "ABCDEF" ).should eq( 1 )
+
+"abcdef" <=> "abcde"   # => 1
+( "abcdef" <=> "abcde" ).should eq( 1 )
+
+"abcdef" <=> "abcdef"  # => 0
+( "abcdef" <=> "abcdef" ).should eq( 0 )
+
+"abcdef" <=> "abcdefg" # => -1
+( "abcdef" <=> "abcdefg" ).should eq( -1 )
+
+"abcdef".compare("ABCDEF")  # => 1
+( "abcdef".compare("ABCDEF") ).should eq( 1 )
+
+"abcdef".compare("ABCDEF", case_insensitive: true) # => 0
+( "abcdef".compare("ABCDEF", case_insensitive: true) ).should eq( 0 )
+
+"abcdef".compare("ABCDEG", case_insensitive: true) # => -1
+( "abcdef".compare("ABCDEG", case_insensitive: true) ).should eq( -1 )
+
+"abcdef".compare("abcde")   # => 1
+( "abcdef".compare("abcde") ).should eq( 1 )
+
+"abcdef".compare("abcdef")  # => 0
+( "abcdef".compare("abcdef") ).should eq( 0 )
+
+"abcdef".compare("abcdefg") # => -1
+( "abcdef".compare("abcdefg") ).should eq( -1 )
+
+"eiffel_tower".camelcase # => "EiffelTower"
+( "eiffel_tower".camelcase ).to_s.should eq( "EiffelTower" )
+
+"foo".gsub(/o/, "\\\\0")                  # => "f\\0\\0"
+( "foo".gsub(/o/, "\\\\0") ).to_s.should eq( "f\\0\\0" )
+
+"foo".gsub(/o/, "x\\0x")                  # => "fxoxxox"
+( "foo".gsub(/o/, "x\\0x") ).to_s.should eq( "fxoxxox" )
+
+"foo".sub(/o/, "\\\\0")                  # => "f\\0o"
+( "foo".sub(/o/, "\\\\0") ).to_s.should eq( "f\\0o" )
+
+"foo".sub(/o/, "x\\0x")                  # => "fxoxo"
+( "foo".sub(/o/, "x\\0x") ).to_s.should eq( "fxoxo" )
+
+"foo,bar,baz".split(',')    # => ["foo", "bar", "baz"]
+( "foo,bar,baz".split(',') ).should eq( ["foo", "bar", "baz"] )
+
+"foo,bar,baz".split(',', 2) # => ["foo", "bar,baz"]
+( "foo,bar,baz".split(',', 2) ).should eq( ["foo", "bar,baz"] )
+
+"foofoo".gsub(/(?<bar>oo)/, "|\\k<bar>|") # => "f|oo|f|oo|"
+( "foofoo".gsub(/(?<bar>oo)/, "|\\k<bar>|") ).to_s.should eq( "f|oo|f|oo|" )
+
+"foofoo".sub(/(?<bar>oo)/, "|\\k<bar>|") # => "f|oo|foo"
+( "foofoo".sub(/(?<bar>oo)/, "|\\k<bar>|") ).to_s.should eq( "f|oo|foo" )
+
+"hEllO".capitalize # => "Hello"
+( "hEllO".capitalize ).to_s.should eq( "Hello" )
+
+"hEllO".downcase # => "hello"
+( "hEllO".downcase ).to_s.should eq( "hello" )
+
+"hEllO".upcase # => "HELLO"
+( "hEllO".upcase ).to_s.should eq( "HELLO" )
+
+"haystack" =~ /needle/ # => nil
+( "haystack" =~ /needle/ ).should eq( nil )
+
+"haystack" =~ /stack/  # => 3
+( "haystack" =~ /stack/ ).should eq( 3 )
+
+"haystack".match(/hay/)    # => #<Regex::MatchData "hay">
+( "haystack".match(/hay/) ).class.to_s.should eq( "Regex::MatchData" )
+
+"haystack".match(/needle/) # => nil
+( "haystack".match(/needle/) ).should eq( nil )
+
+"hello world".gsub('o', 'a') # => "hella warld"
+( "hello world".gsub('o', 'a') ).to_s.should eq( "hella warld" )
+
+"hello world".sub('o', 'a') # => "hella world"
+( "hello world".sub('o', 'a') ).to_s.should eq( "hella world" )
+
+"hello yellow".gsub("ll") { "dd" } # => "heddo yeddow"
+( "hello yellow".gsub("ll") { "dd" } ).to_s.should eq( "heddo yeddow" )
+
+"hello yellow".gsub("ll", "dd") # => "heddo yeddow"
+( "hello yellow".gsub("ll", "dd") ).to_s.should eq( "heddo yeddow" )
+
+"hello yellow".sub("ll") { "dd" } # => "heddo yellow"
+( "hello yellow".sub("ll") { "dd" } ).to_s.should eq( "heddo yellow" )
+
+"hello yellow".sub("ll", "dd") # => "heddo yellow"
+( "hello yellow".sub("ll", "dd") ).to_s.should eq( "heddo yellow" )
+
+"hello".bytes # => [104, 101, 108, 108, 111]
+( "hello".bytes ).should eq( [104, 101, 108, 108, 111] )
+
+"hello".bytesize # => 5
+( "hello".bytesize ).should eq( 5 )
+
+"hello".char_index_to_byte_index(1) # => 1
+( "hello".char_index_to_byte_index(1) ).should eq( 1 )
+
+"hello".char_index_to_byte_index(5) # => 5
+( "hello".char_index_to_byte_index(5) ).should eq( 5 )
+
+"hello".chomp("llo") # => "he"
+( "hello".chomp("llo") ).to_s.should eq( "he" )
+
+"hello".chomp("ol")  # => "hello"
+( "hello".chomp("ol") ).to_s.should eq( "hello" )
+
+"hello".chomp('a') # => "hello"
+( "hello".chomp('a') ).to_s.should eq( "hello" )
+
+"hello".chomp('o') # => "hell"
+( "hello".chomp('o') ).to_s.should eq( "hell" )
+
+"hello".class # => String
+( "hello".class ).should eq( String )
+
+"hello".gsub { "hi" }            # => "hihihihihi"
+( "hello".gsub { "hi" } ).to_s.should eq( "hihihihihi" )
+
+"hello".gsub { |char| char + 1 } # => "ifmmp"
+( "hello".gsub { |char| char + 1 } ).to_s.should eq( "ifmmp" )
+
+"hello".gsub('l', "lo")      # => "heloloo"
+( "hello".gsub('l', "lo") ).to_s.should eq( "heloloo" )
+
+"hello".gsub(/(he|l|o)/, {"he": "ha", "l": "la"}) # => "halala"
+( "hello".gsub(/(he|l|o)/, {"he": "ha", "l": "la"}) ).to_s.should eq( "halala" )
+
+"hello".gsub(/./) { |s| s[0].ord.to_s + ' ' } # => "104 101 108 108 111 "
+( "hello".gsub(/./) { |s| s[0].ord.to_s + ' ' } ).to_s.should eq( "104 101 108 108 111 " )
+
+"hello".gsub(/[aeiou]/, "(\\0)") # => "h(e)ll(o)"
+( "hello".gsub(/[aeiou]/, "(\\0)") ).to_s.should eq( "h(e)ll(o)" )
+
+"hello".gsub(/[aeiou]/, '*') # => "h*ll*"
+( "hello".gsub(/[aeiou]/, '*') ).to_s.should eq( "h*ll*" )
+
+"hello".gsub({'e' => 'a', 'l' => 'd'}) # => "haddo"
+( "hello".gsub({'e' => 'a', 'l' => 'd'}) ).to_s.should eq( "haddo" )
+
+"hello".gsub({e: 'a', l: 'd'}) # => "haddo"
+( "hello".gsub({e: 'a', l: 'd'}) ).to_s.should eq( "haddo" )
+
+"hello".lchomp("eh")  # => "hello"
+( "hello".lchomp("eh") ).to_s.should eq( "hello" )
+
+"hello".lchomp("hel") # => "lo"
+( "hello".lchomp("hel") ).to_s.should eq( "lo" )
+
+"hello".lchomp('g') # => "hello"
+( "hello".lchomp('g') ).to_s.should eq( "hello" )
+
+"hello".lchomp('h') # => "ello"
+( "hello".lchomp('h') ).to_s.should eq( "ello" )
+
+"hello".partition("l") # => {"he", "l", "lo"}
+( "hello".partition("l") ).should eq( {"he", "l", "lo"} )
+
+"hello".partition("x") # => {"hello", "", ""}
+( "hello".partition("x") ).should eq( {"hello", "", ""} )
+
+"hello".rpartition("l")  # => {"hel", "l", "o"}
+( "hello".rpartition("l") ).should eq( {"hel", "l", "o"} )
+
+"hello".rpartition("x")  # => {"", "", "hello"}
+( "hello".rpartition("x") ).should eq( {"", "", "hello"} )
+
+"hello".rpartition(/.l/) # => {"he", "ll", "o"}
+( "hello".rpartition(/.l/) ).should eq( {"he", "ll", "o"} )
+
+"hello".size # => 5
+( "hello".size ).should eq( 5 )
+
+"hello".sub { "hi" }            # => "hiello"
+( "hello".sub { "hi" } ).to_s.should eq( "hiello" )
+
+"hello".sub { |char| char + 1 } # => "iello"
+( "hello".sub { |char| char + 1 } ).to_s.should eq( "iello" )
+
+"hello".sub('l', "lo")      # => "helolo"
+( "hello".sub('l', "lo") ).to_s.should eq( "helolo" )
+
+"hello".sub(/(he|l|o)/, {"he" => "ha", "l" => "la"}) # => "hallo"
+( "hello".sub(/(he|l|o)/, {"he" => "ha", "l" => "la"}) ).to_s.should eq( "hallo" )
+
+"hello".sub(/(he|l|o)/, {"l" => "la"})               # => "hello"
+( "hello".sub(/(he|l|o)/, {"l" => "la"}) ).to_s.should eq( "hello" )
+
+"hello".sub(/./) { |s| s[0].ord.to_s + ' ' } # => "104 ello"
+( "hello".sub(/./) { |s| s[0].ord.to_s + ' ' } ).to_s.should eq( "104 ello" )
+
+"hello".sub(/[aeiou]/, "(\\0)") # => "h(e)llo"
+( "hello".sub(/[aeiou]/, "(\\0)") ).to_s.should eq( "h(e)llo" )
+
+"hello".sub(/[aeiou]/, "*") # => "h*llo"
+( "hello".sub(/[aeiou]/, "*") ).to_s.should eq( "h*llo" )
+
+"hello".sub(1, "eee") # => "heeello"
+( "hello".sub(1, "eee") ).to_s.should eq( "heeello" )
+
+"hello".sub(1, 'a') # => "hallo"
+( "hello".sub(1, 'a') ).to_s.should eq( "hallo" )
+
+"hello".sub(1..2, "eee") # => "heeelo"
+( "hello".sub(1..2, "eee") ).to_s.should eq( "heeelo" )
+
+"hello".sub(1..2, 'a') # => "halo"
+( "hello".sub(1..2, 'a') ).to_s.should eq( "halo" )
+
+"hello".sub({'a' => 'b', 'l' => 'd'}) # => "hedlo"
+( "hello".sub({'a' => 'b', 'l' => 'd'}) ).to_s.should eq( "hedlo" )
+
+"hello".to_i { 0 } # => 0
+( "hello".to_i { 0 } ).should eq( 0 )
+
+"hello".to_i?             # => nil
+( "hello".to_i? ).should eq( nil )
+
+"hello"[-1] # 'o'
+"hello"[-1] # 'o'
+
+"hello"[-2] # 'l'
+"hello"[-2] # 'l'
+
+"hello"[0...2]  # "he"
+"hello"[0...2]  # "he"
+
+"hello"[0..2]   # "hel"
+"hello"[0..2]   # "hel"
+
+"hello"[0]  # 'h'
+"hello"[0]  # 'h'
+
+"hello"[1..-1]  # "ello"
+"hello"[1..-1]  # "ello"
+
+"hello"[1...-1] # "ell"
+"hello"[1...-1] # "ell"
+
+"hello"[1]  # 'e'
+"hello"[1]  # 'e'
+
+"no newlines" # same as "hello world, no newlines"
+"no newlines" # same as "hello world, no newlines"
+
+"racecar".reverse   # => "racecar"
+( "racecar".reverse ).to_s.should eq( "racecar" )
+
+"string".chomp     # => "string"
+( "string".chomp ).to_s.should eq( "string" )
+
+"string".chop     # => "strin"
+( "string".chop ).to_s.should eq( "strin" )
+
+"string\n".chomp   # => "string"
+( "string\n".chomp ).to_s.should eq( "string" )
+
+"string\n".chop   # => "string"
+( "string\n".chop ).to_s.should eq( "string" )
+
+"string\n\r".chomp # => "string\n"
+( "string\n\r".chomp ).to_s.should eq( "string\n" )
+
+"string\n\r".chop # => "string\n"
+( "string\n\r".chop ).to_s.should eq( "string\n" )
+
+"string\r\n".chomp # => "string"
+( "string\r\n".chomp ).to_s.should eq( "string" )
+
+"string\r\n".chop # => "string"
+( "string\r\n".chop ).to_s.should eq( "string" )
+
+"sum = #{a + b}" # "sum = 3"
+"sum = #{a + b}" # "sum = 3"
+
+"thx1138".to_f?                 # => nil
+( "thx1138".to_f? ).should eq( nil )
+
+"x".chomp.chomp    # => "x"
+( "x".chomp.chomp ).to_s.should eq( "x" )
+
+"x".chop.chop     # => ""
+( "x".chop.chop ).to_s.should eq( "" )
+
+"こんにちは".char_index_to_byte_index(1) # => 3
+( "こんにちは".char_index_to_byte_index(1) ).should eq( 3 )
+
+"こんにちは".char_index_to_byte_index(5) # => 15
+( "こんにちは".char_index_to_byte_index(5) ).should eq( 15 )
+
+"クリスタル".match(/リ(ス)/).not_nil!.begin(0)    # => 1
+( "クリスタル".match(/リ(ス)/).not_nil!.begin(0) ).should eq( 1 )
+
+"クリスタル".match(/リ(ス)/).not_nil!.byte_begin(0)    # => 3
+( "クリスタル".match(/リ(ス)/).not_nil!.byte_begin(0) ).should eq( 3 )
+
+"クリスタル".match(/リ(ス)/).not_nil!.byte_end(0)    # => 9
+( "クリスタル".match(/リ(ス)/).not_nil!.byte_end(0) ).should eq( 9 )
+
+"クリスタル".match(/リ(ス)/).not_nil!.end(0)    # => 3
+( "クリスタル".match(/リ(ス)/).not_nil!.end(0) ).should eq( 3 )
+
+"好".bytes            # => [229, 165, 189]
+( "好".bytes ).should eq( [229, 165, 189] )
+
+"好".encode("GB2312") # => Bytes[186, 195]
+( "好".encode("GB2312") ).should eq( Bytes[186, 195] )
+
+"你".bytes # => [228, 189, 160]
+( "你".bytes ).should eq( [228, 189, 160] )
+
+"你好".bytes    # => [228, 189, 160, 229, 165, 189]
+( "你好".bytes ).should eq( [228, 189, 160, 229, 165, 189] )
+
+"你好".bytesize    # => 6
+( "你好".bytesize ).should eq( 6 )
+
+"你好".size    # => 2
+( "你好".size ).should eq( 2 )
+
+$~                         # => #<Regex::MatchData "hay">
+( $~ ).class.to_s.should eq( "Regex::MatchData" )
+
+$~                         # raises Exception
+expect_raises(Exception) { $~ }
+
+$~                     # => #<Regex::MatchData "stack">
+( $~ ).class.to_s.should eq( "Regex::MatchData" )
+
+$~                     # raises Exception
+expect_raises(Exception) { $~ }
+
+%(hello ("world")) # same as "hello (\"world\")"
+%(hello ("world")) # same as "hello (\"world\")"
+
+%<hello <"world">> # same as "hello <\"world\">"
+%<hello <"world">> # same as "hello <\"world\">"
+
+%[hello ["world"]] # same as "hello [\"world\"]"
+%[hello ["world"]] # same as "hello [\"world\"]"
+
+%{hello {"world"}} # same as "hello {\"world\"}"
+%{hello {"world"}} # same as "hello {\"world\"}"
+
+'☃'.ord      # => 9731
+( '☃'.ord ).should eq( 9731 )
+
+'ﬄ'.upcase { |v| puts v } # prints 'F', 'F', 'F'
+'ﬄ'.upcase { |v| puts v } # prints 'F', 'F', 'F'
+
+' '.ascii_whitespace?  # => true
+( ' '.ascii_whitespace? ).should eq( true )
+
+' '.whitespace?  # => true
+( ' '.whitespace? ).should eq( true )
+
+'-'.in_set? "a\\-eo"   # => true
+( '-'.in_set? "a\\-eo" ).should eq( true )
+
+'.'.alphanumeric? # => false
+( '.'.alphanumeric? ).should eq( false )
+
+'.'.ascii_alphanumeric? # => false
+( '.'.ascii_alphanumeric? ).should eq( false )
+
+'.'.ascii_lowercase? # => false
+( '.'.ascii_lowercase? ).should eq( false )
+
+'.'.ascii_uppercase? # => false
+( '.'.ascii_uppercase? ).should eq( false )
+
+'.'.downcase # => '.'
+( '.'.downcase ).should eq( '.' )
+
+'.'.lowercase? # => false
+( '.'.lowercase? ).should eq( false )
+
+'.'.upcase # => '.'
+( '.'.upcase ).should eq( '.' )
+
+'.'.uppercase? # => false
+( '.'.uppercase? ).should eq( false )
+
+'1'.number? # => true
+( '1'.number? ).should eq( true )
+
+'1'.to_i     # => 1
+( '1'.to_i ).should eq( 1 )
+
+'1'.to_i # => 1.0
+( '1'.to_i ).try(&.to_f).to_s.should eq( "1.0" )
+
+'1'.to_i(16) # => 1
+( '1'.to_i(16) ).should eq( 1 )
+
+'4'.ascii_number?     # => true
+( '4'.ascii_number? ).should eq( true )
+
+'5'.hex? # => true
+( '5'.hex? ).should eq( true )
+
+'8'.alphanumeric? # => true
+( '8'.alphanumeric? ).should eq( true )
+
+'8'.ascii_alphanumeric? # => true
+( '8'.ascii_alphanumeric? ).should eq( true )
+
+'8'.ascii_letter? # => false
+( '8'.ascii_letter? ).should eq( false )
+
+'8'.letter? # => false
+( '8'.letter? ).should eq( false )
+
+'8'.to_i     # => 8
+( '8'.to_i ).should eq( 8 )
+
+'8'.to_i # => 8.0
+( '8'.to_i ).try(&.to_f).to_s.should eq( "8.0" )
+
+'F'.hex? # => true
+( 'F'.hex? ).should eq( true )
+
+'G'.ascii_lowercase? # => false
+( 'G'.ascii_lowercase? ).should eq( false )
+
+'G'.lowercase? # => false
+( 'G'.lowercase? ).should eq( false )
+
+'H'.ascii_uppercase? # => true
+( 'H'.ascii_uppercase? ).should eq( true )
+
+'H'.uppercase? # => true
+( 'H'.uppercase? ).should eq( true )
+
+'I'.downcase(Unicode::CaseOptions::Turkic) # => 'ı'
+( 'I'.downcase(Unicode::CaseOptions::Turkic) ).should eq( 'ı' )
+
+'X'.upcase # => 'X'
+( 'X'.upcase ).should eq( 'X' )
+
+'Z'.downcase # => 'z'
+( 'Z'.downcase ).should eq( 'z' )
+
+'\'' # single quote
+'\'' # single quote
+
+'\0'.ord     # => 0
+( '\0'.ord ).should eq( 0 )
+
+'\1'   # code point 1
+'\1'   # code point 1
+
+'\101' # == 'A'
+'\101' # == 'A'
+
+'\12'  # == '\n'
+'\12'  # == '\n'
+
+'\123' # == 'S'
+'\123' # == 'S'
+
+'\\' # backslash
+'\\' # backslash
+
+'\\'.in_set? "X-\\w" # => true
+( '\\'.in_set? "X-\\w" ).should eq( true )
+
+'\\'.in_set? "\\"    # => true
+( '\\'.in_set? "\\" ).should eq( true )
+
+'\\'.in_set? "\\A"   # => false
+( '\\'.in_set? "\\A" ).should eq( false )
+
+'\e' # escape
+'\e' # escape
+
+'\f' # form feed
+'\f' # form feed
+
+'\n' # newline
+'\n' # newline
+
+'\r' # carriage return
+'\r' # carriage return
+
+'\t' # tab
+'\t' # tab
+
+'\t'.ascii_whitespace? # => true
+( '\t'.ascii_whitespace? ).should eq( true )
+
+'\t'.dump     # => "'\\t'"
+( '\t'.dump ).to_s.should eq( "'\\t'" )
+
+'\t'.inspect     # => "'\\t'"
+( '\t'.inspect ).to_s.should eq( "'\\t'" )
+
+'\t'.whitespace? # => true
+( '\t'.whitespace? ).should eq( true )
+
+'\u0012'.dump # => "'\\u{12}'"
+( '\u0012'.dump ).to_s.should eq( "'\\u{12}'" )
+
+'\u0012'.inspect # => "'\\u{12}'"
+( '\u0012'.inspect ).to_s.should eq( "'\\u{12}'" )
+
+'\u0041' # == 'A'
+'\u0041' # == 'A'
+
+'\u007f'.ord # => 127
+( '\u007f'.ord ).should eq( 127 )
+
+'\u{41}' # == 'A'
+'\u{41}' # == 'A'
+
+'\v' # vertical tab
+'\v' # vertical tab
+
+'^'.in_set? "\\^aeiou" # => true
+( '^'.in_set? "\\^aeiou" ).should eq( true )
+
+'a' + 1 # => 'b'
+( 'a' + 1 ).should eq( 'b' )
+
+'a' + 2 # => 'c'
+( 'a' + 2 ).should eq( 'c' )
+
+'a' - 'a' # => 0
+( 'a' - 'a' ).should eq( 0 )
+
+'a' <=> 'c' # => -2
+( 'a' <=> 'c' ).should eq( -2 )
+
+'a'.bytes # => [97]
+( 'a'.bytes ).should eq( [97] )
+
+'a'.bytesize # => 1
+( 'a'.bytesize ).should eq( 1 )
+
+'a'.dump      # => "'a'"
+( 'a'.dump ).to_s.should eq( "'a'" )
+
+'a'.hex? # => true
+( 'a'.hex? ).should eq( true )
+
+'a'.inspect      # => "'a'"
+( 'a'.inspect ).to_s.should eq( "'a'" )
+
+'a'.number? # => false
+( 'a'.number? ).should eq( false )
+
+'a'.ord      # => 97
+( 'a'.ord ).should eq( 97 )
+
+'a'.succ # => 'b'
+( 'a'.succ ).should eq( 'b' )
+
+'a'.to_i(16) # => 10
+( 'a'.to_i(16) ).should eq( 10 )
+
+'a'.to_s # => "a"
+( 'a'.to_s ).to_s.should eq( "a" )
+
+'b' - 'a' # => 1
+( 'b' - 'a' ).should eq( 1 )
+
+'b'.ascii_whitespace?  # => false
+( 'b'.ascii_whitespace? ).should eq( false )
+
+'b'.pred # => 'a'
+( 'b'.pred ).should eq( 'a' )
+
+'b'.whitespace?  # => false
+( 'b'.whitespace? ).should eq( false )
+
+'c' - 'a' # => 2
+( 'c' - 'a' ).should eq( 2 )
+
+'c' - 1 # => 'b'
+( 'c' - 1 ).should eq( 'b' )
+
+'c' - 2 # => 'a'
+( 'c' - 2 ).should eq( 'a' )
+
+'c' === 99    # => true
+( 'c' === 99 ).should eq( true )
+
+'c' === 99_u8 # => true
+( 'c' === 99_u8 ).should eq( true )
+
+'c'.alphanumeric? # => true
+( 'c'.alphanumeric? ).should eq( true )
+
+'c'.ascii_alphanumeric? # => true
+( 'c'.ascii_alphanumeric? ).should eq( true )
+
+'c'.ascii_letter? # => true
+( 'c'.ascii_letter? ).should eq( true )
+
+'c'.ascii_lowercase? # => true
+( 'c'.ascii_lowercase? ).should eq( true )
+
+'c'.ascii_uppercase? # => false
+( 'c'.ascii_uppercase? ).should eq( false )
+
+'c'.letter? # => true
+( 'c'.letter? ).should eq( true )
+
+'c'.lowercase? # => true
+( 'c'.lowercase? ).should eq( true )
+
+'c'.ord       # => 99
+( 'c'.ord ).should eq( 99 )
+
+'c'.uppercase? # => false
+( 'c'.uppercase? ).should eq( false )
+
+'f' + "oo" # => "foo"
+( 'f' + "oo" ).to_s.should eq( "foo" )
+
+'f'.to_i(16) # => 15
+( 'f'.to_i(16) ).should eq( 15 )
+
+'g'.hex? # => false
+( 'g'.hex? ).should eq( false )
+
+'i'.upcase(Unicode::CaseOptions::Turkic)   # => 'İ'
+( 'i'.upcase(Unicode::CaseOptions::Turkic) ).should eq( 'İ' )
+
+'l'.in_set? "hello", "^l" # => false
+( 'l'.in_set? "hello", "^l" ).should eq( false )
+
+'l'.in_set? "j-m"         # => true
+( 'l'.in_set? "j-m" ).should eq( true )
+
+'l'.in_set? "lo"          # => true
+( 'l'.in_set? "lo" ).should eq( true )
+
+'l'.in_set? "lo", "o"     # => false
+( 'l'.in_set? "lo", "o" ).should eq( false )
+
+'x'.downcase # => 'x'
+( 'x'.downcase ).should eq( 'x' )
+
+'z' === 99    # => false
+( 'z' === 99 ).should eq( false )
+
+'z'.ascii_number?     # => false
+( 'z'.ascii_number? ).should eq( false )
+
+'z'.ascii_number?(36) # => true
+( 'z'.ascii_number?(36) ).should eq( true )
+
+'z'.upcase # => 'Z'
+( 'z'.upcase ).should eq( 'Z' )
+
+'z'.upcase { |v| puts v } # prints 'Z'
+'z'.upcase { |v| puts v } # prints 'Z'
+
+'あ'.bytes # => [227, 129, 130]
+( 'あ'.bytes ).should eq( [227, 129, 130] )
+
+'あ'.dump      # => "'\\u{3042}'"
+( 'あ'.dump ).to_s.should eq( "'\\u{3042}'" )
+
+'あ'.inspect      # => "'あ'"
+( 'あ'.inspect ).to_s.should eq( "'あ'" )
+
+'あ'.succ # => 'ぃ'
+( 'あ'.succ ).should eq( 'ぃ' )
+
+'あ'.to_s # => "あ"
+( 'あ'.to_s ).to_s.should eq( "あ" )
+
+'ぃ'.pred # => 'あ'
+( 'ぃ'.pred ).should eq( 'あ' )
+
+'好'.bytesize # => 3
+( '好'.bytesize ).should eq( 3 )
+
+'ı'.upcase(Unicode::CaseOptions::Turkic)   # => 'I'
+( 'ı'.upcase(Unicode::CaseOptions::Turkic) ).should eq( 'I' )
+
+'Á'.ascii_uppercase? # => false
+( 'Á'.ascii_uppercase? ).should eq( false )
+
+'Á'.uppercase? # => true
+( 'Á'.uppercase? ).should eq( true )
+
+'İ'.downcase(Unicode::CaseOptions::Turkic) # => 'i'
+( 'İ'.downcase(Unicode::CaseOptions::Turkic) ).should eq( 'i' )
+
+'á'.ascii_letter? # => false
+( 'á'.ascii_letter? ).should eq( false )
+
+'á'.letter? # => true
+( 'á'.letter? ).should eq( true )
+
+'ç'.lowercase?       # => true
+( 'ç'.lowercase? ).should eq( true )
+
+'ç'.lowercase? # => true
+( 'ç'.lowercase? ).should eq( true )
+
+(0..10).bsearch { |x| x >= 5 }                       # => 5
+( (0..10).bsearch { |x| x >= 5 } ).should eq( 5 )
+
+(0..7).chunk(&./(3)).to_a # => [{0, [0, 1, 2]}, {1, [3, 4, 5]}, {2, [6, 7]}]
+( (0..7).chunk(&./(3)).to_a ).should eq( [{0, [0, 1, 2]}, {1, [3, 4, 5]}, {2, [6, 7]}] )
+
+(0..Float64::INFINITY).bsearch { |x| x ** 4 >= 256 } # => 4
+( (0..Float64::INFINITY).bsearch { |x| x ** 4 >= 256 } ).should eq( 4 )
+
+(1...10).begin # => 1
+( (1...10).begin ).should eq( 1 )
+
+(1...10).end # => 10
+( (1...10).end ).should eq( 10 )
+
+(1...10).excludes_end? # => true
+( (1...10).excludes_end? ).should eq( true )
+
+(1...10).includes?(10) # => false
+( (1...10).includes?(10) ).should eq( false )
+
+(1...10).includes?(9)  # => true
+( (1...10).includes?(9) ).should eq( true )
+
+(1..10).begin  # => 1
+( (1..10).begin ).should eq( 1 )
+
+(1..10).end  # => 10
+( (1..10).end ).should eq( 10 )
+
+(1..10).excludes_end?  # => false
+( (1..10).excludes_end? ).should eq( false )
+
+(1..10).includes?(10) # => true
+( (1..10).includes?(10) ).should eq( true )
+
+(1..10).includes?(11) # => false
+( (1..10).includes?(11) ).should eq( false )
+
+(1..10).includes?(4)  # => true
+( (1..10).includes?(4) ).should eq( true )
+
+(1..10).step(3).skip(1).to_a # => [4, 7, 10]
+( (1..10).step(3).skip(1).to_a ).should eq( [4, 7, 10] )
+
+(1..10).tap { |x| puts "original: #{x.inspect}" }
+(1..10).tap { |x| puts "original: #{x.inspect}" }
+
+(1..10_000_000).each.select(&.even?).map { |x| x * 3 }.first(3) # => #< Iterator(T)::First...
+(1..10_000_000).each.select(&.even?).map { |x| x * 3 }.first(3) # => #< Iterator(T)::First...
+
+(1..10_000_000).each.select(&.even?).map { |x| x * 3 }.first(3).to_a # => [6, 12, 18]
+( (1..10_000_000).each.select(&.even?).map { |x| x * 3 }.first(3).to_a ).should eq( [6, 12, 18] )
+
+(1..10_000_000).select(&.even?).map { |x| x * 3 }.first(3) # => [6, 12, 18]
+( (1..10_000_000).select(&.even?).map { |x| x * 3 }.first(3) ).should eq( [6, 12, 18] )
+
+(1..3).cycle.first(5).to_a # => [1, 2, 3, 1, 2]
+( (1..3).cycle.first(5).to_a ).should eq( [1, 2, 3, 1, 2] )
+
+(1..3).each.skip(1).to_a # => [2, 3]
+( (1..3).each.skip(1).to_a ).should eq( [2, 3] )
+
+(1..3).reverse_each.skip(1).to_a # => [2, 1]
+( (1..3).reverse_each.skip(1).to_a ).should eq( [2, 1] )
+
+(1..5).to_a # => [1, 2, 3, 4, 5]
+( (1..5).to_a ).should eq( [1, 2, 3, 4, 5] )
+
+(IOMode::Read | IOMode::Async) # => IOMode::Read | IOMode::Async
+( (IOMode::Read | IOMode::Async) ).should eq( IOMode::Read | IOMode::Async )
+
+(IOMode::Read | IOMode::Async) & IOMode::Read # => IOMode::Read
+( (IOMode::Read | IOMode::Async) & IOMode::Read ).should eq( IOMode::Read )
+
+(IOMode::Read | IOMode::Write).to_i # => 3
+( (IOMode::Read | IOMode::Write).to_i ).should eq( 3 )
+
+(IOMode::Read | IOMode::Write).to_s # => "Read, Write"
+( (IOMode::Read | IOMode::Write).to_s ).to_s.should eq( "Read, Write" )
+
+(Int32 | Nil).nilable?    # => true
+( (Int32 | Nil).nilable? ).should eq( true )
+
+(Int32 | String).nilable? # => false
+( (Int32 | String).nilable? ).should eq( false )
+
+([1, 2, 3]).first   # => 1
+( ([1, 2, 3]).first ).should eq( 1 )
+
+([1, 2, 3]).first { 4 }   # => 1
+( ([1, 2, 3]).first { 4 } ).should eq( 1 )
+
+([1, 2, 3]).first?   # => 1
+( ([1, 2, 3]).first? ).should eq( 1 )
+
+([1, 2, 3]).last   # => 3
+( ([1, 2, 3]).last ).should eq( 3 )
+
+([1, 2, 3]).last { 4 }   # => 3
+( ([1, 2, 3]).last { 4 } ).should eq( 3 )
+
+([1, 2, 3]).last?   # => 3
+( ([1, 2, 3]).last? ).should eq( 3 )
+
+([1]).empty?         # => false
+( ([1]).empty? ).should eq( false )
+
+([] of Int32).empty? # => true
+( ([] of Int32).empty? ).should eq( true )
+
+([] of Int32).first { 4 } # => 4
+( ([] of Int32).first { 4 } ).should eq( 4 )
+
+([] of Int32).first? # => nil
+( ([] of Int32).first? ).should eq( nil )
+
+([] of Int32).last { 4 } # => 4
+( ([] of Int32).last { 4 } ).should eq( 4 )
+
+([] of Int32).last? # => nil
+( ([] of Int32).last? ).should eq( nil )
+
+([] of Int32).product # => 1
+( ([] of Int32).product ).should eq( 1 )
+
+([] of Int32).product { |x| x + 1 } # => 1
+( ([] of Int32).product { |x| x + 1 } ).should eq( 1 )
+
+([] of Int32).product(7) # => 7
+( ([] of Int32).product(7) ).should eq( 7 )
+
+([] of Int32).sum # => 0
+( ([] of Int32).sum ).should eq( 0 )
+
+([] of Int32).sum { |x| x + 1 } # => 0
+( ([] of Int32).sum { |x| x + 1 } ).should eq( 0 )
+
+([] of Int32).sum(7) # => 7
+( ([] of Int32).sum(7) ).should eq( 7 )
+
+([] of String).product(1) { |name| name.size } # => 1
+( ([] of String).product(1) { |name| name.size } ).should eq( 1 )
+
+([] of String).sum(1) { |name| name.size } # => 1
+( ([] of String).sum(1) { |name| name.size } ).should eq( 1 )
+
++1.3 # Float64
++1.3 # Float64
+
++10 # Int32
++10 # Int32
+
+-0.5 # Float64
+-0.5 # Float64
+
+-123.abs # => 123
+( -123.abs ).should eq( 123 )
+
+-15.popcount # => 29
+( -15.popcount ).should eq( 29 )
+
+-1763.116.round(2) # => -1763.12
+( -1763.116.round(2) ).should eq( -1763.12 )
+
+-20 # Int32
+-20 # Int32
+
+-42.sign # => -1
+( -42.sign ).should eq( -1 )
+
+-8000 >> 1 # => -4000
+( -8000 >> 1 ).should eq( -4000 )
+
+->(x : Int32) { x.to_s } # Proc(Int32, String)
+->(x : Int32) { x.to_s } # Proc(Int32, String)
+
+->(x : Int32, y : Int32) { x + y } # Proc(Int32, Int32, Int32)
+->(x : Int32, y : Int32) { x + y } # Proc(Int32, Int32, Int32)
+
+->{ 1 } # Proc(Int32)
+->{ 1 } # Proc(Int32)
+
+/#{string}/                     # => /\*\?\{\}\./
+( /#{string}/ ).should eq( /\*\?\{\}\./ )
+
+/#{x}/.match("asdf") # => #<Regex::MatchData "a">
+( /#{x}/.match("asdf") ).class.to_s.should eq( "Regex::MatchData" )
+
+/(.)(.)(.)/.match("abc").try &.[2]   # => "b"
+( /(.)(.)(.)/.match("abc").try &.[2] ).to_s.should eq( "b" )
+
+/(.)(.)(.)/.match_at_byte_index("abc").try &.[2]   # => "b"
+( /(.)(.)(.)/.match_at_byte_index("abc").try &.[2] ).to_s.should eq( "b" )
+
+/(.)(.)/.match("abc", 1).try &.[2]   # => "c"
+( /(.)(.)/.match("abc", 1).try &.[2] ).to_s.should eq( "c" )
+
+/(.)(.)/.match("クリスタル", 3).try &.[2] # => "ル"
+( /(.)(.)/.match("クリスタル", 3).try &.[2] ).to_s.should eq( "ル" )
+
+/(.)(.)/.match_at_byte_index("abc", 1).try &.[2]   # => "c"
+( /(.)(.)/.match_at_byte_index("abc", 1).try &.[2] ).to_s.should eq( "c" )
+
+/(.)(.)/.match_at_byte_index("クリスタル", 3).try &.[2] # => "ス"
+( /(.)(.)/.match_at_byte_index("クリスタル", 3).try &.[2] ).to_s.should eq( "ス" )
+
+/(.)(?<foo>.)(.)(?<bar>.)(.)/.name_table # => {4 => "bar", 2 => "foo"}
+( /(.)(?<foo>.)(.)(?<bar>.)(.)/.name_table ).should eq( {4 => "bar", 2 => "foo"} )
+
+/(.)/.name_table                         # => {}
+( /(.)/.name_table ).to_s.should eq( "{}" )
+
+/(?<foo>.)(?<bar>.)/.name_table          # => {2 => "bar", 1 => "foo"}
+( /(?<foo>.)(?<bar>.)/.name_table ).should eq( {2 => "bar", 1 => "foo"} )
+
+/(?<foo>.)/.name_table                   # => {1 => "foo"}
+( /(?<foo>.)/.name_table ).should eq( {1 => "foo"} )
+
+/^z/i =~ "ASDF\nZ"  # => nil
+( /^z/i =~ "ASDF\nZ" ).should eq( nil )
+
+/^z/im =~ "ASDF\nZ" # => 5
+( /^z/im =~ "ASDF\nZ" ).should eq( 5 )
+
+/_(x|y)_/.match("_(x|y)_") # => nil
+( /_(x|y)_/.match("_(x|y)_") ).should eq( nil )
+
+/_(x|y)_/.match("_x_")     # => #<Regex::MatchData "_x_" 1: "x">
+( /_(x|y)_/.match("_x_") ).class.to_s.should eq( "Regex::MatchData" )
+
+/_(x|y)_/.match("_y_")     # => #<Regex::MatchData "_y_" 1: "y">
+( /_(x|y)_/.match("_y_") ).class.to_s.should eq( "Regex::MatchData" )
+
+/_._/.match("_x_")         # => #<Regex::MatchData "_x_">
+( /_._/.match("_x_") ).class.to_s.should eq( "Regex::MatchData" )
+
+/_[^a-wy-z]_/.match("_x_") # => #<Regex::MatchData "_x_">
+( /_[^a-wy-z]_/.match("_x_") ).class.to_s.should eq( "Regex::MatchData" )
+
+/_[^a-z]_/.match("_x_")    # => nil
+( /_[^a-z]_/.match("_x_") ).should eq( nil )
+
+/_[a-z]_/.match("_x_")     # => #<Regex::MatchData "_x_">
+( /_[a-z]_/.match("_x_") ).class.to_s.should eq( "Regex::MatchData" )
+
+/_[xyz]_/.match("_x_")     # => #<Regex::MatchData "_x_">
+( /_[xyz]_/.match("_x_") ).class.to_s.should eq( "Regex::MatchData" )
+
+/a(?<grp>sd)f/.match("_asdf_")               # => #<Regex::MatchData "asdf" grp:"sd">
+( /a(?<grp>sd)f/.match("_asdf_") ).class.to_s.should eq( "Regex::MatchData" )
+
+/a(?<grp>sd)f/.match("_asdf_").try &.["grp"] # => "sd"
+( /a(?<grp>sd)f/.match("_asdf_").try &.["grp"] ).to_s.should eq( "sd" )
+
+/a(sd)f/.match("_asdf_")                     # => #<Regex::MatchData "asdf" 1:"sd">
+( /a(sd)f/.match("_asdf_") ).class.to_s.should eq( "Regex::MatchData" )
+
+/a(sd)f/.match("_asdf_").try &.[1]           # => "sd"
+( /a(sd)f/.match("_asdf_").try &.[1] ).to_s.should eq( "sd" )
+
+/ab+c/ix.inspect # => "/ab+c/ix"
+( /ab+c/ix.inspect ).to_s.should eq( "/ab+c/ix" )
+
+/ab+c/ix.options      # => Regex::Options::IGNORE_CASE | Regex::Options::EXTENDED
+( /ab+c/ix.options ).should eq( Regex::Options::IGNORE_CASE | Regex::Options::EXTENDED )
+
+/ab+c/ix.options.to_s # => "IGNORE_CASE, EXTENDED"
+( /ab+c/ix.options.to_s ).to_s.should eq( "IGNORE_CASE, EXTENDED" )
+
+/ab+c/x.source # => "ab+c"
+( /ab+c/x.source ).to_s.should eq( "ab+c" )
+
+/abc/ == /abc/i  # => false
+( /abc/ == /abc/i ).should eq( false )
+
+/abc/i == /ABC/i # => false
+( /abc/i == /ABC/i ).should eq( false )
+
+/abc/i == /abc/i # => true
+( /abc/i == /abc/i ).should eq( true )
+
+/asdf/ =~ "ASDF"    # => nil
+( /asdf/ =~ "ASDF" ).should eq( nil )
+
+/asdf/i =~ "ASDF"   # => 0
+( /asdf/i =~ "ASDF" ).should eq( 0 )
+
+/at/ =~ "input data" # => 7
+( /at/ =~ "input data" ).should eq( 7 )
+
+/ax/ =~ "input data" # => nil
+( /ax/ =~ "input data" ).should eq( nil )
+
+/f(op)*/.match("fopopo")   # => #<Regex::MatchData "fopop" 1: "op">
+( /f(op)*/.match("fopopo") ).class.to_s.should eq( "Regex::MatchData" )
+
+/fo*/.match("_f_")         # => #<Regex::MatchData "f">
+( /fo*/.match("_f_") ).class.to_s.should eq( "Regex::MatchData" )
+
+/fo*/.match("_foo_")       # => #<Regex::MatchData "foo">
+( /fo*/.match("_foo_") ).class.to_s.should eq( "Regex::MatchData" )
+
+/fo*/.match("_foooooooo_") # => #<Regex::MatchData "foooooooo">
+( /fo*/.match("_foooooooo_") ).class.to_s.should eq( "Regex::MatchData" )
+
+/fo+/.match("_f_")         # => nil
+( /fo+/.match("_f_") ).should eq( nil )
+
+/foo?bar/.match("fobar")   # => #<Regex::MatchData "fobar">
+( /foo?bar/.match("fobar") ).class.to_s.should eq( "Regex::MatchData" )
+
+/foo?bar/.match("foobar")  # => #<Regex::MatchData "foobar">
+( /foo?bar/.match("foobar") ).class.to_s.should eq( "Regex::MatchData" )
+
+/foo|bar/.match("bar")     # => #<Regex::MatchData "bar">
+( /foo|bar/.match("bar") ).class.to_s.should eq( "Regex::MatchData" )
+
+/foo|bar/.match("foo")     # => #<Regex::MatchData "foo">
+( /foo|bar/.match("foo") ).class.to_s.should eq( "Regex::MatchData" )
+
+/fo{,3}/.match("_foooo_")  # => nil
+( /fo{,3}/.match("_foooo_") ).should eq( nil )
+
+/fo{1,3}/.match("_foo_")   # => #<Regex::MatchData "foo">
+( /fo{1,3}/.match("_foo_") ).class.to_s.should eq( "Regex::MatchData" )
+
+/fo{3,}/.match("_foo_")    # => nil
+( /fo{3,}/.match("_foo_") ).should eq( nil )
+
+/hay/ =~ "haystack"   # => 0
+( /hay/ =~ "haystack" ).should eq( 0 )
+
+/hay/.match("haystack")    # => #<Regex::MatchData "hay">
+( /hay/.match("haystack") ).class.to_s.should eq( "Regex::MatchData" )
+
+/hay/.match("haystack") # => #<Regex::MatchData "hay">
+( /hay/.match("haystack") ).class.to_s.should eq( "Regex::MatchData" )
+
+/needle/ =~ "haystack" # => nil
+( /needle/ =~ "haystack" ).should eq( nil )
+
+/needle/.match("haystack") # => nil
+( /needle/.match("haystack") ).should eq( nil )
+
+/stack/ =~ "haystack"  # => 3
+( /stack/ =~ "haystack" ).should eq( 3 )
+
+/y/.match("haystack") # => #<Regex::MatchData "y">
+( /y/.match("haystack") ).class.to_s.should eq( "Regex::MatchData" )
+
+0.sign   # => 0
+( 0.sign ).should eq( 0 )
+
+0b1101 # == 13
+0b1101 # == 13
+
+0o123 # == 83
+0o123 # == 83
+
+0xFE012D # == 16646445
+0xFE012D # == 16646445
+
+0xfe012d # == 16646445
+0xfe012d # == 16646445
+
+1 # Int32
+1 # Int32
+
+1.0     # Float64
+1.0     # Float64
+
+1.0_f32 # Float32
+1.0_f32 # Float32
+
+1.5.abs2 # => 2.25
+( 1.5.abs2 ).try(&.to_f).to_s.should eq( "2.25" )
+
+1.5e-7 # Float64
+1.5e-7 # Float64
+
+1.5e10 # Float64
+1.5e10 # Float64
+
+1.class       # => Int32
+( 1.class ).should eq( Int32 )
+
+11.bit(0) # => 1
+( 11.bit(0) ).should eq( 1 )
+
+11.bit(1) # => 1
+( 11.bit(1) ).should eq( 1 )
+
+11.bit(2) # => 0
+( 11.bit(2) ).should eq( 0 )
+
+11.bit(3) # => 1
+( 11.bit(3) ).should eq( 1 )
+
+11.bit(4) # => 0
+( 11.bit(4) ).should eq( 0 )
+
+11.divmod(-3) # => {-4, -1}
+( 11.divmod(-3) ).should eq( {-4, -1} )
+
+11.divmod(3)  # => {3, 2}
+( 11.divmod(3) ).should eq( {3, 2} )
+
+123.abs  # => 123
+( 123.abs ).should eq( 123 )
+
+123.sign # => 1
+( 123.sign ).should eq( 1 )
+
+1234.567.significant(1) # => 1000
+( 1234.567.significant(1) ).should eq( 1000 )
+
+1234.567.significant(2) # => 1200
+( 1234.567.significant(2) ).should eq( 1200 )
+
+1234.567.significant(3) # => 1230
+( 1234.567.significant(3) ).should eq( 1230 )
+
+1234.567.significant(4) # => 1235
+( 1234.567.significant(4) ).should eq( 1235 )
+
+1234.567.significant(5) # => 1234.6
+( 1234.567.significant(5) ).try(&.to_f).to_s.should eq( "1234.6" )
+
+1234.567.significant(6) # => 1234.57
+( 1234.567.significant(6) ).try(&.to_f).to_s.should eq( "1234.57" )
+
+1234.567.significant(7) # => 1234.567
+( 1234.567.significant(7) ).try(&.to_f).to_s.should eq( "1234.567" )
+
+1234.567.significant(8) # => 1234.567
+( 1234.567.significant(8) ).try(&.to_f).to_s.should eq( "1234.567" )
+
+15.159.significant(1, base = 2) # => 16
+( 15.159.significant(1, base = 2) ).should eq( 16 )
+
+1_000_000 # better than 1000000
+1_000_000 # better than 1000000
+
+1_000_000.111_111 # better than 1000000.111111
+1_000_000.111_111 # better than 1000000.111111
+
+1_f32   # Float32
+1_f32   # Float32
+
+1_i16 # Int16
+1_i16 # Int16
+
+1_i32 # Int32
+1_i32 # Int32
+
+1_i64 # Int64
+1_i64 # Int64
+
+1_i8  # Int8
+1_i8  # Int8
+
+1_u16 # UInt16
+1_u16 # UInt16
+
+1_u32 # UInt32
+1_u32 # UInt32
+
+1_u64 # UInt64
+1_u64 # UInt64
+
+1_u8  # UInt8
+1_u8  # UInt8
+
+1e10   # Float64
+1e10   # Float64
+
+2 ** -1.0 # => 0.5
+( 2 ** -1.0 ).try(&.to_f).to_s.should eq( "0.5" )
+
+2 ** 0  # => 1
+( 2 ** 0 ).should eq( 1 )
+
+2 ** 0.0  # => 1.0
+( 2 ** 0.0 ).try(&.to_f).to_s.should eq( "1.0" )
+
+2 ** 3  # => 8
+( 2 ** 3 ).should eq( 8 )
+
+2 ** 3.0  # => 8.0
+( 2 ** 3.0 ).try(&.to_f).to_s.should eq( "8.0" )
+
+2147483648          # Int64
+2147483648          # Int64
+
+4.abs2   # => 16
+( 4.abs2 ).should eq( 16 )
+
+5.clamp(10, 100)   # => 10
+( 5.clamp(10, 100) ).should eq( 10 )
+
+5.clamp(10..100)   # => 10
+( 5.clamp(10..100) ).should eq( 10 )
+
+5.popcount   # => 2
+( 5.popcount ).should eq( 2 )
+
+50.clamp(10, 100)  # => 50
+( 50.clamp(10, 100) ).should eq( 50 )
+
+50.clamp(10..100)  # => 50
+( 50.clamp(10..100) ).should eq( 50 )
+
+500.clamp(10, 100) # => 100
+( 500.clamp(10, 100) ).should eq( 100 )
+
+500.clamp(10..100) # => 100
+( 500.clamp(10..100) ).should eq( 100 )
+
+8000 << -1 # => 4000
+( 8000 << -1 ).should eq( 4000 )
+
+8000 << 1  # => 16000
+( 8000 << 1 ).should eq( 16000 )
+
+8000 << 2  # => 32000
+( 8000 << 2 ).should eq( 32000 )
+
+8000 << 32 # => 0
+( 8000 << 32 ).should eq( 0 )
+
+8000 >> -1 # => 16000
+( 8000 >> -1 ).should eq( 16000 )
+
+8000 >> 1  # => 4000
+( 8000 >> 1 ).should eq( 4000 )
+
+8000 >> 2  # => 2000
+( 8000 >> 2 ).should eq( 2000 )
+
+8000 >> 32 # => 0
+( 8000 >> 32 ).should eq( 0 )
+
+9223372036854775808 # UInt64
+9223372036854775808 # UInt64
+
+97.chr # => 'a'
+( 97.chr ).should eq( 'a' )
+
+97.unsafe_chr # => 'a'
+( 97.unsafe_chr ).should eq( 'a' )
+
+:"hello world".to_s # => "hello world"
+( :"hello world".to_s ).to_s.should eq( "hello world" )
+
+:crystal.inspect # => ":crystal"
+( :crystal.inspect ).to_s.should eq( ":crystal" )
+
+:crystal.to_s # => "crystal"
+( :crystal.to_s ).to_s.should eq( "crystal" )
+
+:foo.to_s           # => "foo"
+( :foo.to_s ).to_s.should eq( "foo" )
+
+Array(Int32).from_json("[1, 2, 3]") # => [1, 2, 3]
+( Array(Int32).from_json("[1, 2, 3]") ).should eq( [1, 2, 3] )
+
+Array(Int32).new  # => []
+( Array(Int32).new ).to_s.should eq( "[]" )
+
+Array.new(3) { |i| (i + 1) ** 2 } # => [1, 4, 9]
+( Array.new(3) { |i| (i + 1) ** 2 } ).should eq( [1, 4, 9] )
+
+Array.new(3, 'a') # => ['a', 'a', 'a']
+( Array.new(3, 'a') ).should eq( ['a', 'a', 'a'] )
+
+Benchmark.realtime { "a" * 100_000 } # => 00:00:00.0005840
+( Benchmark.realtime { "a" * 100_000 } ).should eq( Time::Span.new(0, 0, 0, 0, 0) )
+
+BigInt.new # => 0
+( BigInt.new ).should eq( 0 )
+
+BigInt.new("1234567890ABCDEF", base: 16)           # => 1311768467294899695
+( BigInt.new("1234567890ABCDEF", base: 16) ).should eq( 1311768467294899695 )
+
+BigInt.new("123456789123456789123456789123456789") # => 123456789123456789123456789123456789
+( BigInt.new("123456789123456789123456789123456789") ).to_s.should eq( "123456789123456789123456789123456789" )
+
+BigRational.new(2, 3) << 2 # => 8/3
+( BigRational.new(2, 3) << 2 ).to_s.should eq( "8/3" )
+
+BigRational.new(2, 3) >> 2 # => 1/6
+( BigRational.new(2, 3) >> 2 ).to_s.should eq( "1/6" )
+
+Color.from_value(0) # => Color::Red
+( Color.from_value(0) ).should eq( Color::Red )
+
+Color.from_value(1) # => Color::Green
+( Color.from_value(1) ).should eq( Color::Green )
+
+Color.from_value(2) # => Color::Blue
+( Color.from_value(2) ).should eq( Color::Blue )
+
+Color.from_value(3) # raises Exception
+expect_raises(Exception) { Color.from_value(3) }
+
+Color.from_value?(0) # => Color::Red
+( Color.from_value?(0) ).should eq( Color::Red )
+
+Color.from_value?(1) # => Color::Green
+( Color.from_value?(1) ).should eq( Color::Green )
+
+Color.from_value?(2) # => Color::Blue
+( Color.from_value?(2) ).should eq( Color::Blue )
+
+Color.from_value?(3) # => nil
+( Color.from_value?(3) ).should eq( nil )
+
+Color.names # => ["Red", "Green", "Blue"]
+( Color.names ).should eq( ["Red", "Green", "Blue"] )
+
+Color.new(10).to_i # => 10
+( Color.new(10).to_i ).should eq( 10 )
+
+Color.new(10).to_s # => "10"
+( Color.new(10).to_s ).to_s.should eq( "10" )
+
+Color.parse("BLUE")   # => Color::Blue
+( Color.parse("BLUE") ).should eq( Color::Blue )
+
+Color.parse("Red")    # => Color::Red
+( Color.parse("Red") ).should eq( Color::Red )
+
+Color.parse?("BLUE")   # => Color::Blue
+( Color.parse?("BLUE") ).should eq( Color::Blue )
+
+Color.parse?("Red")    # => Color::Red
+( Color.parse?("Red") ).should eq( Color::Red )
+
+Color.parse?("Yellow") # => nil
+( Color.parse?("Yellow") ).should eq( nil )
+
+Color.values # => [Color::Red, Color::Green, Color::Blue]
+( Color.values ).should eq( [Color::Red, Color::Green, Color::Blue] )
+
+Color::Blue - 1 # => Color::Green
+( Color::Blue - 1 ).should eq( Color::Green )
+
+Color::Blue - 2 # => Color::Red
+( Color::Blue - 2 ).should eq( Color::Red )
+
+Color::Blue - 3 # => Color.new(-1)
+( Color::Blue - 3 ).should eq( Color.new(-1) )
+
+Color::Blue <=> Color::Blue # => 0
+( Color::Blue <=> Color::Blue ).should eq( 0 )
+
+Color::Blue <=> Color::Red  # => 1
+( Color::Blue <=> Color::Red ).should eq( 1 )
+
+Color::Blue.to_i                    # => 2
+( Color::Blue.to_i ).should eq( 2 )
+
+Color::Green.value # => 1
+( Color::Green.value ).should eq( 1 )
+
+Color::Red + 1 # => Color::Green
+( Color::Red + 1 ).should eq( Color::Green )
+
+Color::Red + 2 # => Color::Blue
+( Color::Red + 2 ).should eq( Color::Blue )
+
+Color::Red + 3 # => Color.new(3)
+( Color::Red + 3 ).should eq( Color.new(3) )
+
+Color::Red <=> Color::Blue  # => -1
+( Color::Red <=> Color::Blue ).should eq( -1 )
+
+Color::Red == Color::Blue # => false
+( Color::Red == Color::Blue ).should eq( false )
+
+Color::Red == Color::Red  # => true
+( Color::Red == Color::Red ).should eq( true )
+
+Color::Red.to_s                     # => "Red"
+( Color::Red.to_s ).to_s.should eq( "Red" )
+
+Complex.new(-42, 2).abs # => 42.047592083257278
+( Complex.new(-42, 2).abs ).try(&.to_f).to_s.should eq( "42.047592083257278" )
+
+Complex.new(1, 0)   # => 1.0 + 0.0i
+( Complex.new(1, 0) ).to_s.should eq( "1.0 + 0.0i" )
+
+Complex.new(4, 2).exp # => -22.720847417619233 + 49.645957334580565i
+( Complex.new(4, 2).exp ).to_s.should eq( "-22.720847417619233 + 49.645957334580565i" )
+
+Complex.new(42, -2).conj # => 42.0 + 2.0i
+( Complex.new(42, -2).conj ).to_s.should eq( "42.0 + 2.0i" )
+
+Complex.new(42, 2).abs  # => 42.047592083257278
+( Complex.new(42, 2).abs ).try(&.to_f).to_s.should eq( "42.047592083257278" )
+
+Complex.new(42, 2).abs2 # => 1768
+( Complex.new(42, 2).abs2 ).should eq( 1768 )
+
+Complex.new(42, 2).conj  # => 42.0 - 2.0i
+( Complex.new(42, 2).conj ).to_s.should eq( "42.0 - 2.0i" )
+
+Complex.new(42, 2).inspect # => "(42.0 + 2.0i)"
+( Complex.new(42, 2).inspect ).to_s.should eq( "(42.0 + 2.0i)" )
+
+Complex.new(42, 2).polar # => {42.047592083257278, 0.047583103276983396}
+( Complex.new(42, 2).polar ).should eq( {42.047592083257278, 0.047583103276983396} )
+
+Complex.new(42, 2).to_s # => "42.0 + 2.0i"
+( Complex.new(42, 2).to_s ).to_s.should eq( "42.0 + 2.0i" )
+
+Complex.new(5, -12) # => 5.0 - 12.0i
+( Complex.new(5, -12) ).to_s.should eq( "5.0 - 12.0i" )
+
+Crypto::MD5.hex_digest("foo") # => "acbd18db4cc2f85cedef654fccc4a4d8"
+( Crypto::MD5.hex_digest("foo") ).to_s.should eq( "acbd18db4cc2f85cedef654fccc4a4d8" )
+
+Crypto::Subtle.constant_time_compare("foo", "bar") # => false
+( Crypto::Subtle.constant_time_compare("foo", "bar") ).should eq( false )
+
+Crypto::Subtle.constant_time_compare("foo", "foo") # => true
+( Crypto::Subtle.constant_time_compare("foo", "foo") ).should eq( true )
+
+Deque.new(3) { |i| (i + 1) ** 2 } # => Deque{1, 4, 9}
+( Deque.new(3) { |i| (i + 1) ** 2 } ).should eq( Deque{1, 4, 9} )
+
+Deque.new(3, 'a') # => Deque{'a', 'a', 'a'}
+( Deque.new(3, 'a') ).should eq( Deque{'a', 'a', 'a'} )
+
+Deque.new([1, 2, 3]) # => Deque{1, 2, 3}
+( Deque.new([1, 2, 3]) ).should eq( Deque{1, 2, 3} )
+
+Deque{:foo, :bar}.size # => 2
+( Deque{:foo, :bar}.size ).should eq( 2 )
+
+Dir.empty?("bar") # => false
+( Dir.empty?("bar") ).should eq( false )
+
+Dir.empty?("bar") # => true
+( Dir.empty?("bar") ).should eq( true )
+
+Employee.from_yaml("title: Manager") # raises YAML::ParseException
+expect_raises(YAML::ParseException) { Employee.from_yaml("title: Manager") }
+
+File.basename("/foo/bar/file.cr") # => "file.cr"
+( File.basename("/foo/bar/file.cr") ).to_s.should eq( "file.cr" )
+
+File.basename("/foo/bar/file.cr", ".cr") # => "file"
+( File.basename("/foo/bar/file.cr", ".cr") ).to_s.should eq( "file" )
+
+File.chown("foo", gid: 100)                        # changes foo's gid
+File.chown("foo", gid: 100)                        # changes foo's gid
+
+File.chown("foo", gid: 100, follow_symlinks: true) # changes baz's gid
+File.chown("foo", gid: 100, follow_symlinks: true) # changes baz's gid
+
+File.delete("./bar") # raises Errno (No such file or directory)
+expect_raises(Errno) { File.delete("./bar") }
+
+File.directory?("dir2")   # => true
+( File.directory?("dir2") ).should eq( true )
+
+File.directory?("foo")    # => false
+( File.directory?("foo") ).should eq( false )
+
+File.directory?("foobar") # => false
+( File.directory?("foobar") ).should eq( false )
+
+File.dirname("/foo/bar/file.cr") # => "/foo/bar"
+( File.dirname("/foo/bar/file.cr") ).to_s.should eq( "/foo/bar" )
+
+File.empty?("foo") # => false
+( File.empty?("foo") ).should eq( false )
+
+File.empty?("foo") # => true
+( File.empty?("foo") ).should eq( true )
+
+File.executable?("foo") # => false
+( File.executable?("foo") ).should eq( false )
+
+File.exists?("afile")    # => false
+( File.exists?("afile") ).should eq( false )
+
+File.exists?("afile") # => true
+( File.exists?("afile") ).should eq( true )
+
+File.exists?("afile.cr") # => true
+( File.exists?("afile.cr") ).should eq( true )
+
+File.exists?("foo") # => false
+( File.exists?("foo") ).should eq( false )
+
+File.exists?("foo") # => true
+( File.exists?("foo") ).should eq( true )
+
+File.exists?(tempfile.path)    # => true
+( File.exists?(tempfile.path) ).should eq( true )
+
+File.expand_path("baz", "/foo/bar") # => "/foo/bar/baz"
+( File.expand_path("baz", "/foo/bar") ).to_s.should eq( "/foo/bar/baz" )
+
+File.expand_path("foo")             # => "/home/.../foo"
+( File.expand_path("foo") ).to_s.should eq( "/home/.../foo" )
+
+File.expand_path("~/crystal/foo")   # => "/home/crystal/foo"
+( File.expand_path("~/crystal/foo") ).to_s.should eq( "/home/crystal/foo" )
+
+File.extname("foo.cr") # => ".cr"
+( File.extname("foo.cr") ).to_s.should eq( ".cr" )
+
+File.file?("dir1")   # => false
+( File.file?("dir1") ).should eq( false )
+
+File.file?("foo")    # => true
+( File.file?("foo") ).should eq( true )
+
+File.file?("foobar") # => false
+( File.file?("foobar") ).should eq( false )
+
+File.join("/foo/", "/bar/", "/baz/") # => "/foo/bar/baz/"
+( File.join("/foo/", "/bar/", "/baz/") ).to_s.should eq( "/foo/bar/baz/" )
+
+File.join("foo", "bar", "baz")       # => "foo/bar/baz"
+( File.join("foo", "bar", "baz") ).to_s.should eq( "foo/bar/baz" )
+
+File.join("foo/", "/bar/", "/baz")   # => "foo/bar/baz"
+( File.join("foo/", "/bar/", "/baz") ).to_s.should eq( "foo/bar/baz" )
+
+File.join(["/foo/", "/bar/", "/baz/"]) # => "/foo/bar/baz/"
+( File.join(["/foo/", "/bar/", "/baz/"]) ).to_s.should eq( "/foo/bar/baz/" )
+
+File.join({"foo", "bar", "baz"})       # => "foo/bar/baz"
+( File.join({"foo", "bar", "baz"}) ).to_s.should eq( "foo/bar/baz" )
+
+File.join({"foo/", "/bar/", "/baz"})   # => "foo/bar/baz"
+( File.join({"foo/", "/bar/", "/baz"}) ).to_s.should eq( "foo/bar/baz" )
+
+File.lstat("foo").mtime # => 2015-09-23 06:24:19 UTC
+File.lstat("foo").mtime # => 2015-09-23 06:24:19 UTC
+
+File.lstat("foo").size  # => 3
+( File.lstat("foo").size ).should eq( 3 )
+
+File.open("foo.yml", "w") { |f| YAML.dump({hello: "world"}, f) } # writes it to the file
+File.open("foo.yml", "w") { |f| YAML.dump({hello: "world"}, f) } # writes it to the file
+
+File.open("foo.yml", "w") { |f| {hello: "world"}.to_yaml(f) } # writes it to the file
+File.open("foo.yml", "w") { |f| {hello: "world"}.to_yaml(f) } # writes it to the file
+
+File.read("bar") # => "foo"
+( File.read("bar") ).to_s.should eq( "foo" )
+
+File.read(tempfile.path) # => "bar"
+( File.read(tempfile.path) ).to_s.should eq( "bar" )
+
+File.read_lines("foobar") # => ["foo", "bar"]
+( File.read_lines("foobar") ).should eq( ["foo", "bar"] )
+
+File.read_lines(tempfile.path) # => ["foobar"]
+( File.read_lines(tempfile.path) ).should eq( ["foobar"] )
+
+File.readable?("foo") # => true
+( File.readable?("foo") ).should eq( true )
+
+File.size(tempfile.path)       # => 6
+( File.size(tempfile.path) ).should eq( 6 )
+
+File.stat("afile_copy").perm # => 0o600
+( File.stat("afile_copy").perm ).should eq( 0o600 )
+
+File.stat("foo").mtime # => 2015-09-23 06:24:19 UTC
+File.stat("foo").mtime # => 2015-09-23 06:24:19 UTC
+
+File.stat("foo").perm # => 0o700
+( File.stat("foo").perm ).should eq( 0o700 )
+
+File.stat("foo").perm # => 0o755
+( File.stat("foo").perm ).should eq( 0o755 )
+
+File.stat("foo").size  # => 3
+( File.stat("foo").size ).should eq( 3 )
+
+File.stat(tempfile.path).mtime # => 2015-10-20 13:11:12 UTC
+File.stat(tempfile.path).mtime # => 2015-10-20 13:11:12 UTC
+
+File.writable?("foo") # => true
+( File.writable?("foo") ).should eq( true )
+
+FileUtils.cd("/tmp") { Dir.current } # => "/tmp"
+( FileUtils.cd("/tmp") { Dir.current } ).to_s.should eq( "/tmp" )
+
+FileUtils.cmp("file.cr", "bar.cr") # => true
+( FileUtils.cmp("file.cr", "bar.cr") ).should eq( true )
+
+FileUtils.cmp(stream1, stream2) # => true
+( FileUtils.cmp(stream1, stream2) ).should eq( true )
+
+Greeting.new("John").to_s #=> Greeting, John!
+( Greeting.new("John").to_s ).should eq( Greeting, John! )
+
+Greeting.new("World").to_s # => "Hello World!"
+( Greeting.new("World").to_s ).to_s.should eq( "Hello World!" )
+
+Greeting.new(nil).to_s #=> Greeting!
+( Greeting.new(nil).to_s ).should eq( Greeting! )
+
+HTML.escape("Crystal & You") # => "Crystal &amp; You"
+( HTML.escape("Crystal & You") ).to_s.should eq( "Crystal &amp; You" )
+
+HTML.escape("Crystal & You", io) # => "Crystal & You"
+( HTML.escape("Crystal & You", io) ).to_s.should eq( "Crystal & You" )
+
+HTML.unescape("Crystal &amp; You") # => "Crystal & You"
+( HTML.unescape("Crystal &amp; You") ).to_s.should eq( "Crystal & You" )
+
+HTTP::WebSocket.new("websocket.example.com", "/chat")            # Creates a new WebSocket to `websocket.example.com`
+HTTP::WebSocket.new("websocket.example.com", "/chat")            # Creates a new WebSocket to `websocket.example.com`
+
+HTTP::WebSocket.new("websocket.example.com", "/chat", tls: true) # Creates a new WebSocket with TLS to `ẁebsocket.example.com`
+HTTP::WebSocket.new("websocket.example.com", "/chat", tls: true) # Creates a new WebSocket with TLS to `ẁebsocket.example.com`
+
+HTTP::WebSocket.new(URI.parse("http://websocket.example.com:8080/chat")) # Creates a new WebSocket to `websocket.example.com` on port `8080`
+HTTP::WebSocket.new(URI.parse("http://websocket.example.com:8080/chat")) # Creates a new WebSocket to `websocket.example.com` on port `8080`
+
+HTTP::WebSocket.new(URI.parse("ws://websocket.example.com/chat"))        # Creates a new WebSocket to `websocket.example.com`
+HTTP::WebSocket.new(URI.parse("ws://websocket.example.com/chat"))        # Creates a new WebSocket to `websocket.example.com`
+
+HTTP::WebSocket.new(URI.parse("wss://websocket.example.com/chat"))       # Creates a new WebSocket with TLS to `websocket.example.com`
+HTTP::WebSocket.new(URI.parse("wss://websocket.example.com/chat"))       # Creates a new WebSocket with TLS to `websocket.example.com`
+
+INI.parse("[foo]\na = 1") # => {"foo" => {"a" => "1"}}
+( INI.parse("[foo]\na = 1") ).should eq( {"foo" => {"a" => "1"}} )
+
+IO::Memory.new.tty? # => false
+( IO::Memory.new.tty? ).should eq( false )
+
+IOMode.flags(Read, Write) # => IOMode::Read | IOMode::Write
+( IOMode.flags(Read, Write) ).should eq( IOMode::Read | IOMode::Write )
+
+IOMode::None.to_s                   # => "None"
+( IOMode::None.to_s ).to_s.should eq( "None" )
+
+Int32 | Char # => (Int32 | Char)
+( Int32 | Char ).should eq( (Int32 | Char) )
+
+Int32.from_json("1")                # => 1
+( Int32.from_json("1") ).should eq( 1 )
+
+Int32.from_json(%({"main": 1}), root: "main") # => 1
+( Int32.from_json(%({"main": 1}), root: "main") ).should eq( 1 )
+
+Int32.nilable? # => false
+( Int32.nilable? ).should eq( false )
+
+Levenshtein.distance("algorithm", "altruistic") # => 6
+( Levenshtein.distance("algorithm", "altruistic") ).should eq( 6 )
+
+Levenshtein.distance("hello", "hallo")          # => 1
+( Levenshtein.distance("hello", "hallo") ).should eq( 1 )
+
+Levenshtein.distance("hey", "hey")              # => 0
+( Levenshtein.distance("hey", "hey") ).should eq( 0 )
+
+Levenshtein.distance("こんにちは", "こんちは")           # => 1
+( Levenshtein.distance("こんにちは", "こんちは") ).should eq( 1 )
+
+Math.pw2ceil(33) # => 64
+( Math.pw2ceil(33) ).should eq( 64 )
+
+NamedTuple(foo: String, bar: Int64).from({"foo" => "world", "bar" => 2})     # => {foo: "world", bar: 2}
+( NamedTuple(foo: String, bar: Int64).from({"foo" => "world", "bar" => 2}) ).should eq( {foo: "world", bar: 2} )
+
+NamedTuple(foo: String, bar: Int64).from({:foo => "world", :bar => 2})       # => {foo: "world", bar: 2}
+( NamedTuple(foo: String, bar: Int64).from({:foo => "world", :bar => 2}) ).should eq( {foo: "world", bar: 2} )
+
+NamedTuple(foo: String, bar: Int64).from({:foo => "world", :bar => 2}).class # => {foo: String, bar: Int64}
+( NamedTuple(foo: String, bar: Int64).from({:foo => "world", :bar => 2}).class ).should eq( {foo: String, bar: Int64} )
+
+NamedTuple.new # => {}
+( NamedTuple.new ).to_s.should eq( "{}" )
+
+NamedTuple.new(name: "Crystal", year: 2011) #=> {name: "Crystal", year: 2011}
+( NamedTuple.new(name: "Crystal", year: 2011) ).should eq( {name: "Crystal", year: 2011} )
+
+Nil.nilable?   # => true
+( Nil.nilable? ).should eq( true )
+
+Point.new(y: 2).to_s # => "Point(@x=0, @y=2)"
+( Point.new(y: 2).to_s ).to_s.should eq( "Point(@x=0, @y=2)" )
+
+Point.new.to_s       # => "Point(@x=0, @y=0)"
+( Point.new.to_s ).to_s.should eq( "Point(@x=0, @y=0)" )
+
+Proc(Int32, String).new { |x| x.to_s } # Proc(Int32, String)
+Proc(Int32, String).new { |x| x.to_s } # Proc(Int32, String)
+
+Random.new.next_bool # => true
+( Random.new.next_bool ).should eq( true )
+
+Random.new.rand(10)   # => 5
+( Random.new.rand(10) ).should eq( 5 )
+
+Random.new.rand(10..20)                 # => 14
+( Random.new.rand(10..20) ).should eq( 14 )
+
+Random.new.rand(10.725) # => 7.70147
+( Random.new.rand(10.725) ).try(&.to_f).to_s.should eq( "7.70147" )
+
+Random.new.rand(3.5)    # => 2.88938
+( Random.new.rand(3.5) ).try(&.to_f).to_s.should eq( "2.88938" )
+
+Random.new.rand(5000) # => 2243
+( Random.new.rand(5000) ).should eq( 2243 )
+
+Random.new.rand(6.2..21.768) # => 15.2989
+( Random.new.rand(6.2..21.768) ).try(&.to_f).to_s.should eq( "15.2989" )
+
+Random.new.rand(Int64::MIN..Int64::MAX) # => -5297435808626736140
+( Random.new.rand(Int64::MIN..Int64::MAX) ).should eq( -5297435808626736140 )
+
+Random.new_seed # => 112705036
+( Random.new_seed ).should eq( 112705036 )
+
+Random.rand     # => 0.167595
+( Random.rand ).try(&.to_f).to_s.should eq( "0.167595" )
+
+Random.rand(5)  # => 2
+( Random.rand(5) ).should eq( 2 )
+
+Range.new(1, 10)                  # => 1..10
+( Range.new(1, 10) ).should eq( 1..10 )
+
+Range.new(1, 10, exclusive: true) # => 1...10
+( Range.new(1, 10, exclusive: true) ).should eq( 1...10 )
+
+Regex.error?("(foo|bar")  # => "missing ) at 8"
+( Regex.error?("(foo|bar") ).to_s.should eq( "missing ) at 8" )
+
+Regex.error?("(foo|bar)") # => nil
+( Regex.error?("(foo|bar)") ).should eq( nil )
+
+Regex.new("^a-z+:\\s+\\w+")                   # => /^a-z+:\s+\w+/
+( Regex.new("^a-z+:\\s+\\w+") ).should eq( /^a-z+:\s+\w+/ )
+
+Regex.new("cat", Regex::Options::IGNORE_CASE) # => /cat/i
+( Regex.new("cat", Regex::Options::IGNORE_CASE) ).should eq( /cat/i )
+
+Regex.new("dog", options) # => /dog/ix
+( Regex.new("dog", options) ).should eq( /dog/ix )
+
+STDIN.gets # raises IO::Timeout (after 1 second)
+expect_raises(IO::Timeout) { STDIN.gets }
+
+STDIN.tty?          # => true
+( STDIN.tty? ).should eq( true )
+
+SecureRandom.base64 # => "LIa9s/zWzJx49m/9zDX+VQ=="
+( SecureRandom.base64 ).to_s.should eq( "LIa9s/zWzJx49m/9zDX+VQ==" )
+
+SecureRandom.base64(4) # => "fK1eYg=="
+( SecureRandom.base64(4) ).to_s.should eq( "fK1eYg==" )
+
+SecureRandom.hex    # => "05f100a1123f6bdbb427698ab664ff5f"
+( SecureRandom.hex ).to_s.should eq( "05f100a1123f6bdbb427698ab664ff5f" )
+
+SecureRandom.hex    # => "c8353864ff9764a39ef74983ec0d4a38"
+( SecureRandom.hex ).to_s.should eq( "c8353864ff9764a39ef74983ec0d4a38" )
+
+SecureRandom.hex(1) # => "1a"
+( SecureRandom.hex(1) ).to_s.should eq( "1a" )
+
+SecureRandom.random_bytes    # => [145, 255, 191, 133, 132, 139, 53, 136, 93, 238, 2, 37, 138, 244, 3, 216]
+( SecureRandom.random_bytes ).should eq( [145, 255, 191, 133, 132, 139, 53, 136, 93, 238, 2, 37, 138, 244, 3, 216] )
+
+SecureRandom.random_bytes(4) # => [217, 118, 38, 196]
+( SecureRandom.random_bytes(4) ).should eq( [217, 118, 38, 196] )
+
+SecureRandom.urlsafe_base64           # => "MAD2bw8QaBdvITCveBNCrw"
+( SecureRandom.urlsafe_base64 ).to_s.should eq( "MAD2bw8QaBdvITCveBNCrw" )
+
+SecureRandom.urlsafe_base64(16, true) # => "og2aJrELDZWSdJfVGkxNKw=="
+( SecureRandom.urlsafe_base64(16, true) ).to_s.should eq( "og2aJrELDZWSdJfVGkxNKw==" )
+
+SecureRandom.urlsafe_base64(8, true)  # => "vvP1kcs841I="
+( SecureRandom.urlsafe_base64(8, true) ).to_s.should eq( "vvP1kcs841I=" )
+
+SecureRandom.uuid   # => "c7ee4add-207f-411a-97b7-0d22788566d6"
+( SecureRandom.uuid ).to_s.should eq( "c7ee4add-207f-411a-97b7-0d22788566d6" )
+
+SecureRandom.uuid # => "a4e319dd-a778-4a51-804e-66a07bc63358"
+( SecureRandom.uuid ).to_s.should eq( "a4e319dd-a778-4a51-804e-66a07bc63358" )
+
+Set{'a', 'b', 'b', 'z'} & Set{'a', 'b', 'c'} # => Set{'a', 'b'}
+( Set{'a', 'b', 'b', 'z'} & Set{'a', 'b', 'c'} ).should eq( Set{'a', 'b'} )
+
+Set{'a', 'b', 'b', 'z'} - Set{'a', 'b', 'c'} # => Set{'z'}
+( Set{'a', 'b', 'b', 'z'} - Set{'a', 'b', 'c'} ).should eq( Set{'z'} )
+
+Set{'a', 'b', 'b', 'z'} - ['a', 'b', 'c'] # => Set{'z'}
+( Set{'a', 'b', 'b', 'z'} - ['a', 'b', 'c'] ).should eq( Set{'z'} )
+
+Set{'a', 'b', 'b', 'z'} ^ Set{'a', 'b', 'c'} # => Set{'z', 'c'}
+( Set{'a', 'b', 'b', 'z'} ^ Set{'a', 'b', 'c'} ).should eq( Set{'z', 'c'} )
+
+Set{'a', 'b', 'b', 'z'} ^ ['a', 'b', 'c'] # => Set{'z', 'c'}
+( Set{'a', 'b', 'b', 'z'} ^ ['a', 'b', 'c'] ).should eq( Set{'z', 'c'} )
+
+Set{'a', 'b', 'b', 'z'} | Set{'a', 'b', 'c'} # => Set{'a', 'b', 'z', 'c'}
+( Set{'a', 'b', 'b', 'z'} | Set{'a', 'b', 'c'} ).should eq( Set{'a', 'b', 'z', 'c'} )
+
+Set{'a', 'b', 'b', 'z'}.subtract Set{'a', 'b', 'c'} # => Set{'z'}
+( Set{'a', 'b', 'b', 'z'}.subtract Set{'a', 'b', 'c'} ).should eq( Set{'z'} )
+
+Set{1, 1, 3, 5} & Set{1, 2, 3}               # => Set{1, 3}
+( Set{1, 1, 3, 5} & Set{1, 2, 3} ).should eq( Set{1, 3} )
+
+Set{1, 1, 3, 5} | Set{1, 2, 3}               # => Set{1, 3, 5, 2}
+( Set{1, 1, 3, 5} | Set{1, 2, 3} ).should eq( Set{1, 3, 5, 2} )
+
+Set{1, 2, 3, 4, 5} - Set{2, 4}               # => Set{1, 3, 5}
+( Set{1, 2, 3, 4, 5} - Set{2, 4} ).should eq( Set{1, 3, 5} )
+
+Set{1, 2, 3, 4, 5} - [2, 4]               # => Set{1, 3, 5}
+( Set{1, 2, 3, 4, 5} - [2, 4] ).should eq( Set{1, 3, 5} )
+
+Set{1, 2, 3, 4, 5} ^ Set{2, 4, 6}            # => Set{1, 3, 5, 6}
+( Set{1, 2, 3, 4, 5} ^ Set{2, 4, 6} ).should eq( Set{1, 3, 5, 6} )
+
+Set{1, 2, 3, 4, 5} ^ [2, 4, 6]            # => Set{1, 3, 5, 6}
+( Set{1, 2, 3, 4, 5} ^ [2, 4, 6] ).should eq( Set{1, 3, 5, 6} )
+
+Set{1, 2, 3, 4, 5}.subtract [2, 4, 6]               # => Set{1, 3, 5}
+( Set{1, 2, 3, 4, 5}.subtract [2, 4, 6] ).should eq( Set{1, 3, 5} )
+
+Set{1, 2, 3}.intersects? Set{3, 4} # => true
+( Set{1, 2, 3}.intersects? Set{3, 4} ).should eq( true )
+
+Set{1, 2, 3}.intersects? Set{4, 5} # => false
+( Set{1, 2, 3}.intersects? Set{4, 5} ).should eq( false )
+
+Set{1, 3, 5}.proper_subset? Set{1, 3, 5} # => false
+( Set{1, 3, 5}.proper_subset? Set{1, 3, 5} ).should eq( false )
+
+Set{1, 3, 5}.proper_superset? Set{1, 3, 5} # => false
+( Set{1, 3, 5}.proper_superset? Set{1, 3, 5} ).should eq( false )
+
+Set{1, 3, 5}.proper_superset? Set{1, 5}    # => true
+( Set{1, 3, 5}.proper_superset? Set{1, 5} ).should eq( true )
+
+Set{1, 3, 5}.subset? Set{1, 3, 5} # => true
+( Set{1, 3, 5}.subset? Set{1, 3, 5} ).should eq( true )
+
+Set{1, 3, 5}.superset? Set{1, 3, 5} # => true
+( Set{1, 3, 5}.superset? Set{1, 3, 5} ).should eq( true )
+
+Set{1, 3, 5}.superset? Set{1, 5}    # => true
+( Set{1, 3, 5}.superset? Set{1, 5} ).should eq( true )
+
+Set{1, 5} == Set{1, 5} # => true
+( Set{1, 5} == Set{1, 5} ).should eq( true )
+
+Set{1, 5}.proper_subset? Set{1, 3, 5}    # => true
+( Set{1, 5}.proper_subset? Set{1, 3, 5} ).should eq( true )
+
+Set{1, 5}.subset? Set{1, 3, 5}    # => true
+( Set{1, 5}.subset? Set{1, 3, 5} ).should eq( true )
+
+Set{1, 5}.to_a # => [1,5]
+( Set{1, 5}.to_a ).should eq( [1,5] )
+
+Slice(UInt8).new(3).size # => 3
+( Slice(UInt8).new(3).size ).should eq( 3 )
+
+StaticArray(Int32, 3).new { |i| i * 2 } # => StaticArray[0, 2, 4]
+( StaticArray(Int32, 3).new { |i| i * 2 } ).should eq( StaticArray[0, 2, 4] )
+
+StaticArray(Int32, 3).new(42) # => StaticArray[42, 42, 42]
+( StaticArray(Int32, 3).new(42) ).should eq( StaticArray[42, 42, 42] )
+
+String.name # => "String"
+( String.name ).to_s.should eq( "String" )
+
+String.new(ptr) # => "abcd"
+( String.new(ptr) ).to_s.should eq( "abcd" )
+
+String.new(ptr, 2) # => "ab"
+( String.new(ptr, 2) ).to_s.should eq( "ab" )
+
+String.new(slice) # => "abc"
+( String.new(slice) ).to_s.should eq( "abc" )
+
+String.new(slice) # => "abcd"
+( String.new(slice) ).to_s.should eq( "abcd" )
+
+String.new(slice) # => "abcdef"
+( String.new(slice) ).to_s.should eq( "abcdef" )
+
+String.new(slice) # => "abcdefghi"
+( String.new(slice) ).to_s.should eq( "abcdefghi" )
+
+String.new(slice) # => "abcxyzghi"
+( String.new(slice) ).to_s.should eq( "abcxyzghi" )
+
+String.new(slice, "GB2312") # => "好"
+( String.new(slice, "GB2312") ).to_s.should eq( "好" )
+
+Symbol.needs_quotes? "long string" # => true
+( Symbol.needs_quotes? "long string" ).should eq( true )
+
+Symbol.needs_quotes? "string"      # => false
+( Symbol.needs_quotes? "string" ).should eq( false )
+
+System.hostname # => "host.example.org"
+( System.hostname ).to_s.should eq( "host.example.org" )
+
+Tempfile.dirname # => "/tmp"
+( Tempfile.dirname ).to_s.should eq( "/tmp" )
+
+Tempfile.new("foo").path # => "/tmp/foo.ulBCPS"
+( Tempfile.new("foo").path ).to_s.should eq( "/tmp/foo.ulBCPS" )
+
+Time.epoch(981173106) # => 2001-02-03 04:05:06 UTC
+( Time.epoch(981173106) ).should eq( Time.parse("2001-02-03 04:05:06 UTC", "%F %T %z") )
+
+Time.local_offset_in_minutes # => -180
+Time.local_offset_in_minutes # => -180
+
+Time.new(2015, 10, 10) - 5.days # => 2015-10-05 00:00:00
+( Time.new(2015, 10, 10) - 5.days ).should eq( Time.parse("2015-10-05 00:00:00", "%F %T") )
+
+Time.new(2016, 2, 15) # => 2016-02-15 00:00:00
+( Time.new(2016, 2, 15) ).should eq( Time.parse("2016-02-15 00:00:00", "%F %T") )
+
+Time.new(2016, 2, 15, 10, 20, 30) # => 2016-02-15 10:20:30 UTC
+( Time.new(2016, 2, 15, 10, 20, 30) ).should eq( Time.parse("2016-02-15 10:20:30 UTC", "%F %T %z") )
+
+Time.parse("2016-04-05", "%F") # => 2016-04-05 00:00:00
+( Time.parse("2016-04-05", "%F") ).should eq( Time.parse("2016-04-05 00:00:00", "%F %T") )
+
+Time::Span.new(10, 10, 10)     # => 10:10:10
+( Time::Span.new(10, 10, 10) ).should eq( Time::Span.new(0, 10, 10, 10, 0) )
+
+Time::Span.new(10, 10, 10, 10) # => 10.10:10:10
+( Time::Span.new(10, 10, 10, 10) ).should eq( Time::Span.new(10, 10, 10, 10, 0) )
+
+Time::Span.new(10000)          # => 00:00:00.001
+( Time::Span.new(10000) ).should eq( Time::Span.new(0, 0, 0, 0, 1) )
+
+Tuple(String, Int64).from(["world", 2])       # => {"world", 2}
+( Tuple(String, Int64).from(["world", 2]) ).should eq( {"world", 2} )
+
+Tuple(String, Int64).from(["world", 2]).class # => {String, Int64}
+( Tuple(String, Int64).from(["world", 2]).class ).should eq( {String, Int64} )
+
+Tuple.new                  #=> {}
+( Tuple.new ).to_s.should eq( "{}" )
+
+Tuple.new(1, "hello", 'x') #=> {1, "hello", 'x'}
+( Tuple.new(1, "hello", 'x') ).should eq( {1, "hello", 'x'} )
+
+Tuple.new({:a, 1}, {:c, 2}).to_h # => {:a => 1, :c => 2}
+( Tuple.new({:a, 1}, {:c, 2}).to_h ).should eq( {:a => 1, :c => 2} )
+
+URI.escape("'Stop!' said Fred")                      # => "%27Stop%21%27%20said%20Fred"
+( URI.escape("'Stop!' said Fred") ).to_s.should eq( "%27Stop%21%27%20said%20Fred" )
+
+URI.escape("'Stop!' said Fred", space_to_plus: true) # => "%27Stop%21%27+said+Fred"
+( URI.escape("'Stop!' said Fred", space_to_plus: true) ).to_s.should eq( "%27Stop%21%27+said+Fred" )
+
+URI.parse("http://admin:password@foo.com").password # => "password"
+( URI.parse("http://admin:password@foo.com").password ).to_s.should eq( "password" )
+
+URI.parse("http://admin:password@foo.com").user # => "admin"
+( URI.parse("http://admin:password@foo.com").user ).to_s.should eq( "admin" )
+
+URI.parse("http://foo.com").host # => "foo.com"
+( URI.parse("http://foo.com").host ).to_s.should eq( "foo.com" )
+
+URI.parse("http://foo.com").scheme           # => "http"
+( URI.parse("http://foo.com").scheme ).to_s.should eq( "http" )
+
+URI.parse("http://foo.com/bar").path # => "/bar"
+( URI.parse("http://foo.com/bar").path ).to_s.should eq( "/bar" )
+
+URI.parse("http://foo.com/bar#section1").fragment # => "section1"
+( URI.parse("http://foo.com/bar#section1").fragment ).to_s.should eq( "section1" )
+
+URI.parse("http://foo.com/bar?q=1").query # => "q=1"
+( URI.parse("http://foo.com/bar?q=1").query ).to_s.should eq( "q=1" )
+
+URI.parse("http://foo.com:5432").port # => 5432
+( URI.parse("http://foo.com:5432").port ).should eq( 5432 )
+
+URI.parse("mailto:alice@example.com").opaque # => "alice@example.com"
+( URI.parse("mailto:alice@example.com").opaque ).to_s.should eq( "alice@example.com" )
+
+URI.parse("mailto:alice@example.com").scheme # => "mailto"
+( URI.parse("mailto:alice@example.com").scheme ).to_s.should eq( "mailto" )
+
+URI.unescape("%27Stop%21%27%20said%20Fred")                  # => "'Stop!' said Fred"
+( URI.unescape("%27Stop%21%27%20said%20Fred") ).to_s.should eq( "'Stop!' said Fred" )
+
+URI.unescape("%27Stop%21%27+said+Fred", plus_to_space: true) # => "'Stop!' said Fred"
+( URI.unescape("%27Stop%21%27+said+Fred", plus_to_space: true) ).to_s.should eq( "'Stop!' said Fred" )
+
+Union(Int32 | String)      # => (Int32 | String)
+( Union(Int32 | String) ).should eq( (Int32 | String) )
+
+Union(Int32)               # => Int32
+( Union(Int32) ).should eq( Int32 )
+
+Union(Int32, Int32, Int32) # => Int32
+( Union(Int32, Int32, Int32) ).should eq( Int32 )
+
+["Alice", "Bob", "Ary"].group_by { |name| name.size } # => {5 => ["Alice"], 3 => ["Bob", "Ary"]}
+( ["Alice", "Bob", "Ary"].group_by { |name| name.size } ).should eq( {5 => ["Alice"], 3 => ["Bob", "Ary"]} )
+
+["Alice", "Bob", "Carl"].minmax_by { |name| name.size } # => {"Bob", "Alice"}
+( ["Alice", "Bob", "Carl"].minmax_by { |name| name.size } ).should eq( {"Bob", "Alice"} )
+
+["Alice", "Bob", "Carl"].minmax_of { |name| name.size } # => {3, 5}
+( ["Alice", "Bob", "Carl"].minmax_of { |name| name.size } ).should eq( {3, 5} )
+
+["Alice", "Bob"].compact_map { |name| name.match(/^A./) } # => [#<Regex::MatchData "Al">]
+["Alice", "Bob"].compact_map { |name| name.match(/^A./) } # => [#<Regex::MatchData "Al">]
+
+["Alice", "Bob"].grep(/^A/) # => ["Alice"]
+( ["Alice", "Bob"].grep(/^A/) ).should eq( ["Alice"] )
+
+["Alice", "Bob"].index { |name| name.size < 4 } # => 1 (Bob's index)
+( ["Alice", "Bob"].index { |name| name.size < 4 } ).should eq( 1 )
+
+["Alice", "Bob"].index("Alice") # => 0
+( ["Alice", "Bob"].index("Alice") ).should eq( 0 )
+
+["Alice", "Bob"].map { |name| name.match(/^A./) }         # => [#<Regex::MatchData "Al">, nil]
+["Alice", "Bob"].map { |name| name.match(/^A./) }         # => [#<Regex::MatchData "Al">, nil]
+
+["Alice", "Bob"].map_with_index { |name, i| "User ##{i}: #{name}" }
+["Alice", "Bob"].map_with_index { |name, i| "User ##{i}: #{name}" }
+
+["Alice", "Bob"].max # => "Bob"
+( ["Alice", "Bob"].max ).to_s.should eq( "Bob" )
+
+["Alice", "Bob"].max_by { |name| name.size } # => "Alice"
+( ["Alice", "Bob"].max_by { |name| name.size } ).to_s.should eq( "Alice" )
+
+["Alice", "Bob"].max_of { |name| name.size } # => 5 (Alice's size)
+( ["Alice", "Bob"].max_of { |name| name.size } ).should eq( 5 )
+
+["Alice", "Bob"].min # => "Alice"
+( ["Alice", "Bob"].min ).to_s.should eq( "Alice" )
+
+["Alice", "Bob"].min_by { |name| name.size } # => "Bob"
+( ["Alice", "Bob"].min_by { |name| name.size } ).to_s.should eq( "Bob" )
+
+["Alice", "Bob"].min_of { |name| name.size } # => 3 (Bob's size)
+( ["Alice", "Bob"].min_of { |name| name.size } ).should eq( 3 )
+
+["Alice", "Bob"].product { |name| name.size } # => 15 (5 * 3)
+( ["Alice", "Bob"].product { |name| name.size } ).should eq( 15 )
+
+["Alice", "Bob"].product(2) { |name| name.size } # => 30 (2 * 5 * 3)
+( ["Alice", "Bob"].product(2) { |name| name.size } ).should eq( 30 )
+
+["Alice", "Bob"].sum { |name| name.size } # => 8 (5 + 3)
+( ["Alice", "Bob"].sum { |name| name.size } ).should eq( 8 )
+
+["Alice", "Bob"].sum(1) { |name| name.size } # => 9 (1 + 5 + 3)
+( ["Alice", "Bob"].sum(1) { |name| name.size } ).should eq( 9 )
+
+["a", "b", "c", "d"].values_at(0, 2) # => {"a", "c"}
+( ["a", "b", "c", "d"].values_at(0, 2) ).should eq( {"a", "c"} )
+
+["a", "b", "c"] * 2 # => [ "a", "b", "c", "a", "b", "c" ]
+( ["a", "b", "c"] * 2 ).should eq( [ "a", "b", "c", "a", "b", "c" ] )
+
+["a", "b", "c"] | ["c", "d", "a"] # => [ "a", "b", "c", "d" ]
+( ["a", "b", "c"] | ["c", "d", "a"] ).should eq( [ "a", "b", "c", "d" ] )
+
+["a", nil, "b", nil, "c", nil].compact # => ["a", "b", "c"]
+( ["a", nil, "b", nil, "c", nil].compact ).should eq( ["a", "b", "c"] )
+
+["ant", "bear", "cat"].all? { |word| word.size >= 3 } # => true
+( ["ant", "bear", "cat"].all? { |word| word.size >= 3 } ).should eq( true )
+
+["ant", "bear", "cat"].all? { |word| word.size >= 4 } # => false
+( ["ant", "bear", "cat"].all? { |word| word.size >= 4 } ).should eq( false )
+
+["ant", "bear", "cat"].any? { |word| word.size > 4 }  # => false
+( ["ant", "bear", "cat"].any? { |word| word.size > 4 } ).should eq( false )
+
+["ant", "bear", "cat"].any? { |word| word.size >= 4 } # => true
+( ["ant", "bear", "cat"].any? { |word| word.size >= 4 } ).should eq( true )
+
+['a', 'b', 'b', 'z'] & ['a', 'b', 'c'] # => [ 'a', 'b' ]
+( ['a', 'b', 'b', 'z'] & ['a', 'b', 'c'] ).should eq( [ 'a', 'b' ] )
+
+[1, "hello", 'x'] # Array(Int32 | String | Char)
+[1, "hello", 'x'] # Array(Int32 | String | Char)
+
+[1, 1, 3, 5] & [1, 2, 3]               # => [ 1, 3 ]
+( [1, 1, 3, 5] & [1, 2, 3] ).should eq( [ 1, 3 ] )
+
+[1, 2, 3, 1, 2, 3].index(2, offset: 2) # => 4
+( [1, 2, 3, 1, 2, 3].index(2, offset: 2) ).should eq( 4 )
+
+[1, 2, 3, 1, 2, 3].index(offset: 2) { |x| x < 2 } # => 3
+( [1, 2, 3, 1, 2, 3].index(offset: 2) { |x| x < 2 } ).should eq( 3 )
+
+[1, 2, 3, 2, 3].rindex { |x| x < 3 }            # => 3
+( [1, 2, 3, 2, 3].rindex { |x| x < 3 } ).should eq( 3 )
+
+[1, 2, 3, 2, 3].rindex(2)            # => 3
+( [1, 2, 3, 2, 3].rindex(2) ).should eq( 3 )
+
+[1, 2, 3, 2, 3].rindex(2, offset: 2) # => 1
+( [1, 2, 3, 2, 3].rindex(2, offset: 2) ).should eq( 1 )
+
+[1, 2, 3, 2, 3].rindex(offset: 2) { |x| x < 3 } # => 1
+( [1, 2, 3, 2, 3].rindex(offset: 2) { |x| x < 3 } ).should eq( 1 )
+
+[1, 2, 3, 4, 5, 0].skip_while { |i| i < 3 } # => [3, 4, 5, 0]
+( [1, 2, 3, 4, 5, 0].skip_while { |i| i < 3 } ).should eq( [3, 4, 5, 0] )
+
+[1, 2, 3, 4, 5, 0].take_while { |i| i < 3 } # => [1, 2]
+( [1, 2, 3, 4, 5, 0].take_while { |i| i < 3 } ).should eq( [1, 2] )
+
+[1, 2, 3, 4, 5, 6].partition { |i| i % 2 == 0 } # => {[2, 4, 6], [1, 3, 5]}
+( [1, 2, 3, 4, 5, 6].partition { |i| i % 2 == 0 } ).should eq( {[2, 4, 6], [1, 3, 5]} )
+
+[1, 2, 3, 4, 5, 6].product # => 720
+( [1, 2, 3, 4, 5, 6].product ).should eq( 720 )
+
+[1, 2, 3, 4, 5, 6].product(7) # => 5040
+( [1, 2, 3, 4, 5, 6].product(7) ).should eq( 5040 )
+
+[1, 2, 3, 4, 5, 6].reject { |i| i % 2 == 0 } # => [1, 3, 5]
+( [1, 2, 3, 4, 5, 6].reject { |i| i % 2 == 0 } ).should eq( [1, 3, 5] )
+
+[1, 2, 3, 4, 5, 6].select { |i| i % 2 == 0 } # => [2, 4, 6]
+( [1, 2, 3, 4, 5, 6].select { |i| i % 2 == 0 } ).should eq( [2, 4, 6] )
+
+[1, 2, 3, 4, 5, 6].skip(3) # => [4, 5, 6]
+( [1, 2, 3, 4, 5, 6].skip(3) ).should eq( [4, 5, 6] )
+
+[1, 2, 3, 4, 5, 6].sum # => 21
+( [1, 2, 3, 4, 5, 6].sum ).should eq( 21 )
+
+[1, 2, 3, 4, 5, 6].sum(7) # => 28
+( [1, 2, 3, 4, 5, 6].sum(7) ).should eq( 28 )
+
+[1, 2, 3, 4, 5].join(", ") # => "1, 2, 3, 4, 5"
+( [1, 2, 3, 4, 5].join(", ") ).to_s.should eq( "1, 2, 3, 4, 5" )
+
+[1, 2, 3, 4, 5].join(", ") { |i| -i } # => "-1, -2, -3, -4, -5"
+( [1, 2, 3, 4, 5].join(", ") { |i| -i } ).to_s.should eq( "-1, -2, -3, -4, -5" )
+
+[1, 2, 3, 4, 5].join(", ", STDOUT) { |i, io| io << "(#{i})" }
+[1, 2, 3, 4, 5].join(", ", STDOUT) { |i, io| io << "(#{i})" }
+
+[1, 2, 3, 4, 5].reduce { |acc, i| acc + i } # => 15
+( [1, 2, 3, 4, 5].reduce { |acc, i| acc + i } ).should eq( 15 )
+
+[1, 2, 3, 4, 5].reduce(10) { |acc, i| acc + i } # => 25
+( [1, 2, 3, 4, 5].reduce(10) { |acc, i| acc + i } ).should eq( 25 )
+
+[1, 2, 3, 4].count { |i| i % 2 == 0 } # => 2
+( [1, 2, 3, 4].count { |i| i % 2 == 0 } ).should eq( 2 )
+
+[1, 2, 3, 4].count(3) # => 1
+( [1, 2, 3, 4].count(3) ).should eq( 1 )
+
+[1, 2, 3, 4].find { |i| i > 2 }     # => 3
+( [1, 2, 3, 4].find { |i| i > 2 } ).should eq( 3 )
+
+[1, 2, 3, 4].find { |i| i > 8 }     # => nil
+( [1, 2, 3, 4].find { |i| i > 8 } ).should eq( nil )
+
+[1, 2, 3, 4].find(-1) { |i| i > 8 } # => -1
+( [1, 2, 3, 4].find(-1) { |i| i > 8 } ).should eq( -1 )
+
+[1, 2, 3, 4].size # => 4
+( [1, 2, 3, 4].size ).should eq( 4 )
+
+[1, 2, 3]         # Array(Int32)
+[1, 2, 3]         # Array(Int32)
+
+[1, 2, 3] - [2, 1] # => [3]
+( [1, 2, 3] - [2, 1] ).should eq( [3] )
+
+[1, 2, 3].first(2) # => [1, 2]
+( [1, 2, 3].first(2) ).should eq( [1, 2] )
+
+[1, 2, 3].first(4) # => [1, 2, 3]
+( [1, 2, 3].first(4) ).should eq( [1, 2, 3] )
+
+[1, 2, 3].in_groups_of(2)    # => [[1, 2], [3, nil]]
+( [1, 2, 3].in_groups_of(2) ).should eq( [[1, 2], [3, nil]] )
+
+[1, 2, 3].in_groups_of(2, 0) # => [[1, 2], [3, 0]]
+( [1, 2, 3].in_groups_of(2, 0) ).should eq( [[1, 2], [3, 0]] )
+
+[1, 2, 3].includes?(2) # => true
+( [1, 2, 3].includes?(2) ).should eq( true )
+
+[1, 2, 3].includes?(5) # => false
+( [1, 2, 3].includes?(5) ).should eq( false )
+
+[1, 2, 3].last(2) # => [2, 3]
+( [1, 2, 3].last(2) ).should eq( [2, 3] )
+
+[1, 2, 3].last(4) # => [1, 2, 3]
+( [1, 2, 3].last(4) ).should eq( [1, 2, 3] )
+
+[1, 2, 3].map { |i| i * 10 } # => [10, 20, 30]
+( [1, 2, 3].map { |i| i * 10 } ).should eq( [10, 20, 30] )
+
+[1, 2, 3].max        # => 3
+( [1, 2, 3].max ).should eq( 3 )
+
+[1, 2, 3].min        # => 1
+( [1, 2, 3].min ).should eq( 1 )
+
+[1, 2, 3].minmax # => {1, 3}
+( [1, 2, 3].minmax ).should eq( {1, 3} )
+
+[1, 2, 3].none? { |i| i > 5 } # => true
+( [1, 2, 3].none? { |i| i > 5 } ).should eq( true )
+
+[1, 2, 3].one? { |i| i > 1 } # => false
+( [1, 2, 3].one? { |i| i > 1 } ).should eq( false )
+
+[1, 2, 3].one? { |i| i > 2 } # => true
+( [1, 2, 3].one? { |i| i > 2 } ).should eq( true )
+
+[1, 2] + ["a"]  # => [1,2,"a"] of (Int32 | String)
+( [1, 2] + ["a"] ).should eq( [1,2,"a"] of (Int32 | String) )
+
+[1, 2] + [2, 3] # => [1,2,2,3]
+( [1, 2] + [2, 3] ).should eq( [1,2,2,3] )
+
+[1, 2] <=> [1, 2] # => 0
+( [1, 2] <=> [1, 2] ).should eq( 0 )
+
+[15].all?            # => true
+( [15].all? ).should eq( true )
+
+[2, 5, 7, 10].bsearch { |x| x > 10 } # => nil
+( [2, 5, 7, 10].bsearch { |x| x > 10 } ).should eq( nil )
+
+[2, 5, 7, 10].bsearch { |x| x >= 4 } # => 5
+( [2, 5, 7, 10].bsearch { |x| x >= 4 } ).should eq( 5 )
+
+[2, 5, 7, 10].bsearch_index { |x, i| x > 10 } # => nil
+( [2, 5, 7, 10].bsearch_index { |x, i| x > 10 } ).should eq( nil )
+
+[2, 5, 7, 10].bsearch_index { |x, i| x >= 4 } # => 1
+( [2, 5, 7, 10].bsearch_index { |x, i| x >= 4 } ).should eq( 1 )
+
+[2] <=> [4, 2, 3] # => -1
+( [2] <=> [4, 2, 3] ).should eq( -1 )
+
+[4, 7, 2].sort { |x, y| y <=> x } # => [7, 4, 2]
+( [4, 7, 2].sort { |x, y| y <=> x } ).should eq( [7, 4, 2] )
+
+[8] <=> [1, 2, 3] # => 1
+( [8] <=> [1, 2, 3] ).should eq( 1 )
+
+[:foo, :bar].size # => 2
+( [:foo, :bar].size ).should eq( 2 )
+
+[[:a, :b], [:c, :d]].to_h        # => {:a => :b, :c => :d}
+( [[:a, :b], [:c, :d]].to_h ).should eq( {:a => :b, :c => :d} )
+
+[] of Int32 # same as Array(Int32)
+[] of Int32 # same as Array(Int32)
+
+[nil, false, true].none? # => false
+( [nil, false, true].none? ).should eq( false )
+
+[nil, false].any?    # => false
+( [nil, false].any? ).should eq( false )
+
+[nil, false].none?       # => true
+( [nil, false].none? ).should eq( true )
+
+[nil, true, 99].all? # => false
+( [nil, true, 99].all? ).should eq( false )
+
+[nil, true, 99].any? # => true
+( [nil, true, 99].any? ).should eq( true )
+
+`echo hi` # => "hi\n"
+( `echo hi` ).to_s.should eq( "hi\n" )
+
+a                                           # => StaticArray[3, 2, 1]
+( a ).should eq( StaticArray[3, 2, 1] )
+
+a                    # => ["ant", "dog"]
+( a ).should eq( ["ant", "dog"] )
+
+a                    # => [{"student", "sam"}, {"teacher", "matz"}]
+( a ).should eq( [{"student", "sam"}, {"teacher", "matz"}] )
+
+a                   # => [{"student", "sam"}, {"student", "george"}, {"teacher", "matz"}]
+( a ).should eq( [{"student", "sam"}, {"student", "george"}, {"teacher", "matz"}] )
+
+a                  # => ["ant", "dog"]
+( a ).should eq( ["ant", "dog"] )
+
+a               # => ["ant", "bat", "dog"]
+( a ).should eq( ["ant", "bat", "dog"] )
+
+a              # => Deque{1, 3}
+( a ).should eq( Deque{1, 3} )
+
+a             # => Deque{"a", "c"}
+( a ).should eq( Deque{"a", "c"} )
+
+a             # => ["a", "c"]
+( a ).should eq( ["a", "c"] )
+
+a           # => [[:a, :b], [:c, :d], [:e, :f]]
+( a ).should eq( [[:a, :b], [:c, :d], [:e, :f]] )
+
+a          # => []
+( a ).to_s.should eq( "[]" )
+
+a         # => 1
+( a ).should eq( 1 )
+
+a         # => 3
+( a ).should eq( 3 )
+
+a         # => 6
+( a ).should eq( 6 )
+
+a        # => ["a"]
+( a ).should eq( ["a"] )
+
+a        # => []
+( a ).to_s.should eq( "[]" )
+
+a       # => Deque{2, 3}
+( a ).should eq( Deque{2, 3} )
+
+a       # => ["a", "b", "c"]
+( a ).should eq( ["a", "b", "c"] )
+
+a       # => ["b", "c"]
+( a ).should eq( ["b", "c"] )
+
+a      # => [ "a", "a", "b", "b", "c" ]
+( a ).should eq( [ "a", "a", "b", "b", "c" ] )
+
+a      # => [3, 1, 2]
+( a ).should eq( [3, 1, 2] )
+
+a     # => Deque{1, 2}
+( a ).should eq( Deque{1, 2} )
+
+a     # => ["a", "b"]
+( a ).should eq( ["a", "b"] )
+
+a # => [1, 2, 3]
+( a ).should eq( [1, 2, 3] )
+
+a # => [1, 4, 9]
+( a ).should eq( [1, 4, 9] )
+
+a # => [1, 6, 2, 3, 4, 5]
+( a ).should eq( [1, 6, 2, 3, 4, 5] )
+
+a # => [1, 6, 5]
+( a ).should eq( [1, 6, 5] )
+
+a # => [1, 6, 7, 5]
+( a ).should eq( [1, 6, 7, 5] )
+
+a # => [1, 6, 7, 8, 5]
+( a ).should eq( [1, 6, 7, 8, 5] )
+
+a # => [1, 6, 7, 8, 9, 10, 5]
+( a ).should eq( [1, 6, 7, 8, 9, 10, 5] )
+
+a << 3 # => [1,2,3]
+( a << 3 ).should eq( [1,2,3] )
+
+a = StaticArray(Int32, 3).new { |i| i + 1 } # => StaticArray[1, 2, 3]
+( a = StaticArray(Int32, 3).new { |i| i + 1 } ).should eq( StaticArray[1, 2, 3] )
+
+a = [s, t, u, 12, 13]  # => [[1, 2, 3], [4, 5, 6, [7, 8]], 9, #<Indexable::ItemIterator>, 12, 13]
+a = [s, t, u, 12, 13]  # => [[1, 2, 3], [4, 5, 6, [7, 8]], 9, #<Indexable::ItemIterator>, 12, 13]
+
+a.at(0) # => :foo
+( a.at(0) ).should eq( :foo )
+
+a.at(0) { :baz } # => :foo
+( a.at(0) { :baz } ).should eq( :foo )
+
+a.at(2) { :baz } # => :baz
+( a.at(2) { :baz } ).should eq( :baz )
+
+a.clear # => []
+( a.clear ).to_s.should eq( "[]" )
+
+a.delete("b") # => "b"
+( a.delete("b") ).to_s.should eq( "b" )
+
+a.delete("b") # => true
+( a.delete("b") ).should eq( true )
+
+a.delete("x") # => nil
+( a.delete("x") ).should eq( nil )
+
+a.delete_at(1) # => 2
+( a.delete_at(1) ).should eq( 2 )
+
+a.delete_at(1, 2)  # => ["bat", "cat"]
+( a.delete_at(1, 2) ).should eq( ["bat", "cat"] )
+
+a.delete_at(1..2)    # => ["bat", "cat"]
+( a.delete_at(1..2) ).should eq( ["bat", "cat"] )
+
+a.delete_at(2)  # => "cat"
+( a.delete_at(2) ).to_s.should eq( "cat" )
+
+a.each_permutation(2) { |p| sums << p.sum } # => [1, 2, 3]
+( a.each_permutation(2) { |p| sums << p.sum } ).should eq( [1, 2, 3] )
+
+a.equals?(b) { |x, y| x == y }      # => false
+( a.equals?(b) { |x, y| x == y } ).should eq( false )
+
+a.equals?(b) { |x, y| x == y.size } # => true
+( a.equals?(b) { |x, y| x == y.size } ).should eq( true )
+
+a.fill { |i| i * i } # => [0, 1, 4, 9]
+( a.fill { |i| i * i } ).should eq( [0, 1, 4, 9] )
+
+a.fill(2) { |i| i * i } # => [1, 2, 4, 9]
+( a.fill(2) { |i| i * i } ).should eq( [1, 2, 4, 9] )
+
+a.fill(2, 2) { |i| i * i } # => [1, 2, 4, 9, 5, 6]
+( a.fill(2, 2) { |i| i * i } ).should eq( [1, 2, 4, 9, 5, 6] )
+
+a.fill(2..3) { |i| i * i } # => [1, 2, 4, 9, 5, 6]
+( a.fill(2..3) { |i| i * i } ).should eq( [1, 2, 4, 9, 5, 6] )
+
+a.fill(9) # => [9, 9, 9]
+( a.fill(9) ).should eq( [9, 9, 9] )
+
+a.fill(9, 2) # => [1, 2, 9, 9, 9]
+( a.fill(9, 2) ).should eq( [1, 2, 9, 9, 9] )
+
+a.fill(9, 2, 2) # => [1, 2, 9, 9, 5]
+( a.fill(9, 2, 2) ).should eq( [1, 2, 9, 9, 5] )
+
+a.fill(9, 2..3) # => [1, 2, 9, 9, 5]
+( a.fill(9, 2..3) ).should eq( [1, 2, 9, 9, 5] )
+
+a.flatten              # => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+( a.flatten ).should eq( [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] )
+
+a.insert(-1, "z") # => ["x", "a", "y", "b", "c", "z"]
+( a.insert(-1, "z") ).should eq( ["x", "a", "y", "b", "c", "z"] )
+
+a.insert(0, "x")  # => ["x", "a", "b", "c"]
+( a.insert(0, "x") ).should eq( ["x", "a", "b", "c"] )
+
+a.insert(1, 7) # => Deque{0, 7, 1, 2}
+( a.insert(1, 7) ).should eq( Deque{0, 7, 1, 2} )
+
+a.insert(2, "y")  # => ["x", "a", "y", "b", "c"]
+( a.insert(2, "y") ).should eq( ["x", "a", "y", "b", "c"] )
+
+a.object_id # => 136294312
+a.object_id # => 136294312
+
+a.object_id # => 136294360
+a.object_id # => 136294360
+
+a.permutations    # => [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+( a.permutations ).should eq( [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]] )
+
+a.permutations(0) # => [[]]
+( a.permutations(0) ).to_s.should eq( "[[]]" )
+
+a.permutations(1) # => [[1],[2],[3]]
+( a.permutations(1) ).should eq( [[1],[2],[3]] )
+
+a.permutations(2) # => [[1,2],[1,3],[2,1],[2,3],[3,1],[3,2]]
+( a.permutations(2) ).should eq( [[1,2],[1,3],[2,1],[2,3],[3,1],[3,2]] )
+
+a.permutations(3) # => [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+( a.permutations(3) ).should eq( [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]] )
+
+a.permutations(4) # => []
+( a.permutations(4) ).to_s.should eq( "[]" )
+
+a.pop # => "c"
+( a.pop ).to_s.should eq( "c" )
+
+a.pop # => 3
+( a.pop ).should eq( 3 )
+
+a.pop { "Testing" } # => "Testing"
+( a.pop { "Testing" } ).to_s.should eq( "Testing" )
+
+a.pop { "Testing" } # => 1
+( a.pop { "Testing" } ).should eq( 1 )
+
+a.pop(2) # => ["b", "c"]
+( a.pop(2) ).should eq( ["b", "c"] )
+
+a.pop(4) # => ["a", "b", "c"]
+( a.pop(4) ).should eq( ["a", "b", "c"] )
+
+a.push 3 # => Deque{1, 2, 3}
+( a.push 3 ).should eq( Deque{1, 2, 3} )
+
+a.push("b", "c") # => ["a", "b", "c"]
+( a.push("b", "c") ).should eq( ["a", "b", "c"] )
+
+a.push("c") # => ["a", "b", "c"]
+( a.push("c") ).should eq( ["a", "b", "c"] )
+
+a.push(1)   # => ["a", "b", "c", 1]
+( a.push(1) ).should eq( ["a", "b", "c", 1] )
+
+a.reverse # => [3, 2, 1]
+( a.reverse ).should eq( [3, 2, 1] )
+
+a.sample                # => 1
+a.sample                # => 1
+
+a.sample                # => 2
+a.sample                # => 2
+
+a.sample(2)                # => [2, 1]
+a.sample(2)                # => [2, 1]
+
+a.sample(2, Random.new(1)) # => [1, 3]
+a.sample(2, Random.new(1)) # => [1, 3]
+
+a.sample(Random.new(1)) # => 3
+a.sample(Random.new(1)) # => 3
+
+a.shift # => "a"
+( a.shift ).to_s.should eq( "a" )
+
+a.shift # => 1
+( a.shift ).should eq( 1 )
+
+a.shift(4) # => ["a", "b", "c"]
+( a.shift(4) ).should eq( ["a", "b", "c"] )
+
+a.shuffle!(Random.new(42))                  # => StaticArray[3, 2, 1]
+( a.shuffle!(Random.new(42)) ).should eq( StaticArray[3, 2, 1] )
+
+a.sort # => [1, 2, 3]
+( a.sort ).should eq( [1, 2, 3] )
+
+a.transpose # => [[:a, :c, :e], [:b, :d, :f]]
+( a.transpose ).should eq( [[:a, :c, :e], [:b, :d, :f]] )
+
+a.uniq # => ["a", "b", "c"]
+( a.uniq ).should eq( ["a", "b", "c"] )
+
+a.uniq { |s| s[0] } # => [{"student", "sam"}, {"teacher", "matz"}]
+( a.uniq { |s| s[0] } ).should eq( [{"student", "sam"}, {"teacher", "matz"}] )
+
+a.uniq! # => ["a", "b", "c"]
+( a.uniq! ).should eq( ["a", "b", "c"] )
+
+a.uniq! { |s| s[0] } # => [{"student", "sam"}, {"teacher", "matz"}]
+( a.uniq! { |s| s[0] } ).should eq( [{"student", "sam"}, {"teacher", "matz"}] )
+
+a.unshift 0 # => Deque{0, 1, 2}
+( a.unshift 0 ).should eq( Deque{0, 1, 2} )
+
+a.unshift("c") # => ["c", "a", "b"]
+( a.unshift("c") ).should eq( ["c", "a", "b"] )
+
+a.unshift(1)   # => [1, "c", "a", "b"]
+( a.unshift(1) ).should eq( [1, "c", "a", "b"] )
+
+a[-2...-1] # => ["d"]
+( a[-2...-1] ).should eq( ["d"] )
+
+a[-3, 3] # => ["c", "d", "e"]
+( a[-3, 3] ).should eq( ["c", "d", "e"] )
+
+a[1, 2]  # => ["b", "c"]
+( a[1, 2] ).should eq( ["b", "c"] )
+
+a[1..3]    # => ["b", "c", "d"]
+( a[1..3] ).should eq( ["b", "c", "d"] )
+
+a[4..7]    # => ["e"]
+( a[4..7] ).should eq( ["e"] )
+
+a[5, 1]  # => []
+( a[5, 1] ).to_s.should eq( "[]" )
+
+a[5..10]   # => []
+( a[5..10] ).to_s.should eq( "[]" )
+
+add.arity # => 2
+( add.arity ).should eq( 2 )
+
+add.call(1, 2) # => 3
+( add.call(1, 2) ).should eq( 3 )
+
+add_one.call(10) # => 11
+( add_one.call(10) ).should eq( 11 )
+
+add_one.call(2)  # => 3
+( add_one.call(2) ).should eq( 3 )
+
+add_one_and_two.call # => 3
+( add_one_and_two.call ).should eq( 3 )
+
+array                                           # => StaticArray[1, 2, 2]
+( array ).should eq( StaticArray[1, 2, 2] )
+
+array                                           # => StaticArray[1, 4, 3]
+( array ).should eq( StaticArray[1, 4, 3] )
+
+array       # => StaticArray[2, 2, 2]
+( array ).should eq( StaticArray[2, 2, 2] )
+
+array # => StaticArray[3, 2, 2]
+( array ).should eq( StaticArray[3, 2, 2] )
+
+array # => ["foo", "bar"]
+( array ).should eq( ["foo", "bar"] )
+
+array # => ['A', 'l', 'i', 'c', 'e', 'B', 'o', 'b']
+( array ).should eq( ['A', 'l', 'i', 'c', 'e', 'B', 'o', 'b'] )
+
+array # => ['a', 'b', '☃']
+( array ).should eq( ['a', 'b', '☃'] )
+
+array # => [97, 98, 226, 152, 131]
+( array ).should eq( [97, 98, 226, 152, 131] )
+
+array # => [97, 98, 9731]
+( array ).should eq( [97, 98, 9731] )
+
+array # => [{'a', 0}, {'b', 1}, {'☃', 2}]
+( array ).should eq( [{'a', 0}, {'b', 1}, {'☃', 2}] )
+
+array = StaticArray(Int32, 3).new 0  # => StaticArray[0, 0, 0]
+( array = StaticArray(Int32, 3).new 0 ).should eq( StaticArray[0, 0, 0] )
+
+array = StaticArray(Int32, 3).new 0 # => StaticArray[0, 0, 0]
+( array = StaticArray(Int32, 3).new 0 ).should eq( StaticArray[0, 0, 0] )
+
+array = StaticArray(Int32, 3).new { |i| i + 1 } # => StaticArray[1, 2, 3]
+( array = StaticArray(Int32, 3).new { |i| i + 1 } ).should eq( StaticArray[1, 2, 3] )
+
+array == array2                      # => true
+( array == array2 ).should eq( true )
+
+array == array3                      # => false
+( array == array3 ).should eq( false )
+
+array == nil                        # => false
+( array == nil ).should eq( false )
+
+array.[]= 2 # => 3
+( array.[]= 2 ).should eq( 3 )
+
+array.map! { |x| x*x } # => StaticArray[1, 4, 9]
+( array.map! { |x| x*x } ).should eq( StaticArray[1, 4, 9] )
+
+array.reverse! # => StaticArray[3, 2, 1]
+( array.reverse! ).should eq( StaticArray[3, 2, 1] )
+
+array.size # => 3
+( array.size ).should eq( 3 )
+
+array.sort # => [".", "..", "config.h"]
+( array.sort ).should eq( [".", "..", "config.h"] )
+
+array.to_s # => "StaticArray[1, 2, 3]"
+( array.to_s ).to_s.should eq( "StaticArray[1, 2, 3]" )
+
+array.update(1) { |x| x * 2 }                   # => 4
+( array.update(1) { |x| x * 2 } ).should eq( 4 )
+
+array2 = StaticArray(Int32, 3).new 0 # => StaticArray[0, 0, 0]
+( array2 = StaticArray(Int32, 3).new 0 ).should eq( StaticArray[0, 0, 0] )
+
+array3 = StaticArray(Int32, 3).new 1 # => StaticArray[1, 1, 1]
+( array3 = StaticArray(Int32, 3).new 1 ).should eq( StaticArray[1, 1, 1] )
+
+array[2] = 2                                    # => 2
+( array[2] = 2 ).should eq( 2 )
+
+ary # => ["M", "i", "s", "s", "i", "s", "s", "i", "p", "p", "i"]
+( ary ).should eq( ["M", "i", "s", "s", "i", "s", "s", "i", "p", "p", "i"] )
+
+ary # => ["M", "ss", "ss", "pp", ""]
+( ary ).should eq( ["M", "ss", "ss", "pp", ""] )
+
+ary # => ["Mi", "i", "ippi"]
+( ary ).should eq( ["Mi", "i", "ippi"] )
+
+ary # => ["Old", "pond", "a frog leaps in\n  water's sound\n"]
+( ary ).should eq( ["Old", "pond", "a frog leaps in\n  water's sound\n"] )
+
+ary # => ["Old", "pond", "a", "frog", "leaps", "in", "water's", "sound"]
+( ary ).should eq( ["Old", "pond", "a", "frog", "leaps", "in", "water's", "sound"] )
+
+ary # => ["a", "b", "c", "d"]
+( ary ).should eq( ["a", "b", "c", "d"] )
+
+ary # => ["a", "b", "c"]
+( ary ).should eq( ["a", "b", "c"] )
+
+ary # => ["foo", "bar", "baz"]
+( ary ).should eq( ["foo", "bar", "baz"] )
+
+ary # => ["foo", "bar,baz"]
+( ary ).should eq( ["foo", "bar,baz"] )
+
+ary # => [{false, [3, 1]}, {true, [4]}, {false, [1, 5, 9]}, {true, [2, 6]}, {false, [5, 3, 5]}]
+( ary ).should eq( [{false, [3, 1]}, {true, [4]}, {false, [1, 5, 9]}, {true, [2, 6]}, {false, [5, 3, 5]}] )
+
+ary == [1, 2, 3] # => true
+( ary == [1, 2, 3] ).should eq( true )
+
+ary == [2, 3]    # => false
+( ary == [2, 3] ).should eq( false )
+
+ary.class # => StaticArray(Char | Int32, 2)
+( ary.class ).should eq( StaticArray(Char | Int32, 2) )
+
+ary.size # => 0
+( ary.size ).should eq( 0 )
+
+ary.to_unsafe[0] # => 1
+( ary.to_unsafe[0] ).should eq( 1 )
+
+ary.to_unsafe[0] # => 42
+( ary.to_unsafe[0] ).should eq( 42 )
+
+ary[-1] # => 'c'
+( ary[-1] ).should eq( 'c' )
+
+ary[-1]? # => 'c'
+( ary[-1]? ).should eq( 'c' )
+
+ary[-2] # => 'b'
+( ary[-2] ).should eq( 'b' )
+
+ary[-2]? # => 'b'
+( ary[-2]? ).should eq( 'b' )
+
+ary[-4]? # nil
+ary[-4]? # nil
+
+ary[0]    # => 1
+( ary[0] ).should eq( 1 )
+
+ary[0]  # => 'a'
+( ary[0] ).should eq( 'a' )
+
+ary[0]?  # => 'a'
+( ary[0]? ).should eq( 'a' )
+
+ary[1]    # => 'a'
+( ary[1] ).should eq( 'a' )
+
+ary[2]  # => 'c'
+( ary[2] ).should eq( 'c' )
+
+ary[2]?  # => 'c'
+( ary[2]? ).should eq( 'c' )
+
+ary[3]?  # nil
+ary[3]?  # nil
+
+atomic.add(2) # => 1
+( atomic.add(2) ).should eq( 1 )
+
+atomic.and(3) # => 5
+( atomic.and(3) ).should eq( 5 )
+
+atomic.compare_and_set(1, 3) # => {1, true}
+( atomic.compare_and_set(1, 3) ).should eq( {1, true} )
+
+atomic.compare_and_set(2, 3) # => {1, false}
+( atomic.compare_and_set(2, 3) ).should eq( {1, false} )
+
+atomic.get                   # => 1
+( atomic.get ).should eq( 1 )
+
+atomic.get                   # => 3
+( atomic.get ).should eq( 3 )
+
+atomic.get          # => 10
+( atomic.get ).should eq( 10 )
+
+atomic.get      # => 10
+( atomic.get ).should eq( 10 )
+
+atomic.get     # => -2
+( atomic.get ).should eq( -2 )
+
+atomic.get     # => 10
+( atomic.get ).should eq( 10 )
+
+atomic.get     # => 5
+( atomic.get ).should eq( 5 )
+
+atomic.get    # => 1
+( atomic.get ).should eq( 1 )
+
+atomic.get    # => 3
+( atomic.get ).should eq( 3 )
+
+atomic.get    # => 5
+( atomic.get ).should eq( 5 )
+
+atomic.get    # => 6
+( atomic.get ).should eq( 6 )
+
+atomic.get    # => 7
+( atomic.get ).should eq( 7 )
+
+atomic.get   # => 7
+( atomic.get ).should eq( 7 )
+
+atomic.lazy_set(10) # => 10
+( atomic.lazy_set(10) ).should eq( 10 )
+
+atomic.max(10) # => 5
+( atomic.max(10) ).should eq( 5 )
+
+atomic.max(3) # => 5
+( atomic.max(3) ).should eq( 5 )
+
+atomic.min(10) # => 5
+( atomic.min(10) ).should eq( 5 )
+
+atomic.min(3) # => 5
+( atomic.min(3) ).should eq( 5 )
+
+atomic.nand(3) # => 5
+( atomic.nand(3) ).should eq( 5 )
+
+atomic.or(2) # => 5
+( atomic.or(2) ).should eq( 5 )
+
+atomic.set(10) # => 10
+( atomic.set(10) ).should eq( 10 )
+
+atomic.sub(2) # => 9
+( atomic.sub(2) ).should eq( 9 )
+
+atomic.swap(10) # => 5
+( atomic.swap(10) ).should eq( 5 )
+
+atomic.xor(3) # => 5
+( atomic.xor(3) ).should eq( 5 )
+
+b # => "Upper case"
+( b ).to_s.should eq( "Upper case" )
+
+b.null? # => true
+( b.null? ).should eq( true )
+
+b.object_id # => 136294312
+b.object_id # => 136294312
+
+b.object_id # => 136294336
+b.object_id # => 136294336
+
+ba    # => "BitArray[101010101010]"
+( ba ).to_s.should eq( "BitArray[101010101010]" )
+
+ba # => BitArray[00110]
+( ba ).to_s.should eq( "BitArray[00110]" )
+
+ba # => BitArray[11001]
+( ba ).to_s.should eq( "BitArray[11001]" )
+
+ba = BitArray.new(12) # => "BitArray[000000000000]"
+( ba = BitArray.new(12) ).to_s.should eq( "BitArray[000000000000]" )
+
+ba[2]                 # => false
+( ba[2] ).should eq( false )
+
+ba[2] # => true
+( ba[2] ).should eq( true )
+
+ba[3] # => false
+( ba[3] ).should eq( false )
+
+ba[3] # => true
+( ba[3] ).should eq( true )
+
+buffer.to_slice[0, bytes_read]             # => Bytes[228, 189, 160]
+( buffer.to_slice[0, bytes_read] ).should eq( Bytes[228, 189, 160] )
+
+bytes = "你".encode("GB2312") # => Bytes[196, 227]
+( bytes = "你".encode("GB2312") ).should eq( Bytes[196, 227] )
+
+bytes.next # => 131
+( bytes.next ).should eq( 131 )
+
+bytes.next # => 152
+( bytes.next ).should eq( 152 )
+
+bytes.next # => 226
+( bytes.next ).should eq( 226 )
+
+bytes.next # => 97
+( bytes.next ).should eq( 97 )
+
+bytes.next # => 98
+( bytes.next ).should eq( 98 )
+
+bytes_read = io.read_utf8(buffer.to_slice) # => 3
+( bytes_read = io.read_utf8(buffer.to_slice) ).should eq( 3 )
+
+c = a - b # => 10:00:00
+( c = a - b ).should eq( Time::Span.new(0, 10, 0, 0, 0) )
+
+c.hours   # => 10
+( c.hours ).should eq( 10 )
+
+chars.next # => '☃'
+( chars.next ).should eq( '☃' )
+
+chars.next # => 'a'
+( chars.next ).should eq( 'a' )
+
+chars.next # => 'b'
+( chars.next ).should eq( 'b' )
+
+class MyClass # < Reference
+class MyClass # < Reference
+
+client.host # => "www.example.com"
+( client.host ).to_s.should eq( "www.example.com" )
+
+client.port # => 80
+( client.port ).should eq( 80 )
+
+client.tls # => #<OpenSSL::SSL::Context::Client ...>
+( client.tls ).class.to_s.should eq( "OpenSSL::SSL::Context::Client" )
+
+client.tls? # => #<OpenSSL::SSL::Context::Client>
+( client.tls? ).class.to_s.should eq( "OpenSSL::SSL::Context::Client" )
+
+codepoints.next # => 97
+( codepoints.next ).should eq( 97 )
+
+codepoints.next # => 9731
+( codepoints.next ).should eq( 9731 )
+
+codepoints.next # => 98
+( codepoints.next ).should eq( 98 )
+
+color.blue? # => true
+( color.blue? ).should eq( true )
+
+color.red?  # => false
+( color.red? ).should eq( false )
+
+csv.next    # => true
+( csv.next ).should eq( true )
+
+csv.next # => false
+( csv.next ).should eq( false )
+
+csv.next # => true
+( csv.next ).should eq( true )
+
+csv.row.to_a # => ["John", " 20"]
+( csv.row.to_a ).should eq( ["John", " 20"] )
+
+csv.row.to_h # => {"Name" => "John", "Age" => " 20"}
+( csv.row.to_h ).should eq( {"Name" => "John", "Age" => " 20"} )
+
+csv["Age"] # => " 20"
+( csv["Age"] ).to_s.should eq( " 20" )
+
+csv["Name"]  # => "John"
+( csv["Name"] ).to_s.should eq( "John" )
+
+csv["Name"] # => "Peter"
+( csv["Name"] ).to_s.should eq( "Peter" )
+
+csv[-2]      # => "John"
+( csv[-2] ).to_s.should eq( "John" )
+
+csv[/name/i] # => "John"
+( csv[/name/i] ).to_s.should eq( "John" )
+
+csv[0]       # => "John"
+( csv[0] ).to_s.should eq( "John" )
+
+d.each { |x| puts "Got #{x}" }
+d.each { |x| puts "Got #{x}" }
+
+data["foo"]["bar"]["baz"].as_a    # => ["qux", "fox"]
+( data["foo"]["bar"]["baz"].as_a ).should eq( ["qux", "fox"] )
+
+data["foo"]["bar"]["baz"][0].as_s # => "qux"
+( data["foo"]["bar"]["baz"][0].as_s ).to_s.should eq( "qux" )
+
+data["foo"]["bar"]["baz"][1].as_s # => "fox"
+( data["foo"]["bar"]["baz"][1].as_s ).to_s.should eq( "fox" )
+
+delimited.gets_to_end # => ""
+( delimited.gets_to_end ).to_s.should eq( "" )
+
+delimited.gets_to_end # => "abc"
+( delimited.gets_to_end ).to_s.should eq( "abc" )
+
+deq == Deque{1, 2, 3} # => true
+( deq == Deque{1, 2, 3} ).should eq( true )
+
+deq == Deque{2, 3}    # => false
+( deq == Deque{2, 3} ).should eq( false )
+
+deq.size # => 0
+( deq.size ).should eq( 0 )
+
+doc.xpath_bool("count(//person) > 0") # => true
+( doc.xpath_bool("count(//person) > 0") ).should eq( true )
+
+doc.xpath_float("count(//person)") # => 1.0
+( doc.xpath_float("count(//person)") ).try(&.to_f).to_s.should eq( "1.0" )
+
+doc.xpath_node("//invalid") # => nil
+( doc.xpath_node("//invalid") ).should eq( nil )
+
+doc.xpath_node("//person")  # => #<XML::Node:0x2013e80 name="person">
+( doc.xpath_node("//person") ).class.to_s.should eq( "XML::Node" )
+
+document = XML.parse(xml)             # : XML::Node
+document = XML.parse(xml)             # : XML::Node
+
+dst             # => Slice['a', 'a', 'a', 'b', 'b']
+( dst ).should eq( Slice['a', 'a', 'a', 'b', 'b'] )
+
+employee.name  # => "John"
+( employee.name ).to_s.should eq( "John" )
+
+employee.name # => "Jenny"
+( employee.name ).to_s.should eq( "Jenny" )
+
+employee.title # => "Manager"
+( employee.title ).to_s.should eq( "Manager" )
+
+empty.first? # => nil
+( empty.first? ).should eq( nil )
+
+empty.last? # => nil
+( empty.last? ).should eq( nil )
+
+enc = Base64.encode("Send reinforcements") # => "U2VuZCByZWluZm9yY2VtZW50cw==\n"
+( enc = Base64.encode("Send reinforcements") ).to_s.should eq( "U2VuZCByZWluZm9yY2VtZW50cw==\n" )
+
+f.get # => "hello\n"
+( f.get ).to_s.should eq( "hello\n" )
+
+false # A Bool that is false
+false # A Bool that is false
+
+false & false # => false
+( false & false ).should eq( false )
+
+false & true  # => false
+( false & true ).should eq( false )
+
+false ^ false # => false
+( false ^ false ).should eq( false )
+
+false ^ true  # => true
+( false ^ true ).should eq( true )
+
+false | false # => false
+( false | false ).should eq( false )
+
+false | true  # => true
+( false | true ).should eq( true )
+
+file.gets(1) # => "c"
+( file.gets(1) ).to_s.should eq( "c" )
+
+file.gets(2) # => "bc"
+( file.gets(2) ).to_s.should eq( "bc" )
+
+file.gets(2) # => "he"
+( file.gets(2) ).to_s.should eq( "he" )
+
+file.gets(3) # => "abc"
+( file.gets(3) ).to_s.should eq( "abc" )
+
+file.gets_to_end # => "lo"
+( file.gets_to_end ).to_s.should eq( "lo" )
+
+file.pos     # => 0
+( file.pos ).should eq( 0 )
+
+file.pos     # => 2
+( file.pos ).should eq( 2 )
+
+finder.best_match # => "hall"
+( finder.best_match ).to_s.should eq( "hall" )
+
+floats.class # => Array(Float64)
+( floats.class ).should eq( Array(Float64) )
+
+floats.class # => Slice(Float64)
+( floats.class ).should eq( Slice(Float64) )
+
+floats.class # => StaticArray(Float64, 4)
+( floats.class ).should eq( StaticArray(Float64, 4) )
+
+foo.hash # => 3247054
+foo.hash # => 3247054
+
+h # => { "bar" => "qux" }
+( h ).should eq( { "bar" => "qux" } )
+
+h # => {"a" => 1, "c" => 3}
+( h ).should eq( {"a" => 1, "c" => 3} )
+
+h # => {"b" => 2, "d" => 4}
+( h ).should eq( {"b" => 2, "d" => 4} )
+
+h.delete("foo")     # => "bar"
+( h.delete("foo") ).to_s.should eq( "bar" )
+
+h.empty? # => false
+( h.empty? ).should eq( false )
+
+h.empty? # => true
+( h.empty? ).should eq( true )
+
+h.fetch("bar") { |key| key.upcase } # => "BAR"
+( h.fetch("bar") { |key| key.upcase } ).to_s.should eq( "BAR" )
+
+h.fetch("bar", "foo") # => "foo"
+( h.fetch("bar", "foo") ).to_s.should eq( "foo" )
+
+h.fetch("foo") { |key| key.upcase } # => "bar"
+( h.fetch("foo") { |key| key.upcase } ).to_s.should eq( "bar" )
+
+h.fetch("foo", "foo") # => "bar"
+( h.fetch("foo", "foo") ).to_s.should eq( "bar" )
+
+h.fetch("foo", nil) # => nil
+( h.fetch("foo", nil) ).should eq( nil )
+
+h.has_key?("bar") # => false
+( h.has_key?("bar") ).should eq( false )
+
+h.has_key?("foo") # => true
+( h.has_key?("foo") ).should eq( true )
+
+h.has_value?("bar") # => true
+( h.has_value?("bar") ).should eq( true )
+
+h.has_value?("foo") # => false
+( h.has_value?("foo") ).should eq( false )
+
+h.key_index("foo") # => 0
+( h.key_index("foo") ).should eq( 0 )
+
+h.key_index("qux") # => nil
+( h.key_index("qux") ).should eq( nil )
+
+h.keys # => ["foo", "baz"]
+( h.keys ).should eq( ["foo", "baz"] )
+
+h.reject { |k, v| k > "a" } # => {"a" => 100}
+( h.reject { |k, v| k > "a" } ).should eq( {"a" => 100} )
+
+h.reject { |k, v| v < 200 } # => {"b" => 200, "c" => 300}
+( h.reject { |k, v| v < 200 } ).should eq( {"b" => 200, "c" => 300} )
+
+h.select { |k, v| k > "a" } # => {"b" => 200, "c" => 300}
+( h.select { |k, v| k > "a" } ).should eq( {"b" => 200, "c" => 300} )
+
+h.select { |k, v| v < 200 } # => {"a" => 100}
+( h.select { |k, v| v < 200 } ).should eq( {"a" => 100} )
+
+h.to_s       # => "{\"foo\" => \"bar\"}"
+( h.to_s ).to_s.should eq( "{\"foo\" => \"bar\"}" )
+
+h.to_s.class # => String
+( h.to_s.class ).should eq( String )
+
+h.values # => ["bar", "qux"]
+( h.values ).should eq( ["bar", "qux"] )
+
+h["bar"]? # => nil
+( h["bar"]? ).should eq( nil )
+
+h["foo"] # => "bar"
+( h["foo"] ).to_s.should eq( "bar" )
+
+h["foo"]? # => "bar"
+( h["foo"]? ).to_s.should eq( "bar" )
+
+h["foo"]? # => nil
+( h["foo"]? ).should eq( nil )
+
+hash                # => {"baz" => "qux"}
+( hash ).should eq( {"baz" => "qux"} )
+
+hash                # => {}
+( hash ).to_s.should eq( "{}" )
+
+hash        # => {"baz" => "qux"}
+( hash ).should eq( {"baz" => "qux"} )
+
+hash       # => {"baz" => "qux"}
+( hash ).should eq( {"baz" => "qux"} )
+
+hash # => {"Alice" => 5, "Bob" => 3}
+( hash ).should eq( {"Alice" => 5, "Bob" => 3} )
+
+hash # => {"foo" => "bar", "baz" => "qux"}
+( hash ).should eq( {"foo" => "bar", "baz" => "qux"} )
+
+hash.clear # => {}
+( hash.clear ).to_s.should eq( "{}" )
+
+hash.first_key? # => "foo"
+( hash.first_key? ).to_s.should eq( "foo" )
+
+hash.first_key? # => nil
+( hash.first_key? ).should eq( nil )
+
+hash.key("bar")    # => "foo"
+( hash.key("bar") ).to_s.should eq( "foo" )
+
+hash.key("bar") { |value| value.upcase } # => "foo"
+( hash.key("bar") { |value| value.upcase } ).to_s.should eq( "foo" )
+
+hash.key("qux")    # => "baz"
+( hash.key("qux") ).to_s.should eq( "baz" )
+
+hash.key("qux") { |value| value.upcase } # => "QUX"
+( hash.key("qux") { |value| value.upcase } ).to_s.should eq( "QUX" )
+
+hash.key?("bar")    # => "foo"
+( hash.key?("bar") ).to_s.should eq( "foo" )
+
+hash.key?("foobar") # => nil
+( hash.key?("foobar") ).should eq( nil )
+
+hash.key?("qux")    # => "baz"
+( hash.key?("qux") ).to_s.should eq( "baz" )
+
+hash.shift # => {"foo", "bar"}
+( hash.shift ).should eq( {"foo", "bar"} )
+
+hash.shift { true } # => true
+( hash.shift { true } ).should eq( true )
+
+hash.shift { true } # => {"foo", "bar"}
+( hash.shift { true } ).should eq( {"foo", "bar"} )
+
+hash.shift? # => nil
+( hash.shift? ).should eq( nil )
+
+hash.shift? # => {"foo", "bar"}
+( hash.shift? ).should eq( {"foo", "bar"} )
+
+hash_a # => {"foo" => "bar"}
+( hash_a ).should eq( {"foo" => "bar"} )
+
+hash_a # => {"foobar" => {"foo" => "bar"}}
+( hash_a ).should eq( {"foobar" => {"foo" => "bar"}} )
+
+headers.includes_word?("Connection", "Upgrade") # => true
+( headers.includes_word?("Connection", "Upgrade") ).should eq( true )
+
+hello # => "hello"
+( hello ).to_s.should eq( "hello" )
+
+house.address  # => "Crystal Road 1234"
+( house.address ).to_s.should eq( "Crystal Road 1234" )
+
+house.location # => #<Location:0x10cd93d80 @lat=12.3, @lng=34.5>
+( house.location ).class.to_s.should eq( "Location" )
+
+house.to_json  # => %({"address":"Crystal Road 1234","location":{"lat":12.3,"lng":34.5}})
+( house.to_json ).should eq( %({"address":"Crystal Road 1234","location":{"lat":12.3,"lng":34.5}}) )
+
+int16 # => 0x1234_i16
+( int16 ).should eq( 0x1234_i16 )
+
+ints.class # => Array(Int64)
+( ints.class ).should eq( Array(Int64) )
+
+ints.class # => Slice(Int64)
+( ints.class ).should eq( Slice(Int64) )
+
+ints.class # => StaticArray(Int64, 3)
+( ints.class ).should eq( StaticArray(Int64, 3) )
+
+io.closed? # => false
+( io.closed? ).should eq( false )
+
+io.closed? # => true
+( io.closed? ).should eq( true )
+
+io.empty? # => false
+( io.empty? ).should eq( false )
+
+io.empty? # => true
+( io.empty? ).should eq( true )
+
+io.gets               # => "foo"
+( io.gets ).to_s.should eq( "foo" )
+
+io.gets               # => "hello"
+( io.gets ).to_s.should eq( "hello" )
+
+io.gets               # => nil
+( io.gets ).should eq( nil )
+
+io.gets    # => "world"
+( io.gets ).to_s.should eq( "world" )
+
+io.gets # => "lo"
+( io.gets ).to_s.should eq( "lo" )
+
+io.gets("wo") # => "hello\nwo"
+( io.gets("wo") ).to_s.should eq( "hello\nwo" )
+
+io.gets("wo") # => "rld"
+( io.gets("wo") ).to_s.should eq( "rld" )
+
+io.gets("wo") # => nil
+( io.gets("wo") ).should eq( nil )
+
+io.gets('o') # => "hello"
+( io.gets('o') ).to_s.should eq( "hello" )
+
+io.gets('o', 3)  # => "hel"
+( io.gets('o', 3) ).to_s.should eq( "hel" )
+
+io.gets('r') # => "\nwor"
+( io.gets('r') ).to_s.should eq( "\nwor" )
+
+io.gets('r', 10) # => "lo\nwor"
+( io.gets('r', 10) ).to_s.should eq( "lo\nwor" )
+
+io.gets('w') # => nil
+( io.gets('w') ).should eq( nil )
+
+io.gets('w', 10) # => nil
+( io.gets('w', 10) ).should eq( nil )
+
+io.gets('z') # => "ld"
+( io.gets('z') ).to_s.should eq( "ld" )
+
+io.gets('z', 10) # => "ld"
+( io.gets('z', 10) ).to_s.should eq( "ld" )
+
+io.gets(1) # => "a"
+( io.gets(1) ).to_s.should eq( "a" )
+
+io.gets(1) # => "c"
+( io.gets(1) ).to_s.should eq( "c" )
+
+io.gets(2)    # => "he"
+( io.gets(2) ).to_s.should eq( "he" )
+
+io.gets(2) # => "bc"
+( io.gets(2) ).to_s.should eq( "bc" )
+
+io.gets(2) # => "he"
+( io.gets(2) ).to_s.should eq( "he" )
+
+io.gets(3) # => "abc"
+( io.gets(3) ).to_s.should eq( "abc" )
+
+io.gets(3) # => "hel"
+( io.gets(3) ).to_s.should eq( "hel" )
+
+io.gets(3) # => "ld"
+( io.gets(3) ).to_s.should eq( "ld" )
+
+io.gets(3) # => "lo\n"
+( io.gets(3) ).to_s.should eq( "lo\n" )
+
+io.gets(3) # => "wor"
+( io.gets(3) ).to_s.should eq( "wor" )
+
+io.gets(3) # => nil
+( io.gets(3) ).should eq( nil )
+
+io.gets(4) # => "\u{4}\u{3}\u{2}\u{1}"
+( io.gets(4) ).to_s.should eq( "\u{4}\u{3}\u{2}\u{1}" )
+
+io.gets(chomp: false) # => "world\n"
+( io.gets(chomp: false) ).to_s.should eq( "world\n" )
+
+io.gets_to_end        # => "123"
+( io.gets_to_end ).to_s.should eq( "123" )
+
+io.gets_to_end    # => "de"
+( io.gets_to_end ).to_s.should eq( "de" )
+
+io.gets_to_end # => ""
+( io.gets_to_end ).to_s.should eq( "" )
+
+io.gets_to_end # => "aello"
+( io.gets_to_end ).to_s.should eq( "aello" )
+
+io.gets_to_end # => "hello world"
+( io.gets_to_end ).to_s.should eq( "hello world" )
+
+io.pos            # => 0
+( io.pos ).should eq( 0 )
+
+io.pos         # => 0
+( io.pos ).should eq( 0 )
+
+io.pos        # => 0
+( io.pos ).should eq( 0 )
+
+io.pos     # => 0
+( io.pos ).should eq( 0 )
+
+io.pos     # => 2
+( io.pos ).should eq( 2 )
+
+io.read(slice)    # => 6
+( io.read(slice) ).should eq( 6 )
+
+io.read(slice) # => 0
+( io.read(slice) ).should eq( 0 )
+
+io.read(slice) # => 1
+( io.read(slice) ).should eq( 1 )
+
+io.read(slice) # => 4
+( io.read(slice) ).should eq( 4 )
+
+io.read_byte # => 97
+( io.read_byte ).should eq( 97 )
+
+io.read_byte # => nil
+( io.read_byte ).should eq( nil )
+
+io.read_bytes(Int32, IO::ByteFormat::LittleEndian) # => 0x01020304
+( io.read_bytes(Int32, IO::ByteFormat::LittleEndian) ).should eq( 0x01020304 )
+
+io.read_char # => 'あ'
+( io.read_char ).should eq( 'あ' )
+
+io.read_char # => nil
+( io.read_char ).should eq( nil )
+
+io.read_fully(slice) # => 5
+( io.read_fully(slice) ).should eq( 5 )
+
+io.read_fully?(slice) # => 5
+( io.read_fully?(slice) ).should eq( 5 )
+
+io.read_fully?(slice) # => nil
+( io.read_fully?(slice) ).should eq( nil )
+
+io.read_string(1) # => " "
+( io.read_string(1) ).to_s.should eq( " " )
+
+io.read_string(5) # => "hello"
+( io.read_string(5) ).to_s.should eq( "hello" )
+
+io.read_utf8_byte # => 160
+( io.read_utf8_byte ).should eq( 160 )
+
+io.read_utf8_byte # => 189
+( io.read_utf8_byte ).should eq( 189 )
+
+io.read_utf8_byte # => 228
+( io.read_utf8_byte ).should eq( 228 )
+
+io.read_utf8_byte # => nil
+( io.read_utf8_byte ).should eq( nil )
+
+io.size # => 5
+( io.size ).should eq( 5 )
+
+io.to_s                          # => "Crystal &amp; You"
+( io.to_s ).to_s.should eq( "Crystal &amp; You" )
+
+io.to_s # => "1-Crystal"
+( io.to_s ).to_s.should eq( "1-Crystal" )
+
+io.to_s # => "123"
+( io.to_s ).to_s.should eq( "123" )
+
+io.to_s # => "1\n-\nCrystal\n"
+( io.to_s ).to_s.should eq( "1\n-\nCrystal\n" )
+
+io.to_s # => "1\nCrystal\n"
+( io.to_s ).to_s.should eq( "1\nCrystal\n" )
+
+io.to_s # => "HEADER\none,two\nthree\n"
+( io.to_s ).to_s.should eq( "HEADER\none,two\nthree\n" )
+
+io.to_s # => "Hello World!"
+( io.to_s ).to_s.should eq( "Hello World!" )
+
+io.to_s # => "\n"
+( io.to_s ).to_s.should eq( "\n" )
+
+io.to_s # => "a"
+( io.to_s ).to_s.should eq( "a" )
+
+io.to_s # => "abcd"
+( io.to_s ).to_s.should eq( "abcd" )
+
+io.to_s # => "hello\nworld\n"
+( io.to_s ).to_s.should eq( "hello\nworld\n" )
+
+io.to_slice # => Bytes[0x34, 0x12]
+( io.to_slice ).should eq( Bytes[0x34, 0x12] )
+
+io1.to_s # => "foo bar\n"
+( io1.to_s ).to_s.should eq( "foo bar\n" )
+
+io2.to_s # => "foo bar\n"
+( io2.to_s ).to_s.should eq( "foo bar\n" )
+
+io2.to_s # => "hel"
+( io2.to_s ).to_s.should eq( "hel" )
+
+io2.to_s # => "hello"
+( io2.to_s ).to_s.should eq( "hello" )
+
+ip_address.address # => "127.0.0.1"
+( ip_address.address ).to_s.should eq( "127.0.0.1" )
+
+iter.each { |x| print x, " " } # Prints "a b c"
+iter.each { |x| print x, " " } # Prints "a b c"
+
+iter.next # -> 3
+iter.next # -> 3
+
+iter.next # -> Iterator::Stop::INSTANCE
+iter.next # -> Iterator::Stop::INSTANCE
+
+iter.next # => "a"
+( iter.next ).to_s.should eq( "a" )
+
+iter.next # => "b"
+( iter.next ).to_s.should eq( "b" )
+
+iter.next # => "c"
+( iter.next ).to_s.should eq( "c" )
+
+iter.next # => "hello"
+( iter.next ).to_s.should eq( "hello" )
+
+iter.next # => "world"
+( iter.next ).to_s.should eq( "world" )
+
+iter.next # => #<Iterator::Stop>
+( iter.next ).class.to_s.should eq( "Iterator::Stop" )
+
+iter.next # => 'a'
+( iter.next ).should eq( 'a' )
+
+iter.next # => 'b'
+( iter.next ).should eq( 'b' )
+
+iter.next # => 'あ'
+( iter.next ).should eq( 'あ' )
+
+iter.next # => 'め'
+( iter.next ).should eq( 'め' )
+
+iter.next # => 0
+( iter.next ).should eq( 0 )
+
+iter.next # => 1
+( iter.next ).should eq( 1 )
+
+iter.next # => 129
+( iter.next ).should eq( 129 )
+
+iter.next # => 130
+( iter.next ).should eq( 130 )
+
+iter.next # => 2
+( iter.next ).should eq( 2 )
+
+iter.next # => 227
+( iter.next ).should eq( 227 )
+
+iter.next # => 3
+( iter.next ).should eq( 3 )
+
+iter.next # => 4
+( iter.next ).should eq( 4 )
+
+iter.next # => 5
+( iter.next ).should eq( 5 )
+
+iter.next # => 6
+( iter.next ).should eq( 6 )
+
+iter.next # => 97
+( iter.next ).should eq( 97 )
+
+iter.next # => Iterator::Stop::INSTANCE
+( iter.next ).should eq( Iterator::Stop::INSTANCE )
+
+iter.next # => ["a", "a"]
+( iter.next ).should eq( ["a", "a"] )
+
+iter.next # => ["b", "a"]
+( iter.next ).should eq( ["b", "a"] )
+
+iter.next # => [1, 2, 3]
+( iter.next ).should eq( [1, 2, 3] )
+
+iter.next # => [1, 2]
+( iter.next ).should eq( [1, 2] )
+
+iter.next # => [1, 3, 2]
+( iter.next ).should eq( [1, 3, 2] )
+
+iter.next # => [2, 1, 3]
+( iter.next ).should eq( [2, 1, 3] )
+
+iter.next # => [2, 3, 1]
+( iter.next ).should eq( [2, 3, 1] )
+
+iter.next # => [2, 3, 4]
+( iter.next ).should eq( [2, 3, 4] )
+
+iter.next # => [3, 'z']
+( iter.next ).should eq( [3, 'z'] )
+
+iter.next # => [3, 1, 2]
+( iter.next ).should eq( [3, 1, 2] )
+
+iter.next # => [3, 2, 1]
+( iter.next ).should eq( [3, 2, 1] )
+
+iter.next # => [3, 4, 5]
+( iter.next ).should eq( [3, 4, 5] )
+
+iter.next # => [3, nil]
+( iter.next ).should eq( [3, nil] )
+
+iter.next # => [4, 5, 6]
+( iter.next ).should eq( [4, 5, 6] )
+
+iter.next # => [7, 8, 9]
+( iter.next ).should eq( [7, 8, 9] )
+
+iter.next # => {1, "a"}
+( iter.next ).should eq( {1, "a"} )
+
+iter.next # => {1, 0}
+( iter.next ).should eq( {1, 0} )
+
+iter.next # => {2, "a"}
+( iter.next ).should eq( {2, "a"} )
+
+iter.next # => {2, 1}
+( iter.next ).should eq( {2, 1} )
+
+iter.next # => {3, "a"}
+( iter.next ).should eq( {3, "a"} )
+
+iter.next # => {3, 2}
+( iter.next ).should eq( {3, 2} )
+
+iter.next # => {4, 7}
+( iter.next ).should eq( {4, 7} )
+
+iter.next # => {5, 8}
+( iter.next ).should eq( {5, 8} )
+
+iter.next # => {6, 9}
+( iter.next ).should eq( {6, 9} )
+
+iter.to_a # => [1, 1, 2, 2, 3, 3]
+( iter.to_a ).should eq( [1, 1, 2, 2, 3, 3] )
+
+iterator.next # => {"baz", "qux"}
+( iterator.next ).should eq( {"baz", "qux"} )
+
+iterator.next # => {"foo", "bar"}
+( iterator.next ).should eq( {"foo", "bar"} )
+
+key # => "baz"
+( key ).to_s.should eq( "baz" )
+
+key # => "foo"
+( key ).to_s.should eq( "foo" )
+
+language = {name: "Crystal", year: 2011} # NamedTuple(name: String, year: Int32)
+language = {name: "Crystal", year: 2011} # NamedTuple(name: String, year: Int32)
+
+language[:name]  # => "Crystal"
+( language[:name] ).to_s.should eq( "Crystal" )
+
+language[:year]  # => 2011
+( language[:year] ).should eq( 2011 )
+
+left.gets # => "message"
+( left.gets ).to_s.should eq( "message" )
+
+lexer.next_token # => CSV::Token(@kind=Cell, @value="one")
+( lexer.next_token ).to_s.should eq( "CSV::Token(@kind=Cell, @value=\"one\")" )
+
+lexer.next_token # => CSV::Token(@kind=Cell, @value="three")
+( lexer.next_token ).to_s.should eq( "CSV::Token(@kind=Cell, @value=\"three\")" )
+
+lexer.next_token # => CSV::Token(@kind=Cell, @value="two")
+( lexer.next_token ).to_s.should eq( "CSV::Token(@kind=Cell, @value=\"two\")" )
+
+lexer.next_token # => CSV::Token(@kind=Eof, @value="three")
+( lexer.next_token ).to_s.should eq( "CSV::Token(@kind=Eof, @value=\"three\")" )
+
+lexer.next_token # => CSV::Token(@kind=Newline, @value="two")
+( lexer.next_token ).to_s.should eq( "CSV::Token(@kind=Newline, @value=\"two\")" )
+
+long_river_name.split("")   # => ["M", "i", "s", "s", "i", "s", "s", "i", "p", "p", "i"]
+( long_river_name.split("") ).should eq( ["M", "i", "s", "s", "i", "s", "s", "i", "p", "p", "i"] )
+
+long_river_name.split("i")  # => ["M", "ss", "ss", "pp", ""]
+( long_river_name.split("i") ).should eq( ["M", "ss", "ss", "pp", ""] )
+
+long_river_name.split("ss") # => ["Mi", "i", "ippi"]
+( long_river_name.split("ss") ).should eq( ["Mi", "i", "ippi"] )
+
+long_river_name.split(//)   # => ["M", "i", "s", "s", "i", "s", "s", "i", "p", "p", "i"]
+( long_river_name.split(//) ).should eq( ["M", "i", "s", "s", "i", "s", "s", "i", "p", "p", "i"] )
+
+long_river_name.split(/s+/) # => ["Mi", "i", "ippi"]
+( long_river_name.split(/s+/) ).should eq( ["Mi", "i", "ippi"] )
+
+mode.async? # => true
+( mode.async? ).should eq( true )
+
+mode.includes?(IOMode::Async) # => false
+( mode.includes?(IOMode::Async) ).should eq( false )
+
+mode.includes?(IOMode::Read)  # => true
+( mode.includes?(IOMode::Read) ).should eq( true )
+
+mode.read?  # => true
+( mode.read? ).should eq( true )
+
+mode.write? # => false
+( mode.write? ).should eq( false )
+
+mut.value # => 1
+( mut.value ).should eq( 1 )
+
+mut.value # => 2
+( mut.value ).should eq( 2 )
+
+name.to_a # => [{"CN", "Nobody"}, {"DC", "example"}]
+( name.to_a ).should eq( [{"CN", "Nobody"}, {"DC", "example"}] )
+
+neg.arity # => 1
+( neg.arity ).should eq( 1 )
+
+nodes.class       # => XML::NodeSet
+( nodes.class ).should eq( XML::NodeSet )
+
+nodes.map(&.name) # => ["person"]
+( nodes.map(&.name) ).should eq( ["person"] )
+
+obj["access"][1]["name"].as_s  # => "any"
+( obj["access"][1]["name"].as_s ).to_s.should eq( "any" )
+
+obj["access"][1]["speed"].as_s # => "slow"
+( obj["access"][1]["speed"].as_s ).to_s.should eq( "slow" )
+
+old_pond.split    # => ["Old", "pond", "a", "frog", "leaps", "in", "water's", "sound"]
+( old_pond.split ).should eq( ["Old", "pond", "a", "frog", "leaps", "in", "water's", "sound"] )
+
+old_pond.split(3) # => ["Old", "pond", "a frog leaps in\n  water's sound\n"]
+( old_pond.split(3) ).should eq( ["Old", "pond", "a frog leaps in\n  water's sound\n"] )
+
+one   # => 1
+( one ).should eq( 1 )
+
+p ary # => [5,2,3]
+( p ary ).should eq( [5,2,3] )
+
+p foo: 23, bar: 42 # => {foo: 23, bar: 42}
+( p foo: 23, bar: 42 ).should eq( {foo: 23, bar: 42} )
+
+p1 == p2 # => true
+( p1 == p2 ).should eq( true )
+
+p1 == p3 # => false
+( p1 == p3 ).should eq( false )
+
+p1.inspect # "Point(@x=1, @y=2)"
+p1.inspect # "Point(@x=1, @y=2)"
+
+p1.to_s    # "Point(@x=1, @y=2)"
+p1.to_s    # "Point(@x=1, @y=2)"
+
+params # => "color=black&name=crystal&year=2012+-+today"
+( params ).to_s.should eq( "color=black&name=crystal&year=2012+-+today" )
+
+params.delete("item")    # => "keychain"
+( params.delete("item") ).to_s.should eq( "keychain" )
+
+params.delete("item") # => "keynote"
+( params.delete("item") ).to_s.should eq( "keynote" )
+
+params.delete_all("comments") # => ["hello, world!", ":+1:"]
+( params.delete_all("comments") ).should eq( ["hello, world!", ":+1:"] )
+
+params.fetch("email")              # => "john@example.org"
+( params.fetch("email") ).to_s.should eq( "john@example.org" )
+
+params.fetch("email") { raise "email is missing" }              # raises "email is missing"
+params.fetch("email") { raise "email is missing" }              # raises "email is missing"
+
+params.fetch("email", "none@example.org")           # => "john@example.org"
+( params.fetch("email", "none@example.org") ).to_s.should eq( "john@example.org" )
+
+params.fetch("non_existent_param") { "default computed value" } # => "default computed value"
+( params.fetch("non_existent_param") { "default computed value" } ).to_s.should eq( "default computed value" )
+
+params.fetch("non_existent_param", "default value") # => "default value"
+( params.fetch("non_existent_param", "default value") ).to_s.should eq( "default value" )
+
+params.fetch_all("item") # => ["keychain", "keynote"]
+( params.fetch_all("item") ).should eq( ["keychain", "keynote"] )
+
+params.fetch_all("item") # => ["keynote"]
+( params.fetch_all("item") ).should eq( ["keynote"] )
+
+params.fetch_all("item") # => ["pencil", "book", "workbook", "keychain"]
+( params.fetch_all("item") ).should eq( ["pencil", "book", "workbook", "keychain"] )
+
+params.fetch_all("item") # => ["pencil", "book", "workbook"]
+( params.fetch_all("item") ).should eq( ["pencil", "book", "workbook"] )
+
+params.has_key?("comments")   # => false
+( params.has_key?("comments") ).should eq( false )
+
+params.has_key?("email")   # => true
+( params.has_key?("email") ).should eq( true )
+
+params.has_key?("garbage") # => false
+( params.has_key?("garbage") ).should eq( false )
+
+params.to_s # => "item=keychain&item=keynote&email=john%40example.org"
+( params.to_s ).to_s.should eq( "item=keychain&item=keynote&email=john%40example.org" )
+
+params["email"]              # => "john@example.org"
+( params["email"] ).to_s.should eq( "john@example.org" )
+
+params["email"]?              # => "john@example.org"
+( params["email"]? ).to_s.should eq( "john@example.org" )
+
+params["non_existent_param"]? # nil
+params["non_existent_param"]? # nil
+
+password == "super secret" # => true
+( password == "super secret" ).should eq( true )
+
+password == "wrong secret" # => false
+( password == "wrong secret" ).should eq( false )
+
+password.digest  # => "8/Po4wTL0fhdDNdAdjcKN/Fup8tGCya"
+( password.digest ).to_s.should eq( "8/Po4wTL0fhdDNdAdjcKN/Fup8tGCya" )
+
+password.salt    # => "X6rw/jDiLBuzHV./JjBNXe"
+( password.salt ).to_s.should eq( "X6rw/jDiLBuzHV./JjBNXe" )
+
+password.version # => "2a"
+( password.version ).to_s.should eq( "2a" )
+
+person = document.first_element_child # : XML::Node?
+person = document.first_element_child # : XML::Node?
+
+person.birth_date # => 2016-04-05 12:36:21 UTC
+( person.birth_date ).should eq( Time.parse("2016-04-05 12:36:21 UTC", "%F %T %z") )
+
+person.full_name # => "John Doe"
+( person.full_name ).to_s.should eq( "John Doe" )
+
+person.to_json    # => %({"birth_date":1459859781})
+( person.to_json ).should eq( %({"birth_date":1459859781}) )
+
+person.to_json # => %({"value":1459860483856})
+( person.to_json ).should eq( %({"value":1459860483856}) )
+
+person.value   # => 2016-04-05 12:48:03.856 UTC
+( person.value ).should eq( Time.parse("2016-04-05 12:48:03.856 UTC", "%F %T.%L %z") )
+
+plain = Base64.decode_string(enc)          # => "Send reinforcements"
+( plain = Base64.decode_string(enc) ).to_s.should eq( "Send reinforcements" )
+
+point.to_s # => "Point(@x=1, @y=2)"
+( point.to_s ).to_s.should eq( "Point(@x=1, @y=2)" )
+
+pointerof(a).null? # => false
+( pointerof(a).null? ).should eq( false )
+
+pool.empty? # => false
+( pool.empty? ).should eq( false )
+
+pool.empty? # => true
+( pool.empty? ).should eq( true )
+
+pool.size # => 0
+( pool.size ).should eq( 0 )
+
+pool.size # => 1
+( pool.size ).should eq( 1 )
+
+pp [1, 2, 3].map(&.to_s) # => "[1, 2, 3].map(&.to_s) # => ["1", "2", "3"]"
+pp [1, 2, 3].map(&.to_s) # => "[1, 2, 3].map(&.to_s) # => ["1", "2", "3"]"
+
+pp a # => "a # => 1"
+pp a # => "a # => 1"
+
+proc = capture { |x| x + 1 } # Proc(Int32, Int32)
+proc = capture { |x| x + 1 } # Proc(Int32, Int32)
+
+proc.call(1)                 # => 2
+( proc.call(1) ).should eq( 2 )
+
+ptr # [1, 2, 3, 4, 0, 0, 0, 0]
+ptr # [1, 2, 3, 4, 0, 0, 0, 0]
+
+ptr # [2, 4, 6, 8]
+ptr # [2, 4, 6, 8]
+
+ptr # [3, 4, 1, 2]
+ptr # [3, 4, 1, 2]
+
+ptr = Pointer(Int32).malloc(4) # [0, 0, 0, 0]
+ptr = Pointer(Int32).malloc(4) # [0, 0, 0, 0]
+
+ptr = Pointer.malloc(4) { |i| i + 1 } # [1, 2, 3, 4]
+ptr = Pointer.malloc(4) { |i| i + 1 } # [1, 2, 3, 4]
+
+ptr = Pointer.malloc(6) { |i| i + 10 } # [10, 11, 12, 13, 14, 15]
+ptr = Pointer.malloc(6) { |i| i + 10 } # [10, 11, 12, 13, 14, 15]
+
+ptr.address # => 0
+( ptr.address ).should eq( 0 )
+
+ptr.address # => 1234
+( ptr.address ).should eq( 1234 )
+
+ptr.address # => 5678
+( ptr.address ).should eq( 5678 )
+
+ptr.hash # => 1234
+ptr.hash # => 1234
+
+ptr.to_slice(6) # => Slice[0, 0, 0, 13, 14, 15]
+( ptr.to_slice(6) ).should eq( Slice[0, 0, 0, 13, 14, 15] )
+
+ptr.value # => 0
+( ptr.value ).should eq( 0 )
+
+ptr.value # => 42
+( ptr.value ).should eq( 42 )
+
+ptr1 = Pointer.malloc(4) { |i| i + 1 }  # [1, 2, 3, 4]
+ptr1 = Pointer.malloc(4) { |i| i + 1 }  # [1, 2, 3, 4]
+
+ptr1 = Pointer.malloc(4) { |i| i + 1 } # ptr1 -> [1, 2, 3, 4]
+ptr1 = Pointer.malloc(4) { |i| i + 1 } # ptr1 -> [1, 2, 3, 4]
+
+ptr1.memcmp(ptr1, 4) # => 0
+( ptr1.memcmp(ptr1, 4) ).should eq( 0 )
+
+ptr1.memcmp(ptr2, 4) # => -10
+( ptr1.memcmp(ptr2, 4) ).should eq( -10 )
+
+ptr1.to_s # => "Pointer(Int32)@0x4d2"
+( ptr1.to_s ).to_s.should eq( "Pointer(Int32)@0x4d2" )
+
+ptr1[0] # => 1
+( ptr1[0] ).should eq( 1 )
+
+ptr1[0] # => 11
+( ptr1[0] ).should eq( 11 )
+
+ptr1[1] # => 1
+( ptr1[1] ).should eq( 1 )
+
+ptr1[1] # => 12
+( ptr1[1] ).should eq( 12 )
+
+ptr1[2] # => 2
+( ptr1[2] ).should eq( 2 )
+
+ptr1[2] # => 3
+( ptr1[2] ).should eq( 3 )
+
+ptr1[3] # => 3
+( ptr1[3] ).should eq( 3 )
+
+ptr1[3] # => 4
+( ptr1[3] ).should eq( 4 )
+
+ptr2 - ptr1 # => 2
+( ptr2 - ptr1 ).should eq( 2 )
+
+ptr2 = Pointer.malloc(4) { |i| i + 11 } # [11, 12, 13, 14]
+ptr2 = Pointer.malloc(4) { |i| i + 11 } # [11, 12, 13, 14]
+
+ptr2 = ptr1 + 1                        #             ^--------- ptr2
+ptr2 = ptr1 + 1                        #             ^--------- ptr2
+
+ptr2.address # => 1230
+( ptr2.address ).should eq( 1230 )
+
+ptr2.address # => 1238
+( ptr2.address ).should eq( 1238 )
+
+ptr2.memcmp(ptr1, 4) # => 10
+( ptr2.memcmp(ptr1, 4) ).should eq( 10 )
+
+ptr2.to_s # => "Pointer(Int32).null"
+( ptr2.to_s ).to_s.should eq( "Pointer(Int32).null" )
+
+ptr2.value # => 42
+( ptr2.value ).should eq( 42 )
+
+ptr2[0] # => 1
+( ptr2[0] ).should eq( 1 )
+
+ptr2[1] # => 2
+( ptr2[1] ).should eq( 2 )
+
+ptr2[2] # => 13
+( ptr2[2] ).should eq( 13 )
+
+ptr2[3] # => 14
+( ptr2[3] ).should eq( 14 )
+
+ptr[0] # => 0
+( ptr[0] ).should eq( 0 )
+
+ptr[0] # => 10
+( ptr[0] ).should eq( 10 )
+
+ptr[0] # => 42
+( ptr[0] ).should eq( 42 )
+
+ptr[1] # => 11
+( ptr[1] ).should eq( 11 )
+
+ptr[1] # => 42
+( ptr[1] ).should eq( 42 )
+
+ptr[2] # => 12
+( ptr[2] ).should eq( 12 )
+
+ptr[2] # => 3
+( ptr[2] ).should eq( 3 )
+
+ptr[2] # => 4
+( ptr[2] ).should eq( 4 )
+
+ptr[3] # => 13
+( ptr[3] ).should eq( 13 )
+
+ptr[3] # => 3
+( ptr[3] ).should eq( 3 )
+
+ptr[3] # => 4
+( ptr[3] ).should eq( 4 )
+
+ptr[9] # => 0
+( ptr[9] ).should eq( 0 )
+
+puts "Hello #{destination}!"
+puts "Hello #{destination}!"
+
+puts BigInt.new("123456789101101987654321").to_s # => 123456789101101987654321
+( BigInt.new("123456789101101987654321").to_s ).to_s.should eq( "123456789101101987654321" )
+
+puts BigInt.new("123456789101101987654321").to_s(16) # => 1a249b1f61599cd7eab1
+( BigInt.new("123456789101101987654321").to_s(16) ).to_s.should eq( "1a249b1f61599cd7eab1" )
+
+puts BigInt.new("123456789101101987654321").to_s(36) # => k3qmt029k48nmpd
+( BigInt.new("123456789101101987654321").to_s(36) ).to_s.should eq( "k3qmt029k48nmpd" )
+
+puts BigInt.new("123456789101101987654321").to_s(8)  # => 32111154373025463465765261
+( BigInt.new("123456789101101987654321").to_s(8) ).to_s.should eq( "32111154373025463465765261" )
+
+puts Color.new(1) # => "Green"
+( Color.new(1) ).to_s.should eq( "Green" )
+
+puts Color.new(10) # => "10"
+( Color.new(10) ).to_s.should eq( "10" )
+
+puts ary  # => [[5, 2], [3, 4]]
+( ary ).to_s.should eq( "[[5, 2], [3, 4]]" )
+
+puts ary # => [[1], [1], [1]]
+( ary ).to_s.should eq( "[[1], [1], [1]]" )
+
+puts ary # => [[2], [1], [1]]
+( ary ).to_s.should eq( "[[2], [1], [1]]" )
+
+puts ary # => [[2], [2], [2]]
+( ary ).to_s.should eq( "[[2], [2], [2]]" )
+
+puts ary2 # => [[1, 2], [3, 4], [7, 8]]
+( ary2 ).to_s.should eq( "[[1, 2], [3, 4], [7, 8]]" )
+
+puts ary2 # => [[1, 2], [3, 4]]
+( ary2 ).to_s.should eq( "[[1, 2], [3, 4]]" )
+
+puts ary2 # => [[5, 2], [3, 4], [7, 8]]
+( ary2 ).to_s.should eq( "[[5, 2], [3, 4], [7, 8]]" )
+
+puts ary2 # => [[5, 2], [3, 4]]
+( ary2 ).to_s.should eq( "[[5, 2], [3, 4]]" )
+
+puts ba.to_s # => "BitArray[00000]"
+( ba.to_s ).to_s.should eq( "BitArray[00000]" )
+
+puts x # => 2
+( x ).to_s.should eq( "2" )
+
+r.includes?(Xs.new(5)) # => true
+( r.includes?(Xs.new(5)) ).should eq( true )
+
+r.next_bool # => true
+( r.next_bool ).should eq( true )
+
+r.next_int  # => 2223112
+( r.next_int ).should eq( 2223112 )
+
+r.rand      # => 0.0372991
+( r.rand ).try(&.to_f).to_s.should eq( "0.0372991" )
+
+r.rand # => 0.0372991
+( r.rand ).try(&.to_f).to_s.should eq( "0.0372991" )
+
+r.rand # => 0.167595
+( r.rand ).try(&.to_f).to_s.should eq( "0.167595" )
+
+r.to_a                 # => [Xs.new(3), Xs.new(4), Xs.new(5), Xs.new(6)]
+( r.to_a ).should eq( [Xs.new(3), Xs.new(4), Xs.new(5), Xs.new(6)] )
+
+r.to_s                 # => "xxx..xxxxxx"
+( r.to_s ).to_s.should eq( "xxx..xxxxxx" )
+
+r.to_s     # => "8243243/562828882"
+( r.to_s ).to_s.should eq( "8243243/562828882" )
+
+r.to_s # => "-1/3"
+( r.to_s ).to_s.should eq( "-1/3" )
+
+r.to_s # => "7/3"
+( r.to_s ).to_s.should eq( "7/3" )
+
+r.to_s(16) # => "7dc82b/218c1652"
+( r.to_s(16) ).to_s.should eq( "7dc82b/218c1652" )
+
+r.to_s(36) # => "4woiz/9b3djm"
+( r.to_s(36) ).to_s.should eq( "4woiz/9b3djm" )
+
+rand     # => 0.293829
+( rand ).try(&.to_f).to_s.should eq( "0.293829" )
+
+rand(10) # => 8
+( rand(10) ).should eq( 8 )
+
+random_value = rand # => 0.627423
+( random_value = rand ).try(&.to_f).to_s.should eq( "0.627423" )
+
+raw # => StaticArray[0x34, 0x12]
+( raw ).should eq( StaticArray[0x34, 0x12] )
+
+raw.to_json # => %({"value":123456789876543212345678987654321})
+( raw.to_json ).should eq( %({"value":123456789876543212345678987654321}) )
+
+raw.value   # => "123456789876543212345678987654321"
+( raw.value ).to_s.should eq( "123456789876543212345678987654321" )
+
+re = /A*/                  # => "(?-imsx:A*)"
+( re = /A*/ ).to_s.should eq( "(?-imsx:A*)" )
+
+re = /A*/i                 # => /A*/i
+( re = /A*/i ).should eq( /A*/i )
+
+re.match("Skiing")   # => #<Regex::MatchData "Skiing">
+( re.match("Skiing") ).class.to_s.should eq( "Regex::MatchData" )
+
+re.match("sledding") # => #<Regex::MatchData "sledding">
+( re.match("sledding") ).class.to_s.should eq( "Regex::MatchData" )
+
+re.to_s                    # => "(?i-msx:A*)"
+( re.to_s ).to_s.should eq( "(?i-msx:A*)" )
+
+reader.current_char   # => 'a'
+( reader.current_char ).should eq( 'a' )
+
+reader.current_char # => 'a'
+( reader.current_char ).should eq( 'a' )
+
+reader.current_char # => 'b'
+( reader.current_char ).should eq( 'b' )
+
+reader.current_char_width # => 1
+( reader.current_char_width ).should eq( 1 )
+
+reader.current_char_width # => 2
+( reader.current_char_width ).should eq( 2 )
+
+reader.gets # => "hello"
+( reader.gets ).to_s.should eq( "hello" )
+
+reader.gets # => "world"
+( reader.gets ).to_s.should eq( "world" )
+
+reader.has_next?      # => true
+( reader.has_next? ).should eq( true )
+
+reader.next_char # => 'b'
+( reader.next_char ).should eq( 'b' )
+
+reader.peek_next_char # => '\0'
+( reader.peek_next_char ).should eq( '\0' )
+
+reader.peek_next_char # => 'b'
+( reader.peek_next_char ).should eq( 'b' )
+
+reader.pos # => 0
+( reader.pos ).should eq( 0 )
+
+reader.pos # => 1
+( reader.pos ).should eq( 1 )
+
+request.cookies.has_key?("foo") # => true
+( request.cookies.has_key?("foo") ).should eq( true )
+
+request.cookies["foo"].value # => "bar"
+( request.cookies["foo"].value ).to_s.should eq( "bar" )
+
+request.cookies["foo"]? # => nil
+( request.cookies["foo"]? ).should eq( nil )
+
+request.cookies["foo"]?.try &.value # > "bar"
+request.cookies["foo"]?.try &.value # > "bar"
+
+response.body # => "..."
+( response.body ).to_s.should eq( "..." )
+
+response.body #=> "..."
+( response.body ).to_s.should eq( "..." )
+
+response.body.lines.first # => "<!doctype html>"
+( response.body.lines.first ).to_s.should eq( "<!doctype html>" )
+
+response.status_code      # => 200
+( response.status_code ).should eq( 200 )
+
+result # => "one,two\nthree\n"
+( result ).to_s.should eq( "one,two\nthree\n" )
+
+rows.next # => ["one", "two"]
+( rows.next ).should eq( ["one", "two"] )
+
+rows.next # => ["three"]
+( rows.next ).should eq( ["three"] )
+
+s = [1, 2, 3]          # => [1, 2, 3]
+( s = [1, 2, 3] ).should eq( [1, 2, 3] )
+
+s.empty? # => false
+( s.empty? ).should eq( false )
+
+s.empty? # => true
+( s.empty? ).should eq( true )
+
+s.includes? 5 # => false
+( s.includes? 5 ).should eq( false )
+
+s.includes? 5 # => true
+( s.includes? 5 ).should eq( true )
+
+s.includes? 8 # => false
+( s.includes? 8 ).should eq( false )
+
+s.includes? 8 # => true
+( s.includes? 8 ).should eq( true )
+
+s.includes? 9 # => false
+( s.includes? 9 ).should eq( false )
+
+s.size # => 0
+( s.size ).should eq( 0 )
+
+s.size # => 2
+( s.size ).should eq( 2 )
+
+s.size # => 4
+( s.size ).should eq( 4 )
+
+s1 == s2 # => true
+( s1 == s2 ).should eq( true )
+
+s1 == s3 # => true
+( s1 == s3 ).should eq( true )
+
+s1.subset? s2 # => false
+( s1.subset? s2 ).should eq( false )
+
+s2.subset? s1 # => true
+( s2.subset? s1 ).should eq( true )
+
+set = Set{1, 2, 3} # => Set{1, 2, 3}
+( set = Set{1, 2, 3} ).should eq( Set{1, 2, 3} )
+
+set.class          # => Set(Int32)
+( set.class ).should eq( Set(Int32) )
+
+sized.gets_to_end # => ""
+( sized.gets_to_end ).to_s.should eq( "" )
+
+sized.gets_to_end # => "abc"
+( sized.gets_to_end ).to_s.should eq( "abc" )
+
+slice                 # => Bytes[49, 50, 51, 52, 53]
+( slice ).should eq( Bytes[49, 50, 51, 52, 53] )
+
+slice                # => Bytes[49, 50, 51, 52, 53]
+( slice ).should eq( Bytes[49, 50, 51, 52, 53] )
+
+slice          # => Bytes[0]
+( slice ).should eq( Bytes[0] )
+
+slice          # => Bytes[104, 101, 108, 108]
+( slice ).should eq( Bytes[104, 101, 108, 108] )
+
+slice          # => Bytes[111, 101, 108, 108]
+( slice ).should eq( Bytes[111, 101, 108, 108] )
+
+slice      # => Bytes[97, 98, 99]
+( slice ).should eq( Bytes[97, 98, 99] )
+
+slice # => Bytes[0, 0, 0]
+( slice ).should eq( Bytes[0, 0, 0] )
+
+slice # => Slice[10, 10, 10]
+( slice ).should eq( Slice[10, 10, 10] )
+
+slice # => Slice[10, 11, 12, 13, 14]
+( slice ).should eq( Slice[10, 11, 12, 13, 14] )
+
+slice # => Slice[10, 11, 12]
+( slice ).should eq( Slice[10, 11, 12] )
+
+slice # => Slice[20, 11, 12, 13, 30]
+( slice ).should eq( Slice[20, 11, 12, 13, 30] )
+
+slice = array.to_slice # => Slice[2, 2, 2]
+( slice = array.to_slice ).should eq( Slice[2, 2, 2] )
+
+slice = ptr.to_slice(4)                # => Slice[10, 11, 12, 13]
+( slice = ptr.to_slice(4) ).should eq( Slice[10, 11, 12, 13] )
+
+slice.class                            # => Slice(Int32)
+( slice.class ).should eq( Slice(Int32) )
+
+slice.class # => Slice(Char | Int32)
+( slice.class ).should eq( Slice(Char | Int32) )
+
+slice.hexdump # => "00000000  61 3e 3f 08 ff                                    a>?.."
+( slice.hexdump ).to_s.should eq( "00000000  61 3e 3f 08 ff                                    a>?.." )
+
+slice.hexstring # => "613e3f08ff"
+( slice.hexstring ).to_s.should eq( "613e3f08ff" )
+
+slice.size # => 0
+( slice.size ).should eq( 0 )
+
+slice.size # => 3
+( slice.size ).should eq( 3 )
+
+slice.to_unsafe[0] # => 10
+( slice.to_unsafe[0] ).should eq( 10 )
+
+slice2 # => Slice[11, 12, 13]
+( slice2 ).should eq( Slice[11, 12, 13] )
+
+slice2 # => Slice[12, 13, 14]
+( slice2 ).should eq( Slice[12, 13, 14] )
+
+slice[0]    # => 1
+( slice[0] ).should eq( 1 )
+
+slice[1]    # => 'a'
+( slice[1] ).should eq( 'a' )
+
+span       # => 01:00:00
+( span ).should eq( Time::Span.new(0, 1, 0, 0, 0) )
+
+span       # => 30.00:00:00
+( span ).should eq( Time::Span.new(30, 0, 0, 0, 0) )
+
+span.class # => Time::Span
+( span.class ).should eq( Time::Span )
+
+span.days          # => 30
+( span.days ).should eq( 30 )
+
+span.hours   # => 20
+( span.hours ).should eq( 20 )
+
+span.hours # => 1
+( span.hours ).should eq( 1 )
+
+span.minutes # => 10
+( span.minutes ).should eq( 10 )
+
+span.seconds # => 10
+( span.seconds ).should eq( 10 )
+
+span.total_hours   # => 720
+( span.total_hours ).should eq( 720 )
+
+span.total_minutes # => 43200
+( span.total_minutes ).should eq( 43200 )
+
+speak_about(**{thing: String, n: Int64}.from(data)) # => "I see 2 worlds"
+( speak_about(**{thing: String, n: Int64}.from(data)) ).to_s.should eq( "I see 2 worlds" )
+
+speak_about(*{String, Int64}.from(data)) # => "I see 2 worlds"
+( speak_about(*{String, Int64}.from(data)) ).to_s.should eq( "I see 2 worlds" )
+
+str # => "ab"
+( str ).to_s.should eq( "ab" )
+
+str # => "hello 1"
+( str ).to_s.should eq( "hello 1" )
+
+str.index 'a' # => nil
+( str.index 'a' ).should eq( nil )
+
+str.index 'e' # => 1
+( str.index 'e' ).should eq( 1 )
+
+str.itself.object_id == str.object_id # => true
+str.itself.object_id == str.object_id # => true
+
+string # => "---\nfoo:\n- 1\n- 2\n"
+( string ).to_s.should eq( "---\nfoo:\n- 1\n- 2\n" )
+
+string # => "<?xml version=\"1.0\"?>\n<person id=\"1\">\n  <firstname>Jane</firstname>\n  <lastname>Doe</lastname>\n</person>\n"
+( string ).to_s.should eq( "<?xml version=\"1.0\"?>\n<person id=\"1\">\n  <firstname>Jane</firstname>\n  <lastname>Doe</lastname>\n</person>\n" )
+
+string # => "abc"
+( string ).to_s.should eq( "abc" )
+
+string # => %<{"name":"foo","values":[1,2,3]}>
+( string ).should eq( %<{"name":"foo","values":[1,2,3]}> )
+
+string = Regex.escape("\*?{}.") # => "\\*\\?\\{\\}\\."
+( string = Regex.escape("\*?{}.") ).to_s.should eq( "\\*\\?\\{\\}\\." )
+
+string.object_id # => 4460249568
+string.object_id # => 4460249568
+
+string2.object_id == string.object_id # => true
+string2.object_id == string.object_id # => true
+
+struct Foo # < Struct
+struct Foo # < Struct
+
+sums                                        # => [3, 4, 3, 5, 4, 5]
+( sums ).should eq( [3, 4, 3, 5, 4, 5] )
+
+t = [4, 5, 6, [7, 8]]  # => [4, 5, 6, [7, 8]]
+( t = [4, 5, 6, [7, 8]] ).should eq( [4, 5, 6, [7, 8]] )
+
+t1 == t2 # => true
+( t1 == t2 ).should eq( true )
+
+t1 == t3 # => false
+( t1 == t3 ).should eq( false )
+
+t3         # => {1, 2, "foo", "bar"}
+( t3 ).should eq( {1, 2, "foo", "bar"} )
+
+text = "## This is title \n This is a [link](http://crystal-lang.org)"
+text = "## This is title \n This is a [link](http://crystal-lang.org)"
+
+three.all? { |x| x < 10 } # => true
+( three.all? { |x| x < 10 } ).should eq( true )
+
+three.select &.odd?       # => [1, 3]
+( three.select &.odd? ).should eq( [1, 3] )
+
+three.to_a                # => [1, 2, 3]
+( three.to_a ).should eq( [1, 2, 3] )
+
+time = Time.epoch_ms(981173106789) # => 2001-02-03 04:05:06.789 UTC
+( time = Time.epoch_ms(981173106789) ).should eq( Time.parse("2001-02-03 04:05:06.789 UTC", "%F %T.%L %z") )
+
+time.day     # => 15
+( time.day ).should eq( 15 )
+
+time.epoch # => 1452567845
+( time.epoch ).should eq( 1452567845 )
+
+time.epoch_f # => 1452567845.678
+( time.epoch_f ).try(&.to_f).to_s.should eq( "1452567845.678" )
+
+time.epoch_ms # => 1452567845678
+( time.epoch_ms ).should eq( 1452567845678 )
+
+time.hour    # => 10
+( time.hour ).should eq( 10 )
+
+time.local? # => true
+( time.local? ).should eq( true )
+
+time.millisecond                   # => 789
+( time.millisecond ).should eq( 789 )
+
+time.minute  # => 20
+( time.minute ).should eq( 20 )
+
+time.monday? # => true
+( time.monday? ).should eq( true )
+
+time.month   # => 2
+( time.month ).should eq( 2 )
+
+time.second  # => 30
+( time.second ).should eq( 30 )
+
+time.to_local # => 2016-02-16 05:01:10 +0800
+time.to_local # => 2016-02-16 05:01:10 +0800
+
+time.to_s("%F") # => "2016-04-05"
+( time.to_s("%F") ).to_s.should eq( "2016-04-05" )
+
+time.to_s("%Y-%m-%d") # => "2015-10-12"
+( time.to_s("%Y-%m-%d") ).to_s.should eq( "2015-10-12" )
+
+time.to_utc   # => 2016-02-15 21:00:00 UTC
+time.to_utc   # => 2016-02-15 21:00:00 UTC
+
+time.utc?   # => false
+( time.utc? ).should eq( false )
+
+time.year    # => 2016
+( time.year ).should eq( 2016 )
+
+true  # A Bool that is true
+true  # A Bool that is true
+
+true & false  # => false
+( true & false ).should eq( false )
+
+true & true   # => true
+( true & true ).should eq( true )
+
+true ^ false  # => true
+( true ^ false ).should eq( true )
+
+true ^ true   # => false
+( true ^ true ).should eq( false )
+
+true | false  # => true
+( true | false ).should eq( true )
+
+true | true   # => true
+( true | true ).should eq( true )
+
+tuple       # => {1, "hello", 'x'}
+( tuple ).should eq( {1, "hello", 'x'} )
+
+tuple = {1, "hello", 'x'} # Tuple(Int32, String, Char)
+tuple = {1, "hello", 'x'} # Tuple(Int32, String, Char)
+
+tuple.at(0) # => 1
+( tuple.at(0) ).should eq( 1 )
+
+tuple.at(0) { 10 } # => 1
+( tuple.at(0) { 10 } ).should eq( 1 )
+
+tuple.at(3) { 10 } # => 10
+( tuple.at(3) { 10 } ).should eq( 10 )
+
+tuple.class # => Tuple(Int32, String, Char)
+( tuple.class ).should eq( Tuple(Int32, String, Char) )
+
+tuple.empty? # => false
+( tuple.empty? ).should eq( false )
+
+tuple.fetch("name") { "Unknown" } # => "Crystal"
+( tuple.fetch("name") { "Unknown" } ).to_s.should eq( "Crystal" )
+
+tuple.fetch("other") { 0 }        # => 0
+( tuple.fetch("other") { 0 } ).should eq( 0 )
+
+tuple.fetch("year", 0)        # => 2011
+( tuple.fetch("year", 0) ).should eq( 2011 )
+
+tuple.fetch(:name) { "Unknown" } # => "Crystal"
+( tuple.fetch(:name) { "Unknown" } ).to_s.should eq( "Crystal" )
+
+tuple.fetch(:name, "Unknown") # => "Crystal"
+( tuple.fetch(:name, "Unknown") ).to_s.should eq( "Crystal" )
+
+tuple.fetch(:other) { 0 }        # => 0
+( tuple.fetch(:other) { 0 } ).should eq( 0 )
+
+tuple.fetch(:other, 0)        # => 0
+( tuple.fetch(:other, 0) ).should eq( 0 )
+
+tuple.first # => 1
+( tuple.first ).should eq( 1 )
+
+tuple.first? # => 1
+( tuple.first? ).should eq( 1 )
+
+tuple.has_key?(:name)  # => true
+( tuple.has_key?(:name) ).should eq( true )
+
+tuple.has_key?(:other) # => false
+( tuple.has_key?(:other) ).should eq( false )
+
+tuple.keys # => {:name, :year}
+( tuple.keys ).should eq( {:name, :year} )
+
+tuple.last # => 2.5
+( tuple.last ).try(&.to_f).to_s.should eq( "2.5" )
+
+tuple.last? # => 2.5
+( tuple.last? ).try(&.to_f).to_s.should eq( "2.5" )
+
+tuple.map &.to_s # => {"1", "2.5", "a"}
+( tuple.map &.to_s ).should eq( {"1", "2.5", "a"} )
+
+tuple.map { |k, v| "#{k}: #{v}" } # => ["name: Crystal", "year: 2011"]
+( tuple.map { |k, v| "#{k}: #{v}" } ).should eq( ["name: Crystal", "year: 2011"] )
+
+tuple.reverse # => {"a", 2.5, 1}
+( tuple.reverse ).should eq( {"a", 2.5, 1} )
+
+tuple.size # => 2
+( tuple.size ).should eq( 2 )
+
+tuple.to_a # => [{:name, "Crystal"}, {:year, 2011}]
+( tuple.to_a ).should eq( [{:name, "Crystal"}, {:year, 2011}] )
+
+tuple.to_h # => {:name => "Crystal", :year => 2011}
+( tuple.to_h ).should eq( {:name => "Crystal", :year => 2011} )
+
+tuple.to_s # => "{1, \"hello\"}"
+( tuple.to_s ).to_s.should eq( "{1, \"hello\"}" )
+
+tuple.to_s # => %({name: "Crystal", year: 2011})
+( tuple.to_s ).should eq( %({name: "Crystal", year: 2011}) )
+
+tuple.types # => Tuple(Int32, String, Char)
+( tuple.types ).should eq( Tuple(Int32, String, Char) )
+
+tuple.values # => {"Crystal", 2011}
+( tuple.values ).should eq( {"Crystal", 2011} )
+
+tuple1 == tuple2 # => true
+( tuple1 == tuple2 ).should eq( true )
+
+tuple1 == tuple3 # => false
+( tuple1 == tuple3 ).should eq( false )
+
+tuple1 == tuple4 # => true
+( tuple1 == tuple4 ).should eq( true )
+
+tuple[0]                  # => 1
+( tuple[0] ).should eq( 1 )
+
+tuple[0] # => 1 (Int32)
+( tuple[0] ).should eq( 1 )
+
+tuple[0]? # => 1
+( tuple[0]? ).should eq( 1 )
+
+tuple[1]                  # => "hello"
+( tuple[1] ).to_s.should eq( "hello" )
+
+tuple[2]                  # => 'x'
+( tuple[2] ).should eq( 'x' )
+
+tuple[3]? # => nil
+( tuple[3]? ).should eq( nil )
+
+tuple[i] # => 1 (Int32 | String | Char)
+( tuple[i] ).should eq( 1 )
+
+tuple[key] # => "Crystal"
+( tuple[key] ).to_s.should eq( "Crystal" )
+
+tuple[key] # => 2011
+( tuple[key] ).should eq( 2011 )
+
+tuple[key]? # => "Crystal"
+( tuple[key]? ).to_s.should eq( "Crystal" )
+
+tuple[key]? # => nil
+( tuple[key]? ).should eq( nil )
+
+typeof(Color::Red) # => Color
+( typeof(Color::Red) ).should eq( Color )
+
+typeof(klass.cast(number)) # => Int32
+( typeof(klass.cast(number)) ).should eq( Int32 )
+
+typeof(number)             # => (String | Int32)
+( typeof(number) ).should eq( (String | Int32) )
+
+typeof(t3) # => Tuple(Int32, Int32, String, String)
+( typeof(t3) ).should eq( Tuple(Int32, Int32, String, String) )
+
+typeof(value) # => Int32 | String
+( typeof(value) ).should eq( Int32 | String )
+
+typeof(value[0])      # => JSON::Any
+( typeof(value[0]) ).should eq( JSON::Any )
+
+typeof(value[0].as_i) # => Int32
+( typeof(value[0].as_i) ).should eq( Int32 )
+
+u = [9, [10, 11].each] # => [9, #<Indexable::ItemIterator>]
+u = [9, [10, 11].each] # => [9, #<Indexable::ItemIterator>]
+
+uri = URI.parse "http://foo.com/posts?id=30&limit=5#time=1305298413"
+uri = URI.parse "http://foo.com/posts?id=30&limit=5#time=1305298413"
+
+uri = URI.parse("http://crystal-lang.org") # => #<URI:0x1068a7e40 @scheme="http", @host="crystal-lang.org", ... >
+( uri = URI.parse("http://crystal-lang.org") ).class.to_s.should eq( "URI" )
+
+uri.full_path # => "/posts?id=30&limit=5"
+( uri.full_path ).to_s.should eq( "/posts?id=30&limit=5" )
+
+uri.host                                   # => "crystal-lang.org"
+( uri.host ).to_s.should eq( "crystal-lang.org" )
+
+uri.host   # => "foo.com"
+( uri.host ).to_s.should eq( "foo.com" )
+
+uri.query  # => "id=30&limit=5"
+( uri.query ).to_s.should eq( "id=30&limit=5" )
+
+uri.scheme                                 # => "http"
+( uri.scheme ).to_s.should eq( "http" )
+
+uri.scheme # => "http"
+( uri.scheme ).to_s.should eq( "http" )
+
+uri.to_s   # => "http://foo.com/posts?id=30&limit=5#time=1305298413"
+uri.to_s   # => "http://foo.com/posts?id=30&limit=5#time=1305298413"
+
+uri.userinfo # => "admin:password"
+( uri.userinfo ).to_s.should eq( "admin:password" )
+
+value                    # => "heyhey"
+( value ).to_s.should eq( "heyhey" )
+
+value         # => "hello"
+( value ).to_s.should eq( "hello" )
+
+value # => "bar"
+( value ).to_s.should eq( "bar" )
+
+value # => "qux"
+( value ).to_s.should eq( "qux" )
+
+value = JSON.parse("[1, 2, 3]") # : JSON::Any
+value = JSON.parse("[1, 2, 3]") # : JSON::Any
+
+value = multiply(*tuple) # same as multiply tuple[0], tuple[1]
+value = multiply(*tuple) # same as multiply tuple[0], tuple[1]
+
+value.class   # => String
+( value.class ).should eq( String )
+
+value[0]              # => 1
+( value[0] ).should eq( 1 )
+
+value[0].as_i         # => 1
+( value[0].as_i ).should eq( 1 )
+
+value[0].as_i + 10 # => 11
+( value[0].as_i + 10 ).should eq( 11 )
+
+wrapper.capitalize     # => "Hello"
+( wrapper.capitalize ).to_s.should eq( "Hello" )
+
+wrapper.downcase       # => "hello"
+( wrapper.downcase ).to_s.should eq( "hello" )
+
+wrapper.empty?         # => false
+( wrapper.empty? ).should eq( false )
+
+wrapper.gsub(/E/, "A") # => "HALLO"
+( wrapper.gsub(/E/, "A") ).to_s.should eq( "HALLO" )
+
+x...y # an exclusive range, in mathematics: [x, y)
+x...y # an exclusive range, in mathematics: [x, y)
+
+x..y  # an inclusive range, in mathematics: [x, y]
+x..y  # an inclusive range, in mathematics: [x, y]
+
+yaml = YAML.dump({hello: "world"})                               # => "---\nhello: world\n"
+( yaml = YAML.dump({hello: "world"}) ).to_s.should eq( "---\nhello: world\n" )
+
+yaml = {hello: "world"}.to_yaml                               # => "---\nhello: world\n"
+( yaml = {hello: "world"}.to_yaml ).to_s.should eq( "---\nhello: world\n" )
+
+zeros.first(3).to_a # => [0, 0, 0]
+( zeros.first(3).to_a ).should eq( [0, 0, 0] )
+
+zeros.to_a # => [0, 0, 0, 0, 0]
+( zeros.to_a ).should eq( [0, 0, 0, 0, 0] )
+
+{"a" => 1, "b" => 2, "c" => 3, "d" => 4}.reject("a", "c") # => {"b" => 2, "d" => 4}
+( {"a" => 1, "b" => 2, "c" => 3, "d" => 4}.reject("a", "c") ).should eq( {"b" => 2, "d" => 4} )
+
+{"a" => 1, "b" => 2, "c" => 3, "d" => 4}.select("a", "c") # => {"a" => 1, "c" => 3}
+( {"a" => 1, "b" => 2, "c" => 3, "d" => 4}.select("a", "c") ).should eq( {"a" => 1, "c" => 3} )
+
+{"a" => 1, "b" => 2, "c" => 3, "d" => 4}.values_at("a", "c") # => {1, 3}
+( {"a" => 1, "b" => 2, "c" => 3, "d" => 4}.values_at("a", "c") ).should eq( {1, 3} )
+
+{"a", "a", "c"} <=> {"a", "b", "c"} # => -1
+( {"a", "a", "c"} <=> {"a", "b", "c"} ).should eq( -1 )
+
+{"foo" => "bar", "baz" => "bar"}.invert # => {"bar" => "baz"}
+( {"foo" => "bar", "baz" => "bar"}.invert ).should eq( {"bar" => "baz"} )
+
+{"foo" => "bar"}.invert                 # => {"bar" => "foo"}
+( {"foo" => "bar"}.invert ).should eq( {"bar" => "foo"} )
+
+{'a', 'b'}.size # => 2
+( {'a', 'b'}.size ).should eq( 2 )
+
+{/o+/, "bar"} === {"foo", "bar"} # => true
+( {/o+/, "bar"} === {"foo", "bar"} ).should eq( true )
+
+{1, 2, 3, 4, 5, 6} <=> {1, 2}       # => +1
+( {1, 2, 3, 4, 5, 6} <=> {1, 2} ).should eq( +1 )
+
+{1, 2} <=> {1, 2.0}                 # => 0
+( {1, 2} <=> {1, 2.0} ).should eq( 0 )
+
+{1, 2} === {1, 2, 3}             # => false
+( {1, 2} === {1, 2, 3} ).should eq( false )
+
+{1, 2} === {1, 2} # => true
+( {1, 2} === {1, 2} ).should eq( true )
+
+{1, 2} === {1, 3} # => false
+( {1, 2} === {1, 3} ).should eq( false )
+
+{name, value.lstrip} # => {"Server", "nginx"}
+( {name, value.lstrip} ).should eq( {"Server", "nginx"} )
+

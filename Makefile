@@ -1,7 +1,7 @@
 SHELL=/bin/bash
 
 .PHONY : test
-test: spec check_version_mismatch
+test: check_version_mismatch spec
 
 .PHONY : spec
 spec:
@@ -11,3 +11,8 @@ spec:
 check_version_mismatch: shard.yml README.md
 	diff -w -c <(grep version: README.md | head -1) <(grep ^version: shard.yml)
 
+.PHONY : fixtures
+fixtures: spec/fixtures/master
+
+spec/fixtures/master: doc/fixtures/master examples/fixtures.cr 
+	crystal examples/fixtures.cr -- $^ > $@

@@ -29,7 +29,8 @@ CommentSpec.parse "v[10] # raises IndexError")     # => "expect_raises(IndexErro
 
 ## Converting Rules
 
-- [src/comment-spec/rules.cr](./src/comment-spec/rules.cr)
+- rule: [src/comment-spec/rules.cr](./src/comment-spec/rules.cr)
+- spec: [spec/fixtures/](./spec/fixtures/)
 
 ## Development
 
