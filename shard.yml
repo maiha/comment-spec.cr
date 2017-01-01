@@ -1,0 +1,9 @@
+name: comment-spec
+version: 0.1.0
+
+authors:
+  - maiha <maiha@wota.jp>
+
+crystal: 0.20.3
+
+license: MIT
