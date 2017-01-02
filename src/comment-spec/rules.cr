@@ -1,125 +1,127 @@
-rule(
-  regex: /^require\s+".*?"/,
-  klass: CommentOut
-)
+class CommentSpec
+  rule(
+    regex: /^require\s+".*?"/,
+    klass: CommentOut
+  )
 
-rule(
-  regex: /^\s*#/,
-  klass: Nop,
-)
+  rule(
+    regex: /^\s*#/,
+    klass: Nop,
+  )
 
-rule(
-  regex: /^(.*?)\.(object_id|mtime|hash|sample|to_utc|to_local|local_offset_in_minutes)\b[^#]*#\s*=>/,
-  klass: Nop
-)
+  rule(
+    regex: /^(.*?)\.(object_id|mtime|hash|sample|to_utc|to_local|local_offset_in_minutes)\b[^#]*#\s*=>/,
+    klass: Nop
+  )
 
-rule(
-  regex: /^(.*?)\s*#\s+raises\s+([A-Z][A-Za-z0-9]+(::[A-Z][A-Za-z0-9]+)*)/,
-  klass: ExpectRaises,
-  value: {code: md[1], err: md[2]}
-)
+  rule(
+    regex: /^(.*?)\s*#\s+raises\s+([A-Z][A-Za-z0-9]+(::[A-Z][A-Za-z0-9]+)*)/,
+    klass: ExpectRaises,
+    value: {code: md[1], err: md[2]}
+  )
 
-rule(
-  regex: /^pp\s+(.*?)\s*#\s*=>\s*"(.*?)"$/,
-  klass: Nop
-)
+  rule(
+    regex: /^pp\s+(.*?)\s*#\s*=>\s*"(.*?)"$/,
+    klass: Nop
+  )
 
-rule(
-  regex: /^puts\s+(.*?)\s*#\s*=>\s*"?(.*?)"?$/,
-  klass: ExpectStringEqual,
-  value: {code: md[1], eq: md[2].strip}
-)
+  rule(
+    regex: /^puts\s+(.*?)\s*#\s*=>\s*"?(.*?)"?$/,
+    klass: ExpectStringEqual,
+    value: {code: md[1], eq: md[2].strip}
+  )
 
-# NOTE: check with `class.to_s` for the case of private class like `Indexable::ItemIterator`
-rule(
-  regex: /^(.*?)\s*#\s*=>\s+#<([A-Z][A-Za-z0-9]+(::[A-Z][A-Za-z0-9]+)*).*?>/,
-  klass: ExpectClass,
-  value: {code: md[1], eq: md[2]}
-)
+  # NOTE: check with `class.to_s` for the case of private class like `Indexable::ItemIterator`
+  rule(
+    regex: /^(.*?)\s*#\s*=>\s+#<([A-Z][A-Za-z0-9]+(::[A-Z][A-Za-z0-9]+)*).*?>/,
+    klass: ExpectClass,
+    value: {code: md[1], eq: md[2]}
+  )
 
 
-rule(
-  regex: /^(.*?)\s*#\s+=>\s+(\d{0,4})\.?(\d{2}):(\d{2}):(\d{2})\.?(\d{0,7})$/,
-  klass: ExpectEqual,
-  value: {code: md[1], eq: to_time_span(md[2], md[3], md[4], md[5], md[6])}
-)
+  rule(
+    regex: /^(.*?)\s*#\s+=>\s+(\d{0,4})\.?(\d{2}):(\d{2}):(\d{2})\.?(\d{0,7})$/,
+    klass: ExpectEqual,
+    value: {code: md[1], eq: to_time_span(md[2], md[3], md[4], md[5], md[6])}
+  )
 
-rule(
-  regex: /^(.*?)\s*#\s+=>\s+(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(.*?))$/,
-  klass: ExpectEqual,
-  value: {code: md[1], eq: to_time(md[2], md[3])}
-)
+  rule(
+    regex: /^(.*?)\s*#\s+=>\s+(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(.*?))$/,
+    klass: ExpectEqual,
+    value: {code: md[1], eq: to_time(md[2], md[3])}
+  )
 
-rule(
-  regex: /^#/,
-  klass: Nop
-)
+  rule(
+    regex: /^#/,
+    klass: Nop
+  )
 
-# FoundArrayInstance
-# "value # => [9, #<Indexable::ItemIterator>]"
-rule(
-  regex: /^(.*?)\s*#\s*=>\s*[^#].*?#/,
-  klass: Nop
-)
+  # FoundArrayInstance
+  # "value # => [9, #<Indexable::ItemIterator>]"
+  rule(
+    regex: /^(.*?)\s*#\s*=>\s*[^#].*?#/,
+    klass: Nop
+  )
 
-# FoundEmptyCollection
-rule(
-  regex: /^(.*?)\s*#\s*=>\s*(\[\]|\[\[\]\]|{})$/,
-  klass: ExpectStringEqual,
-  value: {code: md[1], eq: md[2]}
-)
+  # FoundEmptyCollection
+  rule(
+    regex: /^(.*?)\s*#\s*=>\s*(\[\]|\[\[\]\]|{})$/,
+    klass: ExpectStringEqual,
+    value: {code: md[1], eq: md[2]}
+  )
 
-# FoundFloat
-rule(
-  regex: /^(.*?\.to_f\??)\s*#\s*=>\s*(\d+\.\d+)$/,
-  klass: ExpectStringEqual,
-  value: {code: md[1], eq: md[2]}
-)
+  # FoundFloat
+  rule(
+    regex: /^(.*?\.to_f\??)\s*#\s*=>\s*(\d+\.\d+)$/,
+    klass: ExpectStringEqual,
+    value: {code: md[1], eq: md[2]}
+  )
 
-rule(
-  regex: /^(.*?)\s*#\s*=>\s*(\d+\.\d+)$/,
-  klass: ExpectTryFloat,
-  value: {code: md[1], eq: md[2]}
-)
+  rule(
+    regex: /^(.*?)\s*#\s*=>\s*(\d+\.\d+)$/,
+    klass: ExpectTryFloat,
+    value: {code: md[1], eq: md[2]}
+  )
 
-# FoundNumeric
-rule(
-  regex: /^(.*?)\s*#\s*=>\s*(\d+)\s+\(/,
-  klass: ExpectEqual,
-  value: {code: md[1], eq: md[2]}
-)
+  # FoundNumeric
+  rule(
+    regex: /^(.*?)\s*#\s*=>\s*(\d+)\s+\(/,
+    klass: ExpectEqual,
+    value: {code: md[1], eq: md[2]}
+  )
 
-rule(
-  regex: /^(.*?)\s*#\s*=>\s*"(.*?)"$/,
-  klass: ExpectStringEqual,
-  value: {code: md[1], eq: md[2]}
-)
+  rule(
+    regex: /^(.*?)\s*#\s*=>\s*"(.*?)"$/,
+    klass: ExpectStringEqual,
+    value: {code: md[1], eq: md[2]}
+  )
 
-# FoundLiteral
-rule(
-  regex: /^(.*?)\s*#\s*=>\s*(\d{20,}|\d+\/\d+|BitArray\[.*?|.*?\d+\.\d+i|CSV::Token.*?)$/,
-  klass: ExpectStringEqual,
-  value: {code: md[1], eq: md[2].gsub(/"/, %(\\"))}
-)
+  # FoundLiteral
+  rule(
+    regex: /^(.*?)\s*#\s*=>\s*(\d{20,}|\d+\/\d+|BitArray\[.*?|.*?\d+\.\d+i|CSV::Token.*?)$/,
+    klass: ExpectStringEqual,
+    value: {code: md[1], eq: md[2].gsub(/"/, %(\\"))}
+  )
 
-# FoundObject
-rule(
-  regex: /^(.*?)\s*#\s*=>\s*(.*?)$/,
-  klass: ExpectEqual,
-  value: {code: md[1], eq: md[2]}
-)
+  # FoundObject
+  rule(
+    regex: /^(.*?)\s*#\s*=>\s*(.*?)$/,
+    klass: ExpectEqual,
+    value: {code: md[1], eq: md[2]}
+  )
   
-# CompilationError
-rule(
-  regex: /#.*?(error|exception)/i,
-  klass: CommentOut
-)
+  # CompilationError
+  rule(
+    regex: /#.*?(error|exception)/i,
+    klass: CommentOut
+  )
 
-# Default  
-rule(
-  regex: //,
-  klass: Nop
-)
+  # Default  
+  rule(
+    regex: //,
+    klass: Nop
+  )
+end
 
 private def to_time_span(d, h, m, s, ms)
   ms = ms.ljust(7,'0')[0,3].to_i
