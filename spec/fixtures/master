@@ -571,11 +571,11 @@
 "hello".sub('l', "lo")      # => "helolo"
 ( "hello".sub('l', "lo") ).to_s.should eq( "helolo" )
 
-"hello".sub(/(he|l|o)/, {"he" => "ha", "l" => "la"}) # => "hallo"
-( "hello".sub(/(he|l|o)/, {"he" => "ha", "l" => "la"}) ).to_s.should eq( "hallo" )
+"hello".sub(/(he|l|o)/, {"he": "ha", "l": "la"}) # => "hallo"
+( "hello".sub(/(he|l|o)/, {"he": "ha", "l": "la"}) ).to_s.should eq( "hallo" )
 
-"hello".sub(/(he|l|o)/, {"l" => "la"})               # => "hello"
-( "hello".sub(/(he|l|o)/, {"l" => "la"}) ).to_s.should eq( "hello" )
+"hello".sub(/(he|l|o)/, {"l": "la"})             # => "hello"
+( "hello".sub(/(he|l|o)/, {"l": "la"}) ).to_s.should eq( "hello" )
 
 "hello".sub(/./) { |s| s[0].ord.to_s + ' ' } # => "104 ello"
 ( "hello".sub(/./) { |s| s[0].ord.to_s + ' ' } ).to_s.should eq( "104 ello" )
@@ -2086,11 +2086,14 @@ NamedTuple.new(name: "Crystal", year: 2011) #=> {name: "Crystal", year: 2011}
 Nil.nilable?   # => true
 ( Nil.nilable? ).should eq( true )
 
-Point.new(y: 2).to_s # => "Point(@x=0, @y=2)"
-( Point.new(y: 2).to_s ).to_s.should eq( "Point(@x=0, @y=2)" )
+Point.new      # => #<Point(@x=0, @y=0)>
+( Point.new ).class.to_s.should eq( "Point" )
 
-Point.new.to_s       # => "Point(@x=0, @y=0)"
-( Point.new.to_s ).to_s.should eq( "Point(@x=0, @y=0)" )
+Point.new 1, 2 # => #<Point(@x=1, @y=2)>
+( Point.new 1, 2 ).class.to_s.should eq( "Point" )
+
+Point.new y: 2 # => #<Point(@x=0, @y=2)>
+( Point.new y: 2 ).class.to_s.should eq( "Point" )
 
 Proc(Int32, String).new { |x| x.to_s } # Proc(Int32, String)
 Proc(Int32, String).new { |x| x.to_s } # Proc(Int32, String)
@@ -3637,6 +3640,15 @@ hash # => {"foo" => "bar", "baz" => "qux"}
 hash.clear # => {}
 ( hash.clear ).to_s.should eq( "{}" )
 
+hash.compact # => {"hello" => "world"}
+( hash.compact ).should eq( {"hello" => "world"} )
+
+hash.compact! # => nil
+( hash.compact! ).should eq( nil )
+
+hash.compact! # => {"hello" => "world"}
+( hash.compact! ).should eq( {"hello" => "world"} )
+
 hash.first_key? # => "foo"
 ( hash.first_key? ).to_s.should eq( "foo" )
 
@@ -4306,17 +4318,8 @@ person.full_name # => "John Doe"
 person.to_json    # => %({"birth_date":1459859781})
 ( person.to_json ).should eq( %({"birth_date":1459859781}) )
 
-person.to_json # => %({"value":1459860483856})
-( person.to_json ).should eq( %({"value":1459860483856}) )
-
-person.value   # => 2016-04-05 12:48:03.856 UTC
-( person.value ).should eq( Time.parse("2016-04-05 12:48:03.856 UTC", "%F %T.%L %z") )
-
 plain = Base64.decode_string(enc)          # => "Send reinforcements"
 ( plain = Base64.decode_string(enc) ).to_s.should eq( "Send reinforcements" )
-
-point.to_s # => "Point(@x=1, @y=2)"
-( point.to_s ).to_s.should eq( "Point(@x=1, @y=2)" )
 
 pointerof(a).null? # => false
 ( pointerof(a).null? ).should eq( false )
@@ -4974,6 +4977,12 @@ time.utc?   # => false
 
 time.year    # => 2016
 ( time.year ).should eq( 2016 )
+
+timestamp.to_json # => %({"value":1459860483856})
+( timestamp.to_json ).should eq( %({"value":1459860483856}) )
+
+timestamp.value   # => 2016-04-05 12:48:03.856 UTC
+( timestamp.value ).should eq( Time.parse("2016-04-05 12:48:03.856 UTC", "%F %T.%L %z") )
 
 true  # A Bool that is true
 true  # A Bool that is true
