@@ -7,7 +7,6 @@ class CommentSpec
     end
 
     def self.from_line(line) : Builder
-      line = line.strip
       Rules.each(&.builder?(line).try{|p| return p})
       raise "BUG: #{self} should have default builder"
     end
