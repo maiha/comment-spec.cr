@@ -30,50 +30,16 @@ CommentSpec.parse "value # => #<XXX>"              # => "( value ).class.to_s.sh
 
 ## Converting Rules
 
-- rule: [src/comment-spec/rules.cr](./src/comment-spec/rules.cr)
+- rule: [src/comment-spec/lexer_parser.cr](./src/comment-spec/lexer_parser.cr)
 - spec: [spec/fixtures/](./spec/fixtures/)
 
 ## Restrictions
 
-This library is **line based** and **roughly** parses code by `split("#")`.
-
-#### Line based
+This library is a **line based** parser. So, following partial code is processed as is.
 
 ```
   ...
-end # => "foo"
-```
-
-will generate following spec and fail
-
-```
-( end ).should eq( "foo" )
-```
-
-#### Roughly
-
-```
-foo "a # => b"
-```
-
-will generate following spec and fail
-
-```
-( foo "a ).should eq( b )
-```
-
-#### Experimental
-
-`Parser` strictly parses code by using `Crystal::Lexer`.
-
-```crystal
-CommentSpec::Parser.parse("foo \"a # => b\"")
-```
-
-generates
-
-```
-foo "a # => b"
+end # => [1,2]
 ```
 
 ## Development
@@ -81,12 +47,6 @@ foo "a # => b"
 ```shell
 make spec
 ```
-
-## Roadmap
-
-#### 0.3.0
-
-- [ ] use `Crystal::Lexer`
 
 ## Contributing
 

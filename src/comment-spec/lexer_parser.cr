@@ -1,4 +1,29 @@
-class CommentSpec::Parser < CommentSpec::Lexer
+require "compiler/crystal/syntax"
+
+class CommentSpec::Lexer
+  getter code : String
+  getter? doc : String?
+
+  def initialize(@line : String)
+    parser = Crystal::Parser.new(@line + "\ndef  1;end")
+    parser.wants_doc = true
+    @doc  = parser.parse.as(Crystal::Expressions).last.as(Crystal::Def).doc
+    @code = remove_code(line, @doc.to_s)
+  end
+
+  private def remove_code(line, doc)
+    case doc.size
+    when 0
+      line
+    when 1..line.size
+      line[0...(line.size - doc.size)].sub(/\s*#\s*$/, "")
+    else
+      raise "BUG: invalid doc size (line: '%s', doc: '%s')" % [line, doc]
+    end
+  end
+end
+
+class CommentSpec::LexerParser < CommentSpec::Lexer
   def self.parse(line, remove_require = true)
     case line
     when /^require /
@@ -13,24 +38,24 @@ class CommentSpec::Parser < CommentSpec::Lexer
       return line
     end
     return new(line).spec
-  end  
+  end
 
   private macro build(klass, value = nil, &block)
     {% if block %}
-      return {{klass}}.new(code, {{yield}})
+      return {{klass}}.new(@line, {{yield}})
     {% else %}
-      return {{klass}}.new(code, {{value}})
+      return {{klass}}.new(@line, {{value}})
     {% end %}
   end
 
   def builder
     case code
-    when /^(.*?)\.(object_id|mtime|hash|sample|to_utc|to_local|local_offset_in_minutes)\b[^#]*#\s*=>/
+    when /\.(object_id|mtime|hash|sample|to_utc|to_local|local_offset_in_minutes)\b/
       # Dynamic Values
       build Nop
     end
 
-    case doc?
+    case doc?.to_s.strip
     when /^raises\s+([A-Z][A-Za-z0-9]+(::[A-Z][A-Za-z0-9]+)*)/
       build ExpectRaises, {code: code, err: $1}
 
@@ -76,22 +101,16 @@ class CommentSpec::Parser < CommentSpec::Lexer
     when /^=>\s*"(.*?)"$/
       build ExpectStringEqual, {code: code, eq: $1}
 
-    when /^=>\s*(.*?)$/
-      # FoundObject
-      build ExpectEqual, {code: code, eq: $1}
-
     when /#.*?(error|exception)/i
       # CompilationError
       build CommentOut
       
-    when /^=>\s*(\d+)\s+\(/
+    when /^=>\s*(\d+)\s+/
       # FoundNumeric
       build ExpectEqual, {code: code, eq: $1}
 
-    when /^=>\s*"(.*?)"$/
-      build ExpectStringEqual, {code: code, eq: $1}
-
     when /^=>\s*(.*?)$/
+      # FoundObject
       build ExpectEqual, {code: code, eq: $1}
     end
     

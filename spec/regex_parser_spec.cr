@@ -2,13 +2,13 @@ require "./spec_helper"
 
 private macro expect_rule(klass, line, data = nil)
   it {{line}} do
-    builder = CommentSpec::Builder.from_line({{line}})
+    builder = CommentSpec::RegexParser.builder({{line}})
     builder.should be_a(CommentSpec::{{klass}})
     builder.data.should eq({{data}}) if {{data}}
   end
 end
 
-describe CommentSpec::Builder do
+describe CommentSpec::RegexParser do
   # require
   expect_rule CommentOut, "require \"json\""
 

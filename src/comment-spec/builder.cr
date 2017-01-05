@@ -5,11 +5,6 @@ class CommentSpec
     def name
       self.class.name.split(/::/).last
     end
-
-    def self.from_line(line) : Builder
-      Rules.each(&.builder?(line).try{|p| return p})
-      raise "BUG: #{self} should have default builder"
-    end
   end
 
   abstract class BaseBuilder(T)

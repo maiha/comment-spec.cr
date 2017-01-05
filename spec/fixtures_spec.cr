@@ -17,8 +17,8 @@ describe "CI(fixutres)" do
     label = File.basename(full_path)
     describe label do
       each_suit(full_path) do |src, dst|
-        it src do
-          CommentSpec.parse(src).should eq(dst)
+        it "| " + src do
+          CommentSpec::RegexParser.parse(src).should eq(dst)
         end
       end
     end

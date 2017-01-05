@@ -12,7 +12,7 @@ puts %(  it "Usage" do)
 
 File.read(__DIR__ + "/../README.md").scan(/^```crystal\n(.*?)\n```\n/m) do |code|
   code[1].split(/\n/).each do |line|
-    puts "    %s" % CommentSpec::Parser.parse(line)
+    puts "    %s" % CommentSpec.parse(line)
   end
 end
 

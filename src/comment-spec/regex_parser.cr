@@ -1,4 +1,32 @@
-class CommentSpec
+class CommentSpec::RegexParser
+  def self.parse(line : String) : String
+    builder(line).build
+  end
+
+  def self.builder(line : String) : Builder
+    Rules.each(&.builder?(line).try{|p| return p})
+    raise "BUG: #{self} should have default builder"
+  end
+
+  Rules = [] of Rule
+
+  record Rule, pattern : Regex, builder : Proc(String, Regex::MatchData, Builder) do
+    def builder?(line : String) : Builder?
+      line.match(pattern).try{|md| builder.call(line, md)}
+    end
+  end
+
+  macro rule(regex, klass, value = nil, &block)
+    Rules << Rule.new({{regex}},
+      ->(line : String, md : Regex::MatchData) {
+        {% if block %}
+          {{klass}}.new(line, {{yield}}).as(Builder)
+        {% else %}
+          {{klass}}.new(line, {{value}}).as(Builder)
+        {% end %}
+      })
+  end
+
   rule(
     regex: /^require\s+".*?"/,
     klass: CommentOut
