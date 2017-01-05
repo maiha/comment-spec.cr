@@ -24,7 +24,7 @@ require "comment-spec"
 
 CommentSpec.parse "1 + 2 # => 3"                   # => "( 1 + 2 ).should eq( 3 )"
 CommentSpec.parse "value # => 2016-03-31 12:36:21" # => "( value ).should eq( Time.parse(\"2016-03-31 12:36:21\", \"%F %T\") )"
-CommentSpec.parse "v[10] # raises IndexError")     # => "expect_raises(IndexError) { v[10] }"
+CommentSpec.parse "v[10] # raises IndexError"      # => "expect_raises(IndexError) { v[10] }"
 CommentSpec.parse "value # => #<XXX>"              # => "( value ).class.to_s.should eq( \"XXX\" )"
 ```
 
@@ -60,6 +60,20 @@ will generate following spec and fail
 
 ```
 ( foo "a ).should eq( b )
+```
+
+#### Experimental
+
+`Parser` strictly parses code by using `Crystal::Lexer`.
+
+```crystal
+CommentSpec::Parser.parse("foo \"a # => b\"")
+```
+
+generates
+
+```
+foo "a # => b"
 ```
 
 ## Development

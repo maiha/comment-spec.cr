@@ -1678,6 +1678,18 @@ BigInt.new # => 0
 BigInt.new("1234567890ABCDEF", base: 16)           # => 1311768467294899695
 ( BigInt.new("1234567890ABCDEF", base: 16) ).should eq( 1311768467294899695 )
 
+BigInt.new("123456789101101987654321").to_s # => 123456789101101987654321
+( BigInt.new("123456789101101987654321").to_s ).to_s.should eq( "123456789101101987654321" )
+
+BigInt.new("123456789101101987654321").to_s(16) # => "1a249b1f61599cd7eab1"
+( BigInt.new("123456789101101987654321").to_s(16) ).to_s.should eq( "1a249b1f61599cd7eab1" )
+
+BigInt.new("123456789101101987654321").to_s(36) # => "k3qmt029k48nmpd"
+( BigInt.new("123456789101101987654321").to_s(36) ).to_s.should eq( "k3qmt029k48nmpd" )
+
+BigInt.new("123456789101101987654321").to_s(8)  # => "32111154373025463465765261"
+( BigInt.new("123456789101101987654321").to_s(8) ).to_s.should eq( "32111154373025463465765261" )
+
 BigInt.new("123456789123456789123456789123456789") # => 123456789123456789123456789123456789
 ( BigInt.new("123456789123456789123456789123456789") ).to_s.should eq( "123456789123456789123456789123456789" )
 
@@ -1713,6 +1725,9 @@ Color.from_value?(3) # => nil
 
 Color.names # => ["Red", "Green", "Blue"]
 ( Color.names ).should eq( ["Red", "Green", "Blue"] )
+
+Color.new(1).to_s # => "Green"
+( Color.new(1).to_s ).to_s.should eq( "Green" )
 
 Color.new(10).to_i # => 10
 ( Color.new(10).to_i ).should eq( 10 )
@@ -2830,8 +2845,8 @@ a.delete_at(1..2)    # => ["bat", "cat"]
 a.delete_at(2)  # => "cat"
 ( a.delete_at(2) ).to_s.should eq( "cat" )
 
-a.each_permutation(2) { |p| sums << p.sum } # => [1, 2, 3]
-( a.each_permutation(2) { |p| sums << p.sum } ).should eq( [1, 2, 3] )
+a.each_permutation(2) { |p| sums << p.sum } # => nil
+( a.each_permutation(2) { |p| sums << p.sum } ).should eq( nil )
 
 a.equals?(b) { |x, y| x == y }      # => false
 ( a.equals?(b) { |x, y| x == y } ).should eq( false )
@@ -3103,6 +3118,9 @@ array3 = StaticArray(Int32, 3).new 1 # => StaticArray[1, 1, 1]
 array[2] = 2                                    # => 2
 ( array[2] = 2 ).should eq( 2 )
 
+ary  # => [[5, 2], [3, 4]]
+( ary ).should eq( [[5, 2], [3, 4]] )
+
 ary # => ["M", "i", "s", "s", "i", "s", "s", "i", "p", "p", "i"]
 ( ary ).should eq( ["M", "i", "s", "s", "i", "s", "s", "i", "p", "p", "i"] )
 
@@ -3130,6 +3148,15 @@ ary # => ["foo", "bar", "baz"]
 ary # => ["foo", "bar,baz"]
 ( ary ).should eq( ["foo", "bar,baz"] )
 
+ary # => [[1], [1], [1]]
+( ary ).should eq( [[1], [1], [1]] )
+
+ary # => [[2], [1], [1]]
+( ary ).should eq( [[2], [1], [1]] )
+
+ary # => [[2], [2], [2]]
+( ary ).should eq( [[2], [2], [2]] )
+
 ary # => [{false, [3, 1]}, {true, [4]}, {false, [1, 5, 9]}, {true, [2, 6]}, {false, [5, 3, 5]}]
 ( ary ).should eq( [{false, [3, 1]}, {true, [4]}, {false, [1, 5, 9]}, {true, [2, 6]}, {false, [5, 3, 5]}] )
 
@@ -3150,6 +3177,18 @@ ary.to_unsafe[0] # => 1
 
 ary.to_unsafe[0] # => 42
 ( ary.to_unsafe[0] ).should eq( 42 )
+
+ary2 # => [[1, 2], [3, 4], [7, 8]]
+( ary2 ).should eq( [[1, 2], [3, 4], [7, 8]] )
+
+ary2 # => [[1, 2], [3, 4]]
+( ary2 ).should eq( [[1, 2], [3, 4]] )
+
+ary2 # => [[5, 2], [3, 4], [7, 8]]
+( ary2 ).should eq( [[5, 2], [3, 4], [7, 8]] )
+
+ary2 # => [[5, 2], [3, 4]]
+( ary2 ).should eq( [[5, 2], [3, 4]] )
 
 ary[-1] # => 'c'
 ( ary[-1] ).should eq( 'c' )
@@ -3294,6 +3333,9 @@ ba # => BitArray[11001]
 
 ba = BitArray.new(12) # => "BitArray[000000000000]"
 ( ba = BitArray.new(12) ).to_s.should eq( "BitArray[000000000000]" )
+
+ba.to_s # => "BitArray[00000]"
+( ba.to_s ).to_s.should eq( "BitArray[00000]" )
 
 ba[2]                 # => false
 ( ba[2] ).should eq( false )
@@ -4501,54 +4543,6 @@ ptr[9] # => 0
 puts "Hello #{destination}!"
 puts "Hello #{destination}!"
 
-puts BigInt.new("123456789101101987654321").to_s # => 123456789101101987654321
-( BigInt.new("123456789101101987654321").to_s ).to_s.should eq( "123456789101101987654321" )
-
-puts BigInt.new("123456789101101987654321").to_s(16) # => 1a249b1f61599cd7eab1
-( BigInt.new("123456789101101987654321").to_s(16) ).to_s.should eq( "1a249b1f61599cd7eab1" )
-
-puts BigInt.new("123456789101101987654321").to_s(36) # => k3qmt029k48nmpd
-( BigInt.new("123456789101101987654321").to_s(36) ).to_s.should eq( "k3qmt029k48nmpd" )
-
-puts BigInt.new("123456789101101987654321").to_s(8)  # => 32111154373025463465765261
-( BigInt.new("123456789101101987654321").to_s(8) ).to_s.should eq( "32111154373025463465765261" )
-
-puts Color.new(1) # => "Green"
-( Color.new(1) ).to_s.should eq( "Green" )
-
-puts Color.new(10) # => "10"
-( Color.new(10) ).to_s.should eq( "10" )
-
-puts ary  # => [[5, 2], [3, 4]]
-( ary ).to_s.should eq( "[[5, 2], [3, 4]]" )
-
-puts ary # => [[1], [1], [1]]
-( ary ).to_s.should eq( "[[1], [1], [1]]" )
-
-puts ary # => [[2], [1], [1]]
-( ary ).to_s.should eq( "[[2], [1], [1]]" )
-
-puts ary # => [[2], [2], [2]]
-( ary ).to_s.should eq( "[[2], [2], [2]]" )
-
-puts ary2 # => [[1, 2], [3, 4], [7, 8]]
-( ary2 ).to_s.should eq( "[[1, 2], [3, 4], [7, 8]]" )
-
-puts ary2 # => [[1, 2], [3, 4]]
-( ary2 ).to_s.should eq( "[[1, 2], [3, 4]]" )
-
-puts ary2 # => [[5, 2], [3, 4], [7, 8]]
-( ary2 ).to_s.should eq( "[[5, 2], [3, 4], [7, 8]]" )
-
-puts ary2 # => [[5, 2], [3, 4]]
-( ary2 ).to_s.should eq( "[[5, 2], [3, 4]]" )
-
-puts ba.to_s # => "BitArray[00000]"
-( ba.to_s ).to_s.should eq( "BitArray[00000]" )
-
-puts x # => 2
-( x ).to_s.should eq( "2" )
-
 r.includes?(Xs.new(5)) # => true
 ( r.includes?(Xs.new(5)) ).should eq( true )
 
@@ -5235,6 +5229,9 @@ wrapper.empty?         # => false
 
 wrapper.gsub(/E/, "A") # => "HALLO"
 ( wrapper.gsub(/E/, "A") ).to_s.should eq( "HALLO" )
+
+x # => 2
+( x ).should eq( 2 )
 
 x...y # an exclusive range, in mathematics: [x, y)
 x...y # an exclusive range, in mathematics: [x, y)
