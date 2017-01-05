@@ -25,6 +25,7 @@ require "comment-spec"
 CommentSpec.parse "1 + 2 # => 3"                   # => "( 1 + 2 ).should eq( 3 )"
 CommentSpec.parse "value # => 2016-03-31 12:36:21" # => "( value ).should eq( Time.parse(\"2016-03-31 12:36:21\", \"%F %T\") )"
 CommentSpec.parse "v[10] # raises IndexError")     # => "expect_raises(IndexError) { v[10] }"
+CommentSpec.parse "value # => #<XXX>"              # => "( value ).class.to_s.should eq( \"XXX\" )"
 ```
 
 ## Converting Rules
@@ -32,11 +33,46 @@ CommentSpec.parse "v[10] # raises IndexError")     # => "expect_raises(IndexErro
 - rule: [src/comment-spec/rules.cr](./src/comment-spec/rules.cr)
 - spec: [spec/fixtures/](./spec/fixtures/)
 
+## Restrictions
+
+This library is **line based** and **roughly** parses code by `split("#")`.
+
+#### Line based
+
+```
+  ...
+end # => "foo"
+```
+
+will generate following spec and fail
+
+```
+( end ).should eq( "foo" )
+```
+
+#### Roughly
+
+```
+foo "a # => b"
+```
+
+will generate following spec and fail
+
+```
+( foo "a ).should eq( b )
+```
+
 ## Development
 
 ```shell
 make spec
 ```
+
+## Roadmap
+
+#### 0.3.0
+
+- [ ] use `Crystal::Lexer`
 
 ## Contributing
 

@@ -1,0 +1,1765 @@
+"    hello    ".lstrip # => "hello    "
+"    hello    ".rstrip # => "    hello"
+"    hello    ".strip # => "hello"
+"   ".blank?     # => true
+"   a   ".blank? # => false
+"  12345  ".to_i                    # => 12345
+" 1.2".to_f?(whitespace: false) # => nil
+"".blank?        # => true
+"((koala))".succ # => "((koalb))"
+"***".succ       # => "**+"
+"0a".to_i(16)            # => 10
+"0a".to_i?(strict: false) # => 0
+"0x123abc".to_i(prefix: true) # => 1194684
+"1.2foo".to_f(strict: false)   # => 1.2
+"1.2foo".to_f?(strict: false)   # => 1.2
+"1100101".to_i(10)       # => 1100101
+"1100101".to_i(2)        # => 101
+"1100101".to_i(8)        # => 294977
+"1100101".to_i(base: 16) # => 17826049
+"123.45e1".to_f                # => 1234.5
+"123.45e1".to_f?                # => 1234.5
+"12345".to_i             # => 12345
+"12345".to_i { 0 } # => 12345
+"12345".to_i?             # => 12345
+"12_345".to_i(underscore: true) # => 12345
+"1999zzz".succ   # => "2000aaa"
+"45.67 degrees".to_f?           # => nil
+"99 red balloons".to_i(strict: false) # => 99
+"99 red balloons".to_i?   # => nil
+"Argentina".reverse # => "anitnegrA"
+"Aubergine".ljust(8)   # => "Aubergine"
+"Aubergine".rjust(8)   # => "Aubergine"
+"Crystal".match(/[p-s]/).not_nil!.regex # => /[p-s]/
+"Crystal".match(/[p-s]/).not_nil!.size          # => 0
+"Crystal".match(/[p-s]/).not_nil!.string # => "Crystal"
+"Crystal".match(/r(?<ok>ys)/).not_nil!["ng"]? # => nil
+"Crystal".match(/r(?<ok>ys)/).not_nil!["ok"] # => "ys"
+"Crystal".match(/r(?<ok>ys)/).not_nil!["ok"]? # => "ys"
+"Crystal".match(/r(ys)(?<ok>ta)/).not_nil!.size # => 2
+"Crystal".match(/r(ys)/).not_nil!.begin(1) # => 2
+"Crystal".match(/r(ys)/).not_nil!.byte_begin(1) # => 2
+"Crystal".match(/r(ys)/).not_nil!.byte_end(1) # => 4
+"Crystal".match(/r(ys)/).not_nil!.end(1) # => 4
+"Crystal".match(/r(ys)/).not_nil!.size          # => 1
+"Crystal".match(/r(ys)/).not_nil![0]? # => "rys"
+"Crystal".match(/r(ys)/).not_nil![1] # => "ys"
+"Crystal".match(/r(ys)/).not_nil![1]? # => "ys"
+"Crystal".match(/r(ys)/).not_nil![2]? # => nil
+"Crystal".match(/r/).not_nil!.begin(0)     # => 1
+"Crystal".match(/r/).not_nil!.byte_begin(0)     # => 1
+"Crystal".match(/r/).not_nil!.byte_end(0)     # => 2
+"Crystal".match(/r/).not_nil!.end(0)     # => 2
+"Crystal".match(/t#{re}l/) # => #<Regex::MatchData "tal">
+"Crystal".match(/t#{re}l/) # => nil
+"Crystal".match(/yst/).not_nil!.post_match # => "al"
+"Crystal".match(/yst/).not_nil!.pre_match # => "Cr"
+"DoesWhatItSaysOnTheTin".underscore # => "does_what_it_says_on_the_tin"
+"Dysfunctional".includes?("fun") # => true
+"HTTP_CLIENT".underscore            # => "http_client"
+"Haystack" =~ /ay/ # => 1
+"Haystack" =~ /z/  # => nil
+"Haystack" =~ 45 # => nil
+"Hello, World".index("H", 2) # => nil
+"Hello, World".index("o", 5) # => 8
+"Hello, World".index('Z')    # => nil
+"Hello, World".index('o')    # => 4
+"Hello, World".index(/[ ]+/) # => 6
+"Hello, World".index(/\d+/)  # => nil
+"Hello, World".rindex("W", 2) # => nil
+"Hello, World".rindex("o", 5) # => 4
+"Hello, World".rindex('Z')    # => nil
+"Hello, World".rindex('o')    # => 8
+"Party like it's %d!!!" % 1999 # => "Party like it's 1999!!!"
+"PartyInTheUSA".underscore          # => "party_in_the_usa"
+"Purple".ljust(8)      # => "Purple  "
+"Purple".ljust(8, '-') # => "Purple--"
+"Purple".rjust(8)      # => "  Purple"
+"Purple".rjust(8, '-') # => "--Purple"
+"THX1138".succ   # => "THX1139"
+"Team".includes?('i')            # => false
+"ZZZ9999".succ   # => "AAAA0000"
+"\"" # double quote
+"\1"   # string with one character with code point 1
+"\101" # == "A"
+"\12"  # == "\n"
+"\123" # == "S"
+"\\" # backslash
+"\e" # escape
+"\f" # form feed
+"\n" # newline
+"\r" # carriage return
+"\t" # tab
+"\tgoodbye\r\n".lstrip # => "goodbye\r\n"
+"\tgoodbye\r\n".rstrip # => "\tgoodbye"
+"\tgoodbye\r\n".strip # => "goodbye"
+"\u0041" # == "A"
+"\u{41}" # == "A"
+"\v" # vertical tab
+"a       bbb".squeeze         # => "a b"
+"a       bbb".squeeze # => "a b"
+"a    bbb".squeeze(' ') # => "a bbb"
+"aaabbbccc".squeeze { |c| ['a', 'b'].includes?(c) } # => "abccc"
+"aaabbbccc".squeeze { |c| ['a', 'c'].includes?(c) } # => "abbbc"
+"aaabbbcccddd".squeeze("b-d") # => "aaabcd"
+"aabbcc".count { |c| ['a', 'b'].includes?(c) } # => 4
+"aabbcc".count('a') # => 2
+"aabbcc".delete { |c| ['a', 'b'].includes?(c) } # => "cc"
+"aabbcc".delete('b') # => "aacc"
+"aabbcc".tr("a", "xyz")   # => "xxbbcc"
+"aabbcc".tr("abc", "x")   # => "xxxxxx"
+"aabbcc".tr("abc", "xyz") # => "xxyyzz"
+"aabbccdd".delete("a-c") # => "dd"
+"ab☃".chars # => ['a', 'b', '☃']
+"ab☃".codepoints # => [97, 98, 9731]
+"abc" + "def" # => "abcdef"
+"abc" + 'd'   # => "abcd"
+"abcd".insert(-1, "FOO") # => "abcdFOO"
+"abcd".insert(-1, 'X') # => "abcdX"
+"abcd".insert(-3, "FOO") # => "abFOOcd"
+"abcd".insert(-3, 'X') # => "abXcd"
+"abcd".insert(0, "FOO")  # => "FOOabcd"
+"abcd".insert(0, 'X')  # => "Xabcd"
+"abcd".insert(3, "FOO")  # => "abcFOOd"
+"abcd".insert(3, 'X')  # => "abcXd"
+"abcd".insert(4, "FOO")  # => "abcdFOO"
+"abcd".insert(4, 'X')  # => "abcdX"
+"abcd".succ      # => "abce"
+"abcdef" <=> "ABCDEF"  # => 1
+"abcdef" <=> "abcde"   # => 1
+"abcdef" <=> "abcdef"  # => 0
+"abcdef" <=> "abcdefg" # => -1
+"abcdef".compare("ABCDEF")  # => 1
+"abcdef".compare("ABCDEF", case_insensitive: true) # => 0
+"abcdef".compare("ABCDEG", case_insensitive: true) # => -1
+"abcdef".compare("abcde")   # => 1
+"abcdef".compare("abcdef")  # => 0
+"abcdef".compare("abcdefg") # => -1
+"eiffel_tower".camelcase # => "EiffelTower"
+"foo".gsub(/o/, "\\\\0")                  # => "f\\0\\0"
+"foo".gsub(/o/, "x\\0x")                  # => "fxoxxox"
+"foo".sub(/o/, "\\\\0")                  # => "f\\0o"
+"foo".sub(/o/, "x\\0x")                  # => "fxoxo"
+"foo,bar,baz".split(',')    # => ["foo", "bar", "baz"]
+"foo,bar,baz".split(',', 2) # => ["foo", "bar,baz"]
+"foofoo".gsub(/(?<bar>oo)/, "|\\k<bar>|") # => "f|oo|f|oo|"
+"foofoo".sub(/(?<bar>oo)/, "|\\k<bar>|") # => "f|oo|foo"
+"hEllO".capitalize # => "Hello"
+"hEllO".downcase # => "hello"
+"hEllO".upcase # => "HELLO"
+"haystack" =~ /needle/ # => nil
+"haystack" =~ /stack/  # => 3
+"haystack".match(/hay/)    # => #<Regex::MatchData "hay">
+"haystack".match(/needle/) # => nil
+"hello world".gsub('o', 'a') # => "hella warld"
+"hello world".sub('o', 'a') # => "hella world"
+"hello yellow".gsub("ll") { "dd" } # => "heddo yeddow"
+"hello yellow".gsub("ll", "dd") # => "heddo yeddow"
+"hello yellow".sub("ll") { "dd" } # => "heddo yellow"
+"hello yellow".sub("ll", "dd") # => "heddo yellow"
+"hello".bytes # => [104, 101, 108, 108, 111]
+"hello".bytesize # => 5
+"hello".char_index_to_byte_index(1) # => 1
+"hello".char_index_to_byte_index(5) # => 5
+"hello".chomp("llo") # => "he"
+"hello".chomp("ol")  # => "hello"
+"hello".chomp('a') # => "hello"
+"hello".chomp('o') # => "hell"
+"hello".class # => String
+"hello".gsub { "hi" }            # => "hihihihihi"
+"hello".gsub { |char| char + 1 } # => "ifmmp"
+"hello".gsub('l', "lo")      # => "heloloo"
+"hello".gsub(/(he|l|o)/, {"he": "ha", "l": "la"}) # => "halala"
+"hello".gsub(/./) { |s| s[0].ord.to_s + ' ' } # => "104 101 108 108 111 "
+"hello".gsub(/[aeiou]/, "(\\0)") # => "h(e)ll(o)"
+"hello".gsub(/[aeiou]/, '*') # => "h*ll*"
+"hello".gsub({'e' => 'a', 'l' => 'd'}) # => "haddo"
+"hello".gsub({e: 'a', l: 'd'}) # => "haddo"
+"hello".lchomp("eh")  # => "hello"
+"hello".lchomp("hel") # => "lo"
+"hello".lchomp('g') # => "hello"
+"hello".lchomp('h') # => "ello"
+"hello".partition("l") # => {"he", "l", "lo"}
+"hello".partition("x") # => {"hello", "", ""}
+"hello".rpartition("l")  # => {"hel", "l", "o"}
+"hello".rpartition("x")  # => {"", "", "hello"}
+"hello".rpartition(/.l/) # => {"he", "ll", "o"}
+"hello".size # => 5
+"hello".sub { "hi" }            # => "hiello"
+"hello".sub { |char| char + 1 } # => "iello"
+"hello".sub('l', "lo")      # => "helolo"
+"hello".sub(/(he|l|o)/, {"he": "ha", "l": "la"}) # => "hallo"
+"hello".sub(/(he|l|o)/, {"l": "la"})             # => "hello"
+"hello".sub(/./) { |s| s[0].ord.to_s + ' ' } # => "104 ello"
+"hello".sub(/[aeiou]/, "(\\0)") # => "h(e)llo"
+"hello".sub(/[aeiou]/, "*") # => "h*llo"
+"hello".sub(1, "eee") # => "heeello"
+"hello".sub(1, 'a') # => "hallo"
+"hello".sub(1..2, "eee") # => "heeelo"
+"hello".sub(1..2, 'a') # => "halo"
+"hello".sub({'a' => 'b', 'l' => 'd'}) # => "hedlo"
+"hello".to_i { 0 } # => 0
+"hello".to_i?             # => nil
+"hello"[-1] # 'o'
+"hello"[-2] # 'l'
+"hello"[0...2]  # "he"
+"hello"[0..2]   # "hel"
+"hello"[0]  # 'h'
+"hello"[1..-1]  # "ello"
+"hello"[1...-1] # "ell"
+"hello"[1]  # 'e'
+"no newlines" # same as "hello world, no newlines"
+"racecar".reverse   # => "racecar"
+"string".chomp     # => "string"
+"string".chop     # => "strin"
+"string\n".chomp   # => "string"
+"string\n".chop   # => "string"
+"string\n\r".chomp # => "string\n"
+"string\n\r".chop # => "string\n"
+"string\r\n".chomp # => "string"
+"string\r\n".chop # => "string"
+"sum = #{a + b}" # "sum = 3"
+"thx1138".to_f?                 # => nil
+"x".chomp.chomp    # => "x"
+"x".chop.chop     # => ""
+"こんにちは".char_index_to_byte_index(1) # => 3
+"こんにちは".char_index_to_byte_index(5) # => 15
+"クリスタル".match(/リ(ス)/).not_nil!.begin(0)    # => 1
+"クリスタル".match(/リ(ス)/).not_nil!.byte_begin(0)    # => 3
+"クリスタル".match(/リ(ス)/).not_nil!.byte_end(0)    # => 9
+"クリスタル".match(/リ(ス)/).not_nil!.end(0)    # => 3
+"好".bytes            # => [229, 165, 189]
+"好".encode("GB2312") # => Bytes[186, 195]
+"你".bytes # => [228, 189, 160]
+"你好".bytes    # => [228, 189, 160, 229, 165, 189]
+"你好".bytesize    # => 6
+"你好".size    # => 2
+$~                         # => #<Regex::MatchData "hay">
+$~                         # raises Exception
+$~                     # => #<Regex::MatchData "stack">
+$~                     # raises Exception
+%(hello ("world")) # same as "hello (\"world\")"
+%<hello <"world">> # same as "hello <\"world\">"
+%[hello ["world"]] # same as "hello [\"world\"]"
+%{hello {"world"}} # same as "hello {\"world\"}"
+'☃'.ord      # => 9731
+'ﬄ'.upcase { |v| puts v } # prints 'F', 'F', 'F'
+' '.ascii_whitespace?  # => true
+' '.whitespace?  # => true
+'-'.in_set? "a\\-eo"   # => true
+'.'.alphanumeric? # => false
+'.'.ascii_alphanumeric? # => false
+'.'.ascii_lowercase? # => false
+'.'.ascii_uppercase? # => false
+'.'.downcase # => '.'
+'.'.lowercase? # => false
+'.'.upcase # => '.'
+'.'.uppercase? # => false
+'1'.number? # => true
+'1'.to_i     # => 1
+'1'.to_i # => 1.0
+'1'.to_i(16) # => 1
+'4'.ascii_number?     # => true
+'5'.hex? # => true
+'8'.alphanumeric? # => true
+'8'.ascii_alphanumeric? # => true
+'8'.ascii_letter? # => false
+'8'.letter? # => false
+'8'.to_i     # => 8
+'8'.to_i # => 8.0
+'F'.hex? # => true
+'G'.ascii_lowercase? # => false
+'G'.lowercase? # => false
+'H'.ascii_uppercase? # => true
+'H'.uppercase? # => true
+'I'.downcase(Unicode::CaseOptions::Turkic) # => 'ı'
+'X'.upcase # => 'X'
+'Z'.downcase # => 'z'
+'\'' # single quote
+'\0'.ord     # => 0
+'\1'   # code point 1
+'\101' # == 'A'
+'\12'  # == '\n'
+'\123' # == 'S'
+'\\' # backslash
+'\\'.in_set? "X-\\w" # => true
+'\\'.in_set? "\\"    # => true
+'\\'.in_set? "\\A"   # => false
+'\e' # escape
+'\f' # form feed
+'\n' # newline
+'\r' # carriage return
+'\t' # tab
+'\t'.ascii_whitespace? # => true
+'\t'.dump     # => "'\\t'"
+'\t'.inspect     # => "'\\t'"
+'\t'.whitespace? # => true
+'\u0012'.dump # => "'\\u{12}'"
+'\u0012'.inspect # => "'\\u{12}'"
+'\u0041' # == 'A'
+'\u007f'.ord # => 127
+'\u{41}' # == 'A'
+'\v' # vertical tab
+'^'.in_set? "\\^aeiou" # => true
+'a' + 1 # => 'b'
+'a' + 2 # => 'c'
+'a' - 'a' # => 0
+'a' <=> 'c' # => -2
+'a'.bytes # => [97]
+'a'.bytesize # => 1
+'a'.dump      # => "'a'"
+'a'.hex? # => true
+'a'.inspect      # => "'a'"
+'a'.number? # => false
+'a'.ord      # => 97
+'a'.succ # => 'b'
+'a'.to_i(16) # => 10
+'a'.to_s # => "a"
+'b' - 'a' # => 1
+'b'.ascii_whitespace?  # => false
+'b'.pred # => 'a'
+'b'.whitespace?  # => false
+'c' - 'a' # => 2
+'c' - 1 # => 'b'
+'c' - 2 # => 'a'
+'c' === 99    # => true
+'c' === 99_u8 # => true
+'c'.alphanumeric? # => true
+'c'.ascii_alphanumeric? # => true
+'c'.ascii_letter? # => true
+'c'.ascii_lowercase? # => true
+'c'.ascii_uppercase? # => false
+'c'.letter? # => true
+'c'.lowercase? # => true
+'c'.ord       # => 99
+'c'.uppercase? # => false
+'f' + "oo" # => "foo"
+'f'.to_i(16) # => 15
+'g'.hex? # => false
+'i'.upcase(Unicode::CaseOptions::Turkic)   # => 'İ'
+'l'.in_set? "hello", "^l" # => false
+'l'.in_set? "j-m"         # => true
+'l'.in_set? "lo"          # => true
+'l'.in_set? "lo", "o"     # => false
+'x'.downcase # => 'x'
+'z' === 99    # => false
+'z'.ascii_number?     # => false
+'z'.ascii_number?(36) # => true
+'z'.upcase # => 'Z'
+'z'.upcase { |v| puts v } # prints 'Z'
+'あ'.bytes # => [227, 129, 130]
+'あ'.dump      # => "'\\u{3042}'"
+'あ'.inspect      # => "'あ'"
+'あ'.succ # => 'ぃ'
+'あ'.to_s # => "あ"
+'ぃ'.pred # => 'あ'
+'好'.bytesize # => 3
+'ı'.upcase(Unicode::CaseOptions::Turkic)   # => 'I'
+'Á'.ascii_uppercase? # => false
+'Á'.uppercase? # => true
+'İ'.downcase(Unicode::CaseOptions::Turkic) # => 'i'
+'á'.ascii_letter? # => false
+'á'.letter? # => true
+'ç'.lowercase?       # => true
+'ç'.lowercase? # => true
+(0..10).bsearch { |x| x >= 5 }                       # => 5
+(0..7).chunk(&./(3)).to_a # => [{0, [0, 1, 2]}, {1, [3, 4, 5]}, {2, [6, 7]}]
+(0..Float64::INFINITY).bsearch { |x| x ** 4 >= 256 } # => 4
+(1...10).begin # => 1
+(1...10).end # => 10
+(1...10).excludes_end? # => true
+(1...10).includes?(10) # => false
+(1...10).includes?(9)  # => true
+(1..10).begin  # => 1
+(1..10).end  # => 10
+(1..10).excludes_end?  # => false
+(1..10).includes?(10) # => true
+(1..10).includes?(11) # => false
+(1..10).includes?(4)  # => true
+(1..10).step(3).skip(1).to_a # => [4, 7, 10]
+(1..10).tap { |x| puts "original: #{x.inspect}" }
+(1..10_000_000).each.select(&.even?).map { |x| x * 3 }.first(3) # => #< Iterator(T)::First...
+(1..10_000_000).each.select(&.even?).map { |x| x * 3 }.first(3).to_a # => [6, 12, 18]
+(1..10_000_000).select(&.even?).map { |x| x * 3 }.first(3) # => [6, 12, 18]
+(1..3).cycle.first(5).to_a # => [1, 2, 3, 1, 2]
+(1..3).each.skip(1).to_a # => [2, 3]
+(1..3).reverse_each.skip(1).to_a # => [2, 1]
+(1..5).to_a # => [1, 2, 3, 4, 5]
+(IOMode::Read | IOMode::Async) # => IOMode::Read | IOMode::Async
+(IOMode::Read | IOMode::Async) & IOMode::Read # => IOMode::Read
+(IOMode::Read | IOMode::Write).to_i # => 3
+(IOMode::Read | IOMode::Write).to_s # => "Read, Write"
+(Int32 | Nil).nilable?    # => true
+(Int32 | String).nilable? # => false
+([1, 2, 3]).first   # => 1
+([1, 2, 3]).first { 4 }   # => 1
+([1, 2, 3]).first?   # => 1
+([1, 2, 3]).last   # => 3
+([1, 2, 3]).last { 4 }   # => 3
+([1, 2, 3]).last?   # => 3
+([1]).empty?         # => false
+([] of Int32).empty? # => true
+([] of Int32).first { 4 } # => 4
+([] of Int32).first? # => nil
+([] of Int32).last { 4 } # => 4
+([] of Int32).last? # => nil
+([] of Int32).product # => 1
+([] of Int32).product { |x| x + 1 } # => 1
+([] of Int32).product(7) # => 7
+([] of Int32).sum # => 0
+([] of Int32).sum { |x| x + 1 } # => 0
+([] of Int32).sum(7) # => 7
+([] of String).product(1) { |name| name.size } # => 1
+([] of String).sum(1) { |name| name.size } # => 1
++1.3 # Float64
++10 # Int32
+-0.5 # Float64
+-123.abs # => 123
+-15.popcount # => 29
+-1763.116.round(2) # => -1763.12
+-20 # Int32
+-42.sign # => -1
+-8000 >> 1 # => -4000
+->(x : Int32) { x.to_s } # Proc(Int32, String)
+->(x : Int32, y : Int32) { x + y } # Proc(Int32, Int32, Int32)
+->{ 1 } # Proc(Int32)
+/#{string}/                     # => /\*\?\{\}\./
+/#{x}/.match("asdf") # => #<Regex::MatchData "a">
+/(.)(.)(.)/.match("abc").try &.[2]   # => "b"
+/(.)(.)(.)/.match_at_byte_index("abc").try &.[2]   # => "b"
+/(.)(.)/.match("abc", 1).try &.[2]   # => "c"
+/(.)(.)/.match("クリスタル", 3).try &.[2] # => "ル"
+/(.)(.)/.match_at_byte_index("abc", 1).try &.[2]   # => "c"
+/(.)(.)/.match_at_byte_index("クリスタル", 3).try &.[2] # => "ス"
+/(.)(?<foo>.)(.)(?<bar>.)(.)/.name_table # => {4 => "bar", 2 => "foo"}
+/(.)/.name_table                         # => {}
+/(?<foo>.)(?<bar>.)/.name_table          # => {2 => "bar", 1 => "foo"}
+/(?<foo>.)/.name_table                   # => {1 => "foo"}
+/^z/i =~ "ASDF\nZ"  # => nil
+/^z/im =~ "ASDF\nZ" # => 5
+/_(x|y)_/.match("_(x|y)_") # => nil
+/_(x|y)_/.match("_x_")     # => #<Regex::MatchData "_x_" 1: "x">
+/_(x|y)_/.match("_y_")     # => #<Regex::MatchData "_y_" 1: "y">
+/_._/.match("_x_")         # => #<Regex::MatchData "_x_">
+/_[^a-wy-z]_/.match("_x_") # => #<Regex::MatchData "_x_">
+/_[^a-z]_/.match("_x_")    # => nil
+/_[a-z]_/.match("_x_")     # => #<Regex::MatchData "_x_">
+/_[xyz]_/.match("_x_")     # => #<Regex::MatchData "_x_">
+/a(?<grp>sd)f/.match("_asdf_")               # => #<Regex::MatchData "asdf" grp:"sd">
+/a(?<grp>sd)f/.match("_asdf_").try &.["grp"] # => "sd"
+/a(sd)f/.match("_asdf_")                     # => #<Regex::MatchData "asdf" 1:"sd">
+/a(sd)f/.match("_asdf_").try &.[1]           # => "sd"
+/ab+c/ix.inspect # => "/ab+c/ix"
+/ab+c/ix.options      # => Regex::Options::IGNORE_CASE | Regex::Options::EXTENDED
+/ab+c/ix.options.to_s # => "IGNORE_CASE, EXTENDED"
+/ab+c/x.source # => "ab+c"
+/abc/ == /abc/i  # => false
+/abc/i == /ABC/i # => false
+/abc/i == /abc/i # => true
+/asdf/ =~ "ASDF"    # => nil
+/asdf/i =~ "ASDF"   # => 0
+/at/ =~ "input data" # => 7
+/ax/ =~ "input data" # => nil
+/f(op)*/.match("fopopo")   # => #<Regex::MatchData "fopop" 1: "op">
+/fo*/.match("_f_")         # => #<Regex::MatchData "f">
+/fo*/.match("_foo_")       # => #<Regex::MatchData "foo">
+/fo*/.match("_foooooooo_") # => #<Regex::MatchData "foooooooo">
+/fo+/.match("_f_")         # => nil
+/foo?bar/.match("fobar")   # => #<Regex::MatchData "fobar">
+/foo?bar/.match("foobar")  # => #<Regex::MatchData "foobar">
+/foo|bar/.match("bar")     # => #<Regex::MatchData "bar">
+/foo|bar/.match("foo")     # => #<Regex::MatchData "foo">
+/fo{,3}/.match("_foooo_")  # => nil
+/fo{1,3}/.match("_foo_")   # => #<Regex::MatchData "foo">
+/fo{3,}/.match("_foo_")    # => nil
+/hay/ =~ "haystack"   # => 0
+/hay/.match("haystack")    # => #<Regex::MatchData "hay">
+/hay/.match("haystack") # => #<Regex::MatchData "hay">
+/needle/ =~ "haystack" # => nil
+/needle/.match("haystack") # => nil
+/stack/ =~ "haystack"  # => 3
+/y/.match("haystack") # => #<Regex::MatchData "y">
+0.sign   # => 0
+0b1101 # == 13
+0o123 # == 83
+0xFE012D # == 16646445
+0xfe012d # == 16646445
+1 # Int32
+1.0     # Float64
+1.0_f32 # Float32
+1.5.abs2 # => 2.25
+1.5e-7 # Float64
+1.5e10 # Float64
+1.class       # => Int32
+11.bit(0) # => 1
+11.bit(1) # => 1
+11.bit(2) # => 0
+11.bit(3) # => 1
+11.bit(4) # => 0
+11.divmod(-3) # => {-4, -1}
+11.divmod(3)  # => {3, 2}
+123.abs  # => 123
+123.sign # => 1
+1234.567.significant(1) # => 1000
+1234.567.significant(2) # => 1200
+1234.567.significant(3) # => 1230
+1234.567.significant(4) # => 1235
+1234.567.significant(5) # => 1234.6
+1234.567.significant(6) # => 1234.57
+1234.567.significant(7) # => 1234.567
+1234.567.significant(8) # => 1234.567
+15.159.significant(1, base = 2) # => 16
+1_000_000 # better than 1000000
+1_000_000.111_111 # better than 1000000.111111
+1_f32   # Float32
+1_i16 # Int16
+1_i32 # Int32
+1_i64 # Int64
+1_i8  # Int8
+1_u16 # UInt16
+1_u32 # UInt32
+1_u64 # UInt64
+1_u8  # UInt8
+1e10   # Float64
+2 ** -1.0 # => 0.5
+2 ** 0  # => 1
+2 ** 0.0  # => 1.0
+2 ** 3  # => 8
+2 ** 3.0  # => 8.0
+2147483648          # Int64
+4.abs2   # => 16
+5.clamp(10, 100)   # => 10
+5.clamp(10..100)   # => 10
+5.popcount   # => 2
+50.clamp(10, 100)  # => 50
+50.clamp(10..100)  # => 50
+500.clamp(10, 100) # => 100
+500.clamp(10..100) # => 100
+8000 << -1 # => 4000
+8000 << 1  # => 16000
+8000 << 2  # => 32000
+8000 << 32 # => 0
+8000 >> -1 # => 16000
+8000 >> 1  # => 4000
+8000 >> 2  # => 2000
+8000 >> 32 # => 0
+9223372036854775808 # UInt64
+97.chr # => 'a'
+97.unsafe_chr # => 'a'
+:"hello world".to_s # => "hello world"
+:crystal.inspect # => ":crystal"
+:crystal.to_s # => "crystal"
+:foo.to_s           # => "foo"
+Array(Int32).from_json("[1, 2, 3]") # => [1, 2, 3]
+Array(Int32).new  # => []
+Array.new(3) { |i| (i + 1) ** 2 } # => [1, 4, 9]
+Array.new(3, 'a') # => ['a', 'a', 'a']
+Benchmark.realtime { "a" * 100_000 } # => 00:00:00.0005840
+BigInt.new # => 0
+BigInt.new("1234567890ABCDEF", base: 16)           # => 1311768467294899695
+BigInt.new("123456789123456789123456789123456789") # => 123456789123456789123456789123456789
+BigRational.new(2, 3) << 2 # => 8/3
+BigRational.new(2, 3) >> 2 # => 1/6
+Color.from_value(0) # => Color::Red
+Color.from_value(1) # => Color::Green
+Color.from_value(2) # => Color::Blue
+Color.from_value(3) # raises Exception
+Color.from_value?(0) # => Color::Red
+Color.from_value?(1) # => Color::Green
+Color.from_value?(2) # => Color::Blue
+Color.from_value?(3) # => nil
+Color.names # => ["Red", "Green", "Blue"]
+Color.new(10).to_i # => 10
+Color.new(10).to_s # => "10"
+Color.parse("BLUE")   # => Color::Blue
+Color.parse("Red")    # => Color::Red
+Color.parse?("BLUE")   # => Color::Blue
+Color.parse?("Red")    # => Color::Red
+Color.parse?("Yellow") # => nil
+Color.values # => [Color::Red, Color::Green, Color::Blue]
+Color::Blue - 1 # => Color::Green
+Color::Blue - 2 # => Color::Red
+Color::Blue - 3 # => Color.new(-1)
+Color::Blue <=> Color::Blue # => 0
+Color::Blue <=> Color::Red  # => 1
+Color::Blue.to_i                    # => 2
+Color::Green.value # => 1
+Color::Red + 1 # => Color::Green
+Color::Red + 2 # => Color::Blue
+Color::Red + 3 # => Color.new(3)
+Color::Red <=> Color::Blue  # => -1
+Color::Red == Color::Blue # => false
+Color::Red == Color::Red  # => true
+Color::Red.to_s                     # => "Red"
+Complex.new(-42, 2).abs # => 42.047592083257278
+Complex.new(1, 0)   # => 1.0 + 0.0i
+Complex.new(4, 2).exp # => -22.720847417619233 + 49.645957334580565i
+Complex.new(42, -2).conj # => 42.0 + 2.0i
+Complex.new(42, 2).abs  # => 42.047592083257278
+Complex.new(42, 2).abs2 # => 1768
+Complex.new(42, 2).conj  # => 42.0 - 2.0i
+Complex.new(42, 2).inspect # => "(42.0 + 2.0i)"
+Complex.new(42, 2).polar # => {42.047592083257278, 0.047583103276983396}
+Complex.new(42, 2).to_s # => "42.0 + 2.0i"
+Complex.new(5, -12) # => 5.0 - 12.0i
+Crypto::MD5.hex_digest("foo") # => "acbd18db4cc2f85cedef654fccc4a4d8"
+Crypto::Subtle.constant_time_compare("foo", "bar") # => false
+Crypto::Subtle.constant_time_compare("foo", "foo") # => true
+Deque.new(3) { |i| (i + 1) ** 2 } # => Deque{1, 4, 9}
+Deque.new(3, 'a') # => Deque{'a', 'a', 'a'}
+Deque.new([1, 2, 3]) # => Deque{1, 2, 3}
+Deque{:foo, :bar}.size # => 2
+Dir.empty?("bar") # => false
+Dir.empty?("bar") # => true
+Employee.from_yaml("title: Manager") # raises YAML::ParseException
+File.basename("/foo/bar/file.cr") # => "file.cr"
+File.basename("/foo/bar/file.cr", ".cr") # => "file"
+File.chown("foo", gid: 100)                        # changes foo's gid
+File.chown("foo", gid: 100, follow_symlinks: true) # changes baz's gid
+File.delete("./bar") # raises Errno (No such file or directory)
+File.directory?("dir2")   # => true
+File.directory?("foo")    # => false
+File.directory?("foobar") # => false
+File.dirname("/foo/bar/file.cr") # => "/foo/bar"
+File.empty?("foo") # => false
+File.empty?("foo") # => true
+File.executable?("foo") # => false
+File.exists?("afile")    # => false
+File.exists?("afile") # => true
+File.exists?("afile.cr") # => true
+File.exists?("foo") # => false
+File.exists?("foo") # => true
+File.exists?(tempfile.path)    # => true
+File.expand_path("baz", "/foo/bar") # => "/foo/bar/baz"
+File.expand_path("foo")             # => "/home/.../foo"
+File.expand_path("~/crystal/foo")   # => "/home/crystal/foo"
+File.extname("foo.cr") # => ".cr"
+File.file?("dir1")   # => false
+File.file?("foo")    # => true
+File.file?("foobar") # => false
+File.join("/foo/", "/bar/", "/baz/") # => "/foo/bar/baz/"
+File.join("foo", "bar", "baz")       # => "foo/bar/baz"
+File.join("foo/", "/bar/", "/baz")   # => "foo/bar/baz"
+File.join(["/foo/", "/bar/", "/baz/"]) # => "/foo/bar/baz/"
+File.join({"foo", "bar", "baz"})       # => "foo/bar/baz"
+File.join({"foo/", "/bar/", "/baz"})   # => "foo/bar/baz"
+File.lstat("foo").mtime # => 2015-09-23 06:24:19 UTC
+File.lstat("foo").size  # => 3
+File.open("foo.yml", "w") { |f| YAML.dump({hello: "world"}, f) } # writes it to the file
+File.open("foo.yml", "w") { |f| {hello: "world"}.to_yaml(f) } # writes it to the file
+File.read("bar") # => "foo"
+File.read(tempfile.path) # => "bar"
+File.read_lines("foobar") # => ["foo", "bar"]
+File.read_lines(tempfile.path) # => ["foobar"]
+File.readable?("foo") # => true
+File.size(tempfile.path)       # => 6
+File.stat("afile_copy").perm # => 0o600
+File.stat("foo").mtime # => 2015-09-23 06:24:19 UTC
+File.stat("foo").perm # => 0o700
+File.stat("foo").perm # => 0o755
+File.stat("foo").size  # => 3
+File.stat(tempfile.path).mtime # => 2015-10-20 13:11:12 UTC
+File.writable?("foo") # => true
+FileUtils.cd("/tmp") { Dir.current } # => "/tmp"
+FileUtils.cmp("file.cr", "bar.cr") # => true
+FileUtils.cmp(stream1, stream2) # => true
+Greeting.new("John").to_s #=> Greeting, John!
+Greeting.new("World").to_s # => "Hello World!"
+Greeting.new(nil).to_s #=> Greeting!
+HTML.escape("Crystal & You") # => "Crystal &amp; You"
+HTML.escape("Crystal & You", io) # => "Crystal & You"
+HTML.unescape("Crystal &amp; You") # => "Crystal & You"
+HTTP::WebSocket.new("websocket.example.com", "/chat")            # Creates a new WebSocket to `websocket.example.com`
+HTTP::WebSocket.new("websocket.example.com", "/chat", tls: true) # Creates a new WebSocket with TLS to `ẁebsocket.example.com`
+HTTP::WebSocket.new(URI.parse("http://websocket.example.com:8080/chat")) # Creates a new WebSocket to `websocket.example.com` on port `8080`
+HTTP::WebSocket.new(URI.parse("ws://websocket.example.com/chat"))        # Creates a new WebSocket to `websocket.example.com`
+HTTP::WebSocket.new(URI.parse("wss://websocket.example.com/chat"))       # Creates a new WebSocket with TLS to `websocket.example.com`
+INI.parse("[foo]\na = 1") # => {"foo" => {"a" => "1"}}
+IO::Memory.new.tty? # => false
+IOMode.flags(Read, Write) # => IOMode::Read | IOMode::Write
+IOMode::None.to_s                   # => "None"
+Int32 | Char # => (Int32 | Char)
+Int32.from_json("1")                # => 1
+Int32.from_json(%({"main": 1}), root: "main") # => 1
+Int32.nilable? # => false
+Levenshtein.distance("algorithm", "altruistic") # => 6
+Levenshtein.distance("hello", "hallo")          # => 1
+Levenshtein.distance("hey", "hey")              # => 0
+Levenshtein.distance("こんにちは", "こんちは")           # => 1
+Math.pw2ceil(33) # => 64
+NamedTuple(foo: String, bar: Int64).from({"foo" => "world", "bar" => 2})     # => {foo: "world", bar: 2}
+NamedTuple(foo: String, bar: Int64).from({:foo => "world", :bar => 2})       # => {foo: "world", bar: 2}
+NamedTuple(foo: String, bar: Int64).from({:foo => "world", :bar => 2}).class # => {foo: String, bar: Int64}
+NamedTuple.new # => {}
+NamedTuple.new(name: "Crystal", year: 2011) #=> {name: "Crystal", year: 2011}
+Nil.nilable?   # => true
+Point.new      # => #<Point(@x=0, @y=0)>
+Point.new 1, 2 # => #<Point(@x=1, @y=2)>
+Point.new y: 2 # => #<Point(@x=0, @y=2)>
+Proc(Int32, String).new { |x| x.to_s } # Proc(Int32, String)
+Random.new.next_bool # => true
+Random.new.rand(10)   # => 5
+Random.new.rand(10..20)                 # => 14
+Random.new.rand(10.725) # => 7.70147
+Random.new.rand(3.5)    # => 2.88938
+Random.new.rand(5000) # => 2243
+Random.new.rand(6.2..21.768) # => 15.2989
+Random.new.rand(Int64::MIN..Int64::MAX) # => -5297435808626736140
+Random.new_seed # => 112705036
+Random.rand     # => 0.167595
+Random.rand(5)  # => 2
+Range.new(1, 10)                  # => 1..10
+Range.new(1, 10, exclusive: true) # => 1...10
+Regex.error?("(foo|bar")  # => "missing ) at 8"
+Regex.error?("(foo|bar)") # => nil
+Regex.new("^a-z+:\\s+\\w+")                   # => /^a-z+:\s+\w+/
+Regex.new("cat", Regex::Options::IGNORE_CASE) # => /cat/i
+Regex.new("dog", options) # => /dog/ix
+STDIN.gets # raises IO::Timeout (after 1 second)
+STDIN.tty?          # => true
+SecureRandom.base64 # => "LIa9s/zWzJx49m/9zDX+VQ=="
+SecureRandom.base64(4) # => "fK1eYg=="
+SecureRandom.hex    # => "05f100a1123f6bdbb427698ab664ff5f"
+SecureRandom.hex    # => "c8353864ff9764a39ef74983ec0d4a38"
+SecureRandom.hex(1) # => "1a"
+SecureRandom.random_bytes    # => [145, 255, 191, 133, 132, 139, 53, 136, 93, 238, 2, 37, 138, 244, 3, 216]
+SecureRandom.random_bytes(4) # => [217, 118, 38, 196]
+SecureRandom.urlsafe_base64           # => "MAD2bw8QaBdvITCveBNCrw"
+SecureRandom.urlsafe_base64(16, true) # => "og2aJrELDZWSdJfVGkxNKw=="
+SecureRandom.urlsafe_base64(8, true)  # => "vvP1kcs841I="
+SecureRandom.uuid   # => "c7ee4add-207f-411a-97b7-0d22788566d6"
+SecureRandom.uuid # => "a4e319dd-a778-4a51-804e-66a07bc63358"
+Set{'a', 'b', 'b', 'z'} & Set{'a', 'b', 'c'} # => Set{'a', 'b'}
+Set{'a', 'b', 'b', 'z'} - Set{'a', 'b', 'c'} # => Set{'z'}
+Set{'a', 'b', 'b', 'z'} - ['a', 'b', 'c'] # => Set{'z'}
+Set{'a', 'b', 'b', 'z'} ^ Set{'a', 'b', 'c'} # => Set{'z', 'c'}
+Set{'a', 'b', 'b', 'z'} ^ ['a', 'b', 'c'] # => Set{'z', 'c'}
+Set{'a', 'b', 'b', 'z'} | Set{'a', 'b', 'c'} # => Set{'a', 'b', 'z', 'c'}
+Set{'a', 'b', 'b', 'z'}.subtract Set{'a', 'b', 'c'} # => Set{'z'}
+Set{1, 1, 3, 5} & Set{1, 2, 3}               # => Set{1, 3}
+Set{1, 1, 3, 5} | Set{1, 2, 3}               # => Set{1, 3, 5, 2}
+Set{1, 2, 3, 4, 5} - Set{2, 4}               # => Set{1, 3, 5}
+Set{1, 2, 3, 4, 5} - [2, 4]               # => Set{1, 3, 5}
+Set{1, 2, 3, 4, 5} ^ Set{2, 4, 6}            # => Set{1, 3, 5, 6}
+Set{1, 2, 3, 4, 5} ^ [2, 4, 6]            # => Set{1, 3, 5, 6}
+Set{1, 2, 3, 4, 5}.subtract [2, 4, 6]               # => Set{1, 3, 5}
+Set{1, 2, 3}.intersects? Set{3, 4} # => true
+Set{1, 2, 3}.intersects? Set{4, 5} # => false
+Set{1, 3, 5}.proper_subset? Set{1, 3, 5} # => false
+Set{1, 3, 5}.proper_superset? Set{1, 3, 5} # => false
+Set{1, 3, 5}.proper_superset? Set{1, 5}    # => true
+Set{1, 3, 5}.subset? Set{1, 3, 5} # => true
+Set{1, 3, 5}.superset? Set{1, 3, 5} # => true
+Set{1, 3, 5}.superset? Set{1, 5}    # => true
+Set{1, 5} == Set{1, 5} # => true
+Set{1, 5}.proper_subset? Set{1, 3, 5}    # => true
+Set{1, 5}.subset? Set{1, 3, 5}    # => true
+Set{1, 5}.to_a # => [1,5]
+Slice(UInt8).new(3).size # => 3
+StaticArray(Int32, 3).new { |i| i * 2 } # => StaticArray[0, 2, 4]
+StaticArray(Int32, 3).new(42) # => StaticArray[42, 42, 42]
+String.name # => "String"
+String.new(ptr) # => "abcd"
+String.new(ptr, 2) # => "ab"
+String.new(slice) # => "abc"
+String.new(slice) # => "abcd"
+String.new(slice) # => "abcdef"
+String.new(slice) # => "abcdefghi"
+String.new(slice) # => "abcxyzghi"
+String.new(slice, "GB2312") # => "好"
+Symbol.needs_quotes? "long string" # => true
+Symbol.needs_quotes? "string"      # => false
+System.hostname # => "host.example.org"
+Tempfile.dirname # => "/tmp"
+Tempfile.new("foo").path # => "/tmp/foo.ulBCPS"
+Time.epoch(981173106) # => 2001-02-03 04:05:06 UTC
+Time.local_offset_in_minutes # => -180
+Time.new(2015, 10, 10) - 5.days # => 2015-10-05 00:00:00
+Time.new(2016, 2, 15) # => 2016-02-15 00:00:00
+Time.new(2016, 2, 15, 10, 20, 30) # => 2016-02-15 10:20:30 UTC
+Time.parse("2016-04-05", "%F") # => 2016-04-05 00:00:00
+Time::Span.new(10, 10, 10)     # => 10:10:10
+Time::Span.new(10, 10, 10, 10) # => 10.10:10:10
+Time::Span.new(10000)          # => 00:00:00.001
+Tuple(String, Int64).from(["world", 2])       # => {"world", 2}
+Tuple(String, Int64).from(["world", 2]).class # => {String, Int64}
+Tuple.new                  #=> {}
+Tuple.new(1, "hello", 'x') #=> {1, "hello", 'x'}
+Tuple.new({:a, 1}, {:c, 2}).to_h # => {:a => 1, :c => 2}
+URI.escape("'Stop!' said Fred")                      # => "%27Stop%21%27%20said%20Fred"
+URI.escape("'Stop!' said Fred", space_to_plus: true) # => "%27Stop%21%27+said+Fred"
+URI.parse("http://admin:password@foo.com").password # => "password"
+URI.parse("http://admin:password@foo.com").user # => "admin"
+URI.parse("http://foo.com").host # => "foo.com"
+URI.parse("http://foo.com").scheme           # => "http"
+URI.parse("http://foo.com/bar").path # => "/bar"
+URI.parse("http://foo.com/bar#section1").fragment # => "section1"
+URI.parse("http://foo.com/bar?q=1").query # => "q=1"
+URI.parse("http://foo.com:5432").port # => 5432
+URI.parse("mailto:alice@example.com").opaque # => "alice@example.com"
+URI.parse("mailto:alice@example.com").scheme # => "mailto"
+URI.unescape("%27Stop%21%27%20said%20Fred")                  # => "'Stop!' said Fred"
+URI.unescape("%27Stop%21%27+said+Fred", plus_to_space: true) # => "'Stop!' said Fred"
+Union(Int32 | String)      # => (Int32 | String)
+Union(Int32)               # => Int32
+Union(Int32, Int32, Int32) # => Int32
+["Alice", "Bob", "Ary"].group_by { |name| name.size } # => {5 => ["Alice"], 3 => ["Bob", "Ary"]}
+["Alice", "Bob", "Carl"].minmax_by { |name| name.size } # => {"Bob", "Alice"}
+["Alice", "Bob", "Carl"].minmax_of { |name| name.size } # => {3, 5}
+["Alice", "Bob"].compact_map { |name| name.match(/^A./) } # => [#<Regex::MatchData "Al">]
+["Alice", "Bob"].grep(/^A/) # => ["Alice"]
+["Alice", "Bob"].index { |name| name.size < 4 } # => 1 (Bob's index)
+["Alice", "Bob"].index("Alice") # => 0
+["Alice", "Bob"].map { |name| name.match(/^A./) }         # => [#<Regex::MatchData "Al">, nil]
+["Alice", "Bob"].map_with_index { |name, i| "User ##{i}: #{name}" }
+["Alice", "Bob"].max # => "Bob"
+["Alice", "Bob"].max_by { |name| name.size } # => "Alice"
+["Alice", "Bob"].max_of { |name| name.size } # => 5 (Alice's size)
+["Alice", "Bob"].min # => "Alice"
+["Alice", "Bob"].min_by { |name| name.size } # => "Bob"
+["Alice", "Bob"].min_of { |name| name.size } # => 3 (Bob's size)
+["Alice", "Bob"].product { |name| name.size } # => 15 (5 * 3)
+["Alice", "Bob"].product(2) { |name| name.size } # => 30 (2 * 5 * 3)
+["Alice", "Bob"].sum { |name| name.size } # => 8 (5 + 3)
+["Alice", "Bob"].sum(1) { |name| name.size } # => 9 (1 + 5 + 3)
+["a", "b", "c", "d"].values_at(0, 2) # => {"a", "c"}
+["a", "b", "c"] * 2 # => [ "a", "b", "c", "a", "b", "c" ]
+["a", "b", "c"] | ["c", "d", "a"] # => [ "a", "b", "c", "d" ]
+["a", nil, "b", nil, "c", nil].compact # => ["a", "b", "c"]
+["ant", "bear", "cat"].all? { |word| word.size >= 3 } # => true
+["ant", "bear", "cat"].all? { |word| word.size >= 4 } # => false
+["ant", "bear", "cat"].any? { |word| word.size > 4 }  # => false
+["ant", "bear", "cat"].any? { |word| word.size >= 4 } # => true
+['a', 'b', 'b', 'z'] & ['a', 'b', 'c'] # => [ 'a', 'b' ]
+[1, "hello", 'x'] # Array(Int32 | String | Char)
+[1, 1, 3, 5] & [1, 2, 3]               # => [ 1, 3 ]
+[1, 2, 3, 1, 2, 3].index(2, offset: 2) # => 4
+[1, 2, 3, 1, 2, 3].index(offset: 2) { |x| x < 2 } # => 3
+[1, 2, 3, 2, 3].rindex { |x| x < 3 }            # => 3
+[1, 2, 3, 2, 3].rindex(2)            # => 3
+[1, 2, 3, 2, 3].rindex(2, offset: 2) # => 1
+[1, 2, 3, 2, 3].rindex(offset: 2) { |x| x < 3 } # => 1
+[1, 2, 3, 4, 5, 0].skip_while { |i| i < 3 } # => [3, 4, 5, 0]
+[1, 2, 3, 4, 5, 0].take_while { |i| i < 3 } # => [1, 2]
+[1, 2, 3, 4, 5, 6].partition { |i| i % 2 == 0 } # => {[2, 4, 6], [1, 3, 5]}
+[1, 2, 3, 4, 5, 6].product # => 720
+[1, 2, 3, 4, 5, 6].product(7) # => 5040
+[1, 2, 3, 4, 5, 6].reject { |i| i % 2 == 0 } # => [1, 3, 5]
+[1, 2, 3, 4, 5, 6].select { |i| i % 2 == 0 } # => [2, 4, 6]
+[1, 2, 3, 4, 5, 6].skip(3) # => [4, 5, 6]
+[1, 2, 3, 4, 5, 6].sum # => 21
+[1, 2, 3, 4, 5, 6].sum(7) # => 28
+[1, 2, 3, 4, 5].join(", ") # => "1, 2, 3, 4, 5"
+[1, 2, 3, 4, 5].join(", ") { |i| -i } # => "-1, -2, -3, -4, -5"
+[1, 2, 3, 4, 5].join(", ", STDOUT) { |i, io| io << "(#{i})" }
+[1, 2, 3, 4, 5].reduce { |acc, i| acc + i } # => 15
+[1, 2, 3, 4, 5].reduce(10) { |acc, i| acc + i } # => 25
+[1, 2, 3, 4].count { |i| i % 2 == 0 } # => 2
+[1, 2, 3, 4].count(3) # => 1
+[1, 2, 3, 4].find { |i| i > 2 }     # => 3
+[1, 2, 3, 4].find { |i| i > 8 }     # => nil
+[1, 2, 3, 4].find(-1) { |i| i > 8 } # => -1
+[1, 2, 3, 4].size # => 4
+[1, 2, 3]         # Array(Int32)
+[1, 2, 3] - [2, 1] # => [3]
+[1, 2, 3].first(2) # => [1, 2]
+[1, 2, 3].first(4) # => [1, 2, 3]
+[1, 2, 3].in_groups_of(2)    # => [[1, 2], [3, nil]]
+[1, 2, 3].in_groups_of(2, 0) # => [[1, 2], [3, 0]]
+[1, 2, 3].includes?(2) # => true
+[1, 2, 3].includes?(5) # => false
+[1, 2, 3].last(2) # => [2, 3]
+[1, 2, 3].last(4) # => [1, 2, 3]
+[1, 2, 3].map { |i| i * 10 } # => [10, 20, 30]
+[1, 2, 3].max        # => 3
+[1, 2, 3].min        # => 1
+[1, 2, 3].minmax # => {1, 3}
+[1, 2, 3].none? { |i| i > 5 } # => true
+[1, 2, 3].one? { |i| i > 1 } # => false
+[1, 2, 3].one? { |i| i > 2 } # => true
+[1, 2] + ["a"]  # => [1,2,"a"] of (Int32 | String)
+[1, 2] + [2, 3] # => [1,2,2,3]
+[1, 2] <=> [1, 2] # => 0
+[15].all?            # => true
+[2, 5, 7, 10].bsearch { |x| x > 10 } # => nil
+[2, 5, 7, 10].bsearch { |x| x >= 4 } # => 5
+[2, 5, 7, 10].bsearch_index { |x, i| x > 10 } # => nil
+[2, 5, 7, 10].bsearch_index { |x, i| x >= 4 } # => 1
+[2] <=> [4, 2, 3] # => -1
+[4, 7, 2].sort { |x, y| y <=> x } # => [7, 4, 2]
+[8] <=> [1, 2, 3] # => 1
+[:foo, :bar].size # => 2
+[[:a, :b], [:c, :d]].to_h        # => {:a => :b, :c => :d}
+[] of Int32 # same as Array(Int32)
+[nil, false, true].none? # => false
+[nil, false].any?    # => false
+[nil, false].none?       # => true
+[nil, true, 99].all? # => false
+[nil, true, 99].any? # => true
+`echo hi` # => "hi\n"
+a                                           # => StaticArray[3, 2, 1]
+a                    # => ["ant", "dog"]
+a                    # => [{"student", "sam"}, {"teacher", "matz"}]
+a                   # => [{"student", "sam"}, {"student", "george"}, {"teacher", "matz"}]
+a                  # => ["ant", "dog"]
+a               # => ["ant", "bat", "dog"]
+a              # => Deque{1, 3}
+a             # => Deque{"a", "c"}
+a             # => ["a", "c"]
+a           # => [[:a, :b], [:c, :d], [:e, :f]]
+a          # => []
+a         # => 1
+a         # => 3
+a         # => 6
+a        # => ["a"]
+a        # => []
+a       # => Deque{2, 3}
+a       # => ["a", "b", "c"]
+a       # => ["b", "c"]
+a      # => [ "a", "a", "b", "b", "c" ]
+a      # => [3, 1, 2]
+a     # => Deque{1, 2}
+a     # => ["a", "b"]
+a # => [1, 2, 3]
+a # => [1, 4, 9]
+a # => [1, 6, 2, 3, 4, 5]
+a # => [1, 6, 5]
+a # => [1, 6, 7, 5]
+a # => [1, 6, 7, 8, 5]
+a # => [1, 6, 7, 8, 9, 10, 5]
+a << 3 # => [1,2,3]
+a = StaticArray(Int32, 3).new { |i| i + 1 } # => StaticArray[1, 2, 3]
+a = [s, t, u, 12, 13]  # => [[1, 2, 3], [4, 5, 6, [7, 8]], 9, #<Indexable::ItemIterator>, 12, 13]
+a.at(0) # => :foo
+a.at(0) { :baz } # => :foo
+a.at(2) { :baz } # => :baz
+a.clear # => []
+a.delete("b") # => "b"
+a.delete("b") # => true
+a.delete("x") # => nil
+a.delete_at(1) # => 2
+a.delete_at(1, 2)  # => ["bat", "cat"]
+a.delete_at(1..2)    # => ["bat", "cat"]
+a.delete_at(2)  # => "cat"
+a.each_permutation(2) { |p| sums << p.sum } # => [1, 2, 3]
+a.equals?(b) { |x, y| x == y }      # => false
+a.equals?(b) { |x, y| x == y.size } # => true
+a.fill { |i| i * i } # => [0, 1, 4, 9]
+a.fill(2) { |i| i * i } # => [1, 2, 4, 9]
+a.fill(2, 2) { |i| i * i } # => [1, 2, 4, 9, 5, 6]
+a.fill(2..3) { |i| i * i } # => [1, 2, 4, 9, 5, 6]
+a.fill(9) # => [9, 9, 9]
+a.fill(9, 2) # => [1, 2, 9, 9, 9]
+a.fill(9, 2, 2) # => [1, 2, 9, 9, 5]
+a.fill(9, 2..3) # => [1, 2, 9, 9, 5]
+a.flatten              # => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+a.insert(-1, "z") # => ["x", "a", "y", "b", "c", "z"]
+a.insert(0, "x")  # => ["x", "a", "b", "c"]
+a.insert(1, 7) # => Deque{0, 7, 1, 2}
+a.insert(2, "y")  # => ["x", "a", "y", "b", "c"]
+a.object_id # => 136294312
+a.object_id # => 136294360
+a.permutations    # => [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+a.permutations(0) # => [[]]
+a.permutations(1) # => [[1],[2],[3]]
+a.permutations(2) # => [[1,2],[1,3],[2,1],[2,3],[3,1],[3,2]]
+a.permutations(3) # => [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+a.permutations(4) # => []
+a.pop # => "c"
+a.pop # => 3
+a.pop { "Testing" } # => "Testing"
+a.pop { "Testing" } # => 1
+a.pop(2) # => ["b", "c"]
+a.pop(4) # => ["a", "b", "c"]
+a.push 3 # => Deque{1, 2, 3}
+a.push("b", "c") # => ["a", "b", "c"]
+a.push("c") # => ["a", "b", "c"]
+a.push(1)   # => ["a", "b", "c", 1]
+a.reverse # => [3, 2, 1]
+a.sample                # => 1
+a.sample                # => 2
+a.sample(2)                # => [2, 1]
+a.sample(2, Random.new(1)) # => [1, 3]
+a.sample(Random.new(1)) # => 3
+a.shift # => "a"
+a.shift # => 1
+a.shift(4) # => ["a", "b", "c"]
+a.shuffle!(Random.new(42))                  # => StaticArray[3, 2, 1]
+a.sort # => [1, 2, 3]
+a.transpose # => [[:a, :c, :e], [:b, :d, :f]]
+a.uniq # => ["a", "b", "c"]
+a.uniq { |s| s[0] } # => [{"student", "sam"}, {"teacher", "matz"}]
+a.uniq! # => ["a", "b", "c"]
+a.uniq! { |s| s[0] } # => [{"student", "sam"}, {"teacher", "matz"}]
+a.unshift 0 # => Deque{0, 1, 2}
+a.unshift("c") # => ["c", "a", "b"]
+a.unshift(1)   # => [1, "c", "a", "b"]
+a[-2...-1] # => ["d"]
+a[-3, 3] # => ["c", "d", "e"]
+a[1, 2]  # => ["b", "c"]
+a[1..3]    # => ["b", "c", "d"]
+a[4..7]    # => ["e"]
+a[5, 1]  # => []
+a[5..10]   # => []
+add.arity # => 2
+add.call(1, 2) # => 3
+add_one.call(10) # => 11
+add_one.call(2)  # => 3
+add_one_and_two.call # => 3
+array                                           # => StaticArray[1, 2, 2]
+array                                           # => StaticArray[1, 4, 3]
+array       # => StaticArray[2, 2, 2]
+array # => StaticArray[3, 2, 2]
+array # => ["foo", "bar"]
+array # => ['A', 'l', 'i', 'c', 'e', 'B', 'o', 'b']
+array # => ['a', 'b', '☃']
+array # => [97, 98, 226, 152, 131]
+array # => [97, 98, 9731]
+array # => [{'a', 0}, {'b', 1}, {'☃', 2}]
+array = StaticArray(Int32, 3).new 0  # => StaticArray[0, 0, 0]
+array = StaticArray(Int32, 3).new 0 # => StaticArray[0, 0, 0]
+array = StaticArray(Int32, 3).new { |i| i + 1 } # => StaticArray[1, 2, 3]
+array == array2                      # => true
+array == array3                      # => false
+array == nil                        # => false
+array.[]= 2 # => 3
+array.map! { |x| x*x } # => StaticArray[1, 4, 9]
+array.reverse! # => StaticArray[3, 2, 1]
+array.size # => 3
+array.sort # => [".", "..", "config.h"]
+array.to_s # => "StaticArray[1, 2, 3]"
+array.update(1) { |x| x * 2 }                   # => 4
+array2 = StaticArray(Int32, 3).new 0 # => StaticArray[0, 0, 0]
+array3 = StaticArray(Int32, 3).new 1 # => StaticArray[1, 1, 1]
+array[2] = 2                                    # => 2
+ary # => ["M", "i", "s", "s", "i", "s", "s", "i", "p", "p", "i"]
+ary # => ["M", "ss", "ss", "pp", ""]
+ary # => ["Mi", "i", "ippi"]
+ary # => ["Old", "pond", "a frog leaps in\n  water's sound\n"]
+ary # => ["Old", "pond", "a", "frog", "leaps", "in", "water's", "sound"]
+ary # => ["a", "b", "c", "d"]
+ary # => ["a", "b", "c"]
+ary # => ["foo", "bar", "baz"]
+ary # => ["foo", "bar,baz"]
+ary # => [{false, [3, 1]}, {true, [4]}, {false, [1, 5, 9]}, {true, [2, 6]}, {false, [5, 3, 5]}]
+ary == [1, 2, 3] # => true
+ary == [2, 3]    # => false
+ary.class # => StaticArray(Char | Int32, 2)
+ary.size # => 0
+ary.to_unsafe[0] # => 1
+ary.to_unsafe[0] # => 42
+ary[-1] # => 'c'
+ary[-1]? # => 'c'
+ary[-2] # => 'b'
+ary[-2]? # => 'b'
+ary[-4]? # nil
+ary[0]    # => 1
+ary[0]  # => 'a'
+ary[0]?  # => 'a'
+ary[1]    # => 'a'
+ary[2]  # => 'c'
+ary[2]?  # => 'c'
+ary[3]?  # nil
+atomic.add(2) # => 1
+atomic.and(3) # => 5
+atomic.compare_and_set(1, 3) # => {1, true}
+atomic.compare_and_set(2, 3) # => {1, false}
+atomic.get                   # => 1
+atomic.get                   # => 3
+atomic.get          # => 10
+atomic.get      # => 10
+atomic.get     # => -2
+atomic.get     # => 10
+atomic.get     # => 5
+atomic.get    # => 1
+atomic.get    # => 3
+atomic.get    # => 5
+atomic.get    # => 6
+atomic.get    # => 7
+atomic.get   # => 7
+atomic.lazy_set(10) # => 10
+atomic.max(10) # => 5
+atomic.max(3) # => 5
+atomic.min(10) # => 5
+atomic.min(3) # => 5
+atomic.nand(3) # => 5
+atomic.or(2) # => 5
+atomic.set(10) # => 10
+atomic.sub(2) # => 9
+atomic.swap(10) # => 5
+atomic.xor(3) # => 5
+b # => "Upper case"
+b.null? # => true
+b.object_id # => 136294312
+b.object_id # => 136294336
+ba    # => "BitArray[101010101010]"
+ba # => BitArray[00110]
+ba # => BitArray[11001]
+ba = BitArray.new(12) # => "BitArray[000000000000]"
+ba[2]                 # => false
+ba[2] # => true
+ba[3] # => false
+ba[3] # => true
+buffer.to_slice[0, bytes_read]             # => Bytes[228, 189, 160]
+bytes = "你".encode("GB2312") # => Bytes[196, 227]
+bytes.next # => 131
+bytes.next # => 152
+bytes.next # => 226
+bytes.next # => 97
+bytes.next # => 98
+bytes_read = io.read_utf8(buffer.to_slice) # => 3
+c = a - b # => 10:00:00
+c.hours   # => 10
+chars.next # => '☃'
+chars.next # => 'a'
+chars.next # => 'b'
+class MyClass # < Reference
+client.host # => "www.example.com"
+client.port # => 80
+client.tls # => #<OpenSSL::SSL::Context::Client ...>
+client.tls? # => #<OpenSSL::SSL::Context::Client>
+codepoints.next # => 97
+codepoints.next # => 9731
+codepoints.next # => 98
+color.blue? # => true
+color.red?  # => false
+csv.next    # => true
+csv.next # => false
+csv.next # => true
+csv.row.to_a # => ["John", " 20"]
+csv.row.to_h # => {"Name" => "John", "Age" => " 20"}
+csv["Age"] # => " 20"
+csv["Name"]  # => "John"
+csv["Name"] # => "Peter"
+csv[-2]      # => "John"
+csv[/name/i] # => "John"
+csv[0]       # => "John"
+d.each { |x| puts "Got #{x}" }
+data["foo"]["bar"]["baz"].as_a    # => ["qux", "fox"]
+data["foo"]["bar"]["baz"][0].as_s # => "qux"
+data["foo"]["bar"]["baz"][1].as_s # => "fox"
+delimited.gets_to_end # => ""
+delimited.gets_to_end # => "abc"
+deq == Deque{1, 2, 3} # => true
+deq == Deque{2, 3}    # => false
+deq.size # => 0
+doc.xpath_bool("count(//person) > 0") # => true
+doc.xpath_float("count(//person)") # => 1.0
+doc.xpath_node("//invalid") # => nil
+doc.xpath_node("//person")  # => #<XML::Node:0x2013e80 name="person">
+document = XML.parse(xml)             # : XML::Node
+dst             # => Slice['a', 'a', 'a', 'b', 'b']
+employee.name  # => "John"
+employee.name # => "Jenny"
+employee.title # => "Manager"
+empty.first? # => nil
+empty.last? # => nil
+enc = Base64.encode("Send reinforcements") # => "U2VuZCByZWluZm9yY2VtZW50cw==\n"
+f.get # => "hello\n"
+false # A Bool that is false
+false & false # => false
+false & true  # => false
+false ^ false # => false
+false ^ true  # => true
+false | false # => false
+false | true  # => true
+file.gets(1) # => "c"
+file.gets(2) # => "bc"
+file.gets(2) # => "he"
+file.gets(3) # => "abc"
+file.gets_to_end # => "lo"
+file.pos     # => 0
+file.pos     # => 2
+finder.best_match # => "hall"
+floats.class # => Array(Float64)
+floats.class # => Slice(Float64)
+floats.class # => StaticArray(Float64, 4)
+foo.hash # => 3247054
+h # => { "bar" => "qux" }
+h # => {"a" => 1, "c" => 3}
+h # => {"b" => 2, "d" => 4}
+h.delete("foo")     # => "bar"
+h.empty? # => false
+h.empty? # => true
+h.fetch("bar") { |key| key.upcase } # => "BAR"
+h.fetch("bar", "foo") # => "foo"
+h.fetch("foo") { |key| key.upcase } # => "bar"
+h.fetch("foo", "foo") # => "bar"
+h.fetch("foo", nil) # => nil
+h.has_key?("bar") # => false
+h.has_key?("foo") # => true
+h.has_value?("bar") # => true
+h.has_value?("foo") # => false
+h.key_index("foo") # => 0
+h.key_index("qux") # => nil
+h.keys # => ["foo", "baz"]
+h.reject { |k, v| k > "a" } # => {"a" => 100}
+h.reject { |k, v| v < 200 } # => {"b" => 200, "c" => 300}
+h.select { |k, v| k > "a" } # => {"b" => 200, "c" => 300}
+h.select { |k, v| v < 200 } # => {"a" => 100}
+h.to_s       # => "{\"foo\" => \"bar\"}"
+h.to_s.class # => String
+h.values # => ["bar", "qux"]
+h["bar"]? # => nil
+h["foo"] # => "bar"
+h["foo"]? # => "bar"
+h["foo"]? # => nil
+hash                # => {"baz" => "qux"}
+hash                # => {}
+hash        # => {"baz" => "qux"}
+hash       # => {"baz" => "qux"}
+hash # => {"Alice" => 5, "Bob" => 3}
+hash # => {"foo" => "bar", "baz" => "qux"}
+hash.clear # => {}
+hash.compact # => {"hello" => "world"}
+hash.compact! # => nil
+hash.compact! # => {"hello" => "world"}
+hash.first_key? # => "foo"
+hash.first_key? # => nil
+hash.key("bar")    # => "foo"
+hash.key("bar") { |value| value.upcase } # => "foo"
+hash.key("qux")    # => "baz"
+hash.key("qux") { |value| value.upcase } # => "QUX"
+hash.key?("bar")    # => "foo"
+hash.key?("foobar") # => nil
+hash.key?("qux")    # => "baz"
+hash.shift # => {"foo", "bar"}
+hash.shift { true } # => true
+hash.shift { true } # => {"foo", "bar"}
+hash.shift? # => nil
+hash.shift? # => {"foo", "bar"}
+hash_a # => {"foo" => "bar"}
+hash_a # => {"foobar" => {"foo" => "bar"}}
+headers.includes_word?("Connection", "Upgrade") # => true
+hello # => "hello"
+house.address  # => "Crystal Road 1234"
+house.location # => #<Location:0x10cd93d80 @lat=12.3, @lng=34.5>
+house.to_json  # => %({"address":"Crystal Road 1234","location":{"lat":12.3,"lng":34.5}})
+int16 # => 0x1234_i16
+ints.class # => Array(Int64)
+ints.class # => Slice(Int64)
+ints.class # => StaticArray(Int64, 3)
+io.closed? # => false
+io.closed? # => true
+io.empty? # => false
+io.empty? # => true
+io.gets               # => "foo"
+io.gets               # => "hello"
+io.gets               # => nil
+io.gets    # => "world"
+io.gets # => "lo"
+io.gets("wo") # => "hello\nwo"
+io.gets("wo") # => "rld"
+io.gets("wo") # => nil
+io.gets('o') # => "hello"
+io.gets('o', 3)  # => "hel"
+io.gets('r') # => "\nwor"
+io.gets('r', 10) # => "lo\nwor"
+io.gets('w') # => nil
+io.gets('w', 10) # => nil
+io.gets('z') # => "ld"
+io.gets('z', 10) # => "ld"
+io.gets(1) # => "a"
+io.gets(1) # => "c"
+io.gets(2)    # => "he"
+io.gets(2) # => "bc"
+io.gets(2) # => "he"
+io.gets(3) # => "abc"
+io.gets(3) # => "hel"
+io.gets(3) # => "ld"
+io.gets(3) # => "lo\n"
+io.gets(3) # => "wor"
+io.gets(3) # => nil
+io.gets(4) # => "\u{4}\u{3}\u{2}\u{1}"
+io.gets(chomp: false) # => "world\n"
+io.gets_to_end        # => "123"
+io.gets_to_end    # => "de"
+io.gets_to_end # => ""
+io.gets_to_end # => "aello"
+io.gets_to_end # => "hello world"
+io.pos            # => 0
+io.pos         # => 0
+io.pos        # => 0
+io.pos     # => 0
+io.pos     # => 2
+io.read(slice)    # => 6
+io.read(slice) # => 0
+io.read(slice) # => 1
+io.read(slice) # => 4
+io.read_byte # => 97
+io.read_byte # => nil
+io.read_bytes(Int32, IO::ByteFormat::LittleEndian) # => 0x01020304
+io.read_char # => 'あ'
+io.read_char # => nil
+io.read_fully(slice) # => 5
+io.read_fully?(slice) # => 5
+io.read_fully?(slice) # => nil
+io.read_string(1) # => " "
+io.read_string(5) # => "hello"
+io.read_utf8_byte # => 160
+io.read_utf8_byte # => 189
+io.read_utf8_byte # => 228
+io.read_utf8_byte # => nil
+io.size # => 5
+io.to_s                          # => "Crystal &amp; You"
+io.to_s # => "1-Crystal"
+io.to_s # => "123"
+io.to_s # => "1\n-\nCrystal\n"
+io.to_s # => "1\nCrystal\n"
+io.to_s # => "HEADER\none,two\nthree\n"
+io.to_s # => "Hello World!"
+io.to_s # => "\n"
+io.to_s # => "a"
+io.to_s # => "abcd"
+io.to_s # => "hello\nworld\n"
+io.to_slice # => Bytes[0x34, 0x12]
+io1.to_s # => "foo bar\n"
+io2.to_s # => "foo bar\n"
+io2.to_s # => "hel"
+io2.to_s # => "hello"
+ip_address.address # => "127.0.0.1"
+iter.each { |x| print x, " " } # Prints "a b c"
+iter.next # -> 3
+iter.next # -> Iterator::Stop::INSTANCE
+iter.next # => "a"
+iter.next # => "b"
+iter.next # => "c"
+iter.next # => "hello"
+iter.next # => "world"
+iter.next # => #<Iterator::Stop>
+iter.next # => 'a'
+iter.next # => 'b'
+iter.next # => 'あ'
+iter.next # => 'め'
+iter.next # => 0
+iter.next # => 1
+iter.next # => 129
+iter.next # => 130
+iter.next # => 2
+iter.next # => 227
+iter.next # => 3
+iter.next # => 4
+iter.next # => 5
+iter.next # => 6
+iter.next # => 97
+iter.next # => Iterator::Stop::INSTANCE
+iter.next # => ["a", "a"]
+iter.next # => ["b", "a"]
+iter.next # => [1, 2, 3]
+iter.next # => [1, 2]
+iter.next # => [1, 3, 2]
+iter.next # => [2, 1, 3]
+iter.next # => [2, 3, 1]
+iter.next # => [2, 3, 4]
+iter.next # => [3, 'z']
+iter.next # => [3, 1, 2]
+iter.next # => [3, 2, 1]
+iter.next # => [3, 4, 5]
+iter.next # => [3, nil]
+iter.next # => [4, 5, 6]
+iter.next # => [7, 8, 9]
+iter.next # => {1, "a"}
+iter.next # => {1, 0}
+iter.next # => {2, "a"}
+iter.next # => {2, 1}
+iter.next # => {3, "a"}
+iter.next # => {3, 2}
+iter.next # => {4, 7}
+iter.next # => {5, 8}
+iter.next # => {6, 9}
+iter.to_a # => [1, 1, 2, 2, 3, 3]
+iterator.next # => {"baz", "qux"}
+iterator.next # => {"foo", "bar"}
+key # => "baz"
+key # => "foo"
+language = {name: "Crystal", year: 2011} # NamedTuple(name: String, year: Int32)
+language[:name]  # => "Crystal"
+language[:year]  # => 2011
+left.gets # => "message"
+lexer.next_token # => CSV::Token(@kind=Cell, @value="one")
+lexer.next_token # => CSV::Token(@kind=Cell, @value="three")
+lexer.next_token # => CSV::Token(@kind=Cell, @value="two")
+lexer.next_token # => CSV::Token(@kind=Eof, @value="three")
+lexer.next_token # => CSV::Token(@kind=Newline, @value="two")
+long_river_name.split("")   # => ["M", "i", "s", "s", "i", "s", "s", "i", "p", "p", "i"]
+long_river_name.split("i")  # => ["M", "ss", "ss", "pp", ""]
+long_river_name.split("ss") # => ["Mi", "i", "ippi"]
+long_river_name.split(//)   # => ["M", "i", "s", "s", "i", "s", "s", "i", "p", "p", "i"]
+long_river_name.split(/s+/) # => ["Mi", "i", "ippi"]
+mode.async? # => true
+mode.includes?(IOMode::Async) # => false
+mode.includes?(IOMode::Read)  # => true
+mode.read?  # => true
+mode.write? # => false
+mut.value # => 1
+mut.value # => 2
+name.to_a # => [{"CN", "Nobody"}, {"DC", "example"}]
+neg.arity # => 1
+nodes.class       # => XML::NodeSet
+nodes.map(&.name) # => ["person"]
+obj["access"][1]["name"].as_s  # => "any"
+obj["access"][1]["speed"].as_s # => "slow"
+old_pond.split    # => ["Old", "pond", "a", "frog", "leaps", "in", "water's", "sound"]
+old_pond.split(3) # => ["Old", "pond", "a frog leaps in\n  water's sound\n"]
+one   # => 1
+p ary # => [5,2,3]
+p foo: 23, bar: 42 # => {foo: 23, bar: 42}
+p1 == p2 # => true
+p1 == p3 # => false
+p1.inspect # "Point(@x=1, @y=2)"
+p1.to_s    # "Point(@x=1, @y=2)"
+params # => "color=black&name=crystal&year=2012+-+today"
+params.delete("item")    # => "keychain"
+params.delete("item") # => "keynote"
+params.delete_all("comments") # => ["hello, world!", ":+1:"]
+params.fetch("email")              # => "john@example.org"
+params.fetch("email") { raise "email is missing" }              # raises "email is missing"
+params.fetch("email", "none@example.org")           # => "john@example.org"
+params.fetch("non_existent_param") { "default computed value" } # => "default computed value"
+params.fetch("non_existent_param", "default value") # => "default value"
+params.fetch_all("item") # => ["keychain", "keynote"]
+params.fetch_all("item") # => ["keynote"]
+params.fetch_all("item") # => ["pencil", "book", "workbook", "keychain"]
+params.fetch_all("item") # => ["pencil", "book", "workbook"]
+params.has_key?("comments")   # => false
+params.has_key?("email")   # => true
+params.has_key?("garbage") # => false
+params.to_s # => "item=keychain&item=keynote&email=john%40example.org"
+params["email"]              # => "john@example.org"
+params["email"]?              # => "john@example.org"
+params["non_existent_param"]? # nil
+password == "super secret" # => true
+password == "wrong secret" # => false
+password.digest  # => "8/Po4wTL0fhdDNdAdjcKN/Fup8tGCya"
+password.salt    # => "X6rw/jDiLBuzHV./JjBNXe"
+password.version # => "2a"
+person = document.first_element_child # : XML::Node?
+person.birth_date # => 2016-04-05 12:36:21 UTC
+person.full_name # => "John Doe"
+person.to_json    # => %({"birth_date":1459859781})
+plain = Base64.decode_string(enc)          # => "Send reinforcements"
+pointerof(a).null? # => false
+pool.empty? # => false
+pool.empty? # => true
+pool.size # => 0
+pool.size # => 1
+pp [1, 2, 3].map(&.to_s) # => "[1, 2, 3].map(&.to_s) # => ["1", "2", "3"]"
+pp a # => "a # => 1"
+proc = capture { |x| x + 1 } # Proc(Int32, Int32)
+proc.call(1)                 # => 2
+ptr # [1, 2, 3, 4, 0, 0, 0, 0]
+ptr # [2, 4, 6, 8]
+ptr # [3, 4, 1, 2]
+ptr = Pointer(Int32).malloc(4) # [0, 0, 0, 0]
+ptr = Pointer.malloc(4) { |i| i + 1 } # [1, 2, 3, 4]
+ptr = Pointer.malloc(6) { |i| i + 10 } # [10, 11, 12, 13, 14, 15]
+ptr.address # => 0
+ptr.address # => 1234
+ptr.address # => 5678
+ptr.hash # => 1234
+ptr.to_slice(6) # => Slice[0, 0, 0, 13, 14, 15]
+ptr.value # => 0
+ptr.value # => 42
+ptr1 = Pointer.malloc(4) { |i| i + 1 }  # [1, 2, 3, 4]
+ptr1 = Pointer.malloc(4) { |i| i + 1 } # ptr1 -> [1, 2, 3, 4]
+ptr1.memcmp(ptr1, 4) # => 0
+ptr1.memcmp(ptr2, 4) # => -10
+ptr1.to_s # => "Pointer(Int32)@0x4d2"
+ptr1[0] # => 1
+ptr1[0] # => 11
+ptr1[1] # => 1
+ptr1[1] # => 12
+ptr1[2] # => 2
+ptr1[2] # => 3
+ptr1[3] # => 3
+ptr1[3] # => 4
+ptr2 - ptr1 # => 2
+ptr2 = Pointer.malloc(4) { |i| i + 11 } # [11, 12, 13, 14]
+ptr2 = ptr1 + 1                        #             ^--------- ptr2
+ptr2.address # => 1230
+ptr2.address # => 1238
+ptr2.memcmp(ptr1, 4) # => 10
+ptr2.to_s # => "Pointer(Int32).null"
+ptr2.value # => 42
+ptr2[0] # => 1
+ptr2[1] # => 2
+ptr2[2] # => 13
+ptr2[3] # => 14
+ptr[0] # => 0
+ptr[0] # => 10
+ptr[0] # => 42
+ptr[1] # => 11
+ptr[1] # => 42
+ptr[2] # => 12
+ptr[2] # => 3
+ptr[2] # => 4
+ptr[3] # => 13
+ptr[3] # => 3
+ptr[3] # => 4
+ptr[9] # => 0
+puts "Hello #{destination}!"
+puts BigInt.new("123456789101101987654321").to_s # => 123456789101101987654321
+puts BigInt.new("123456789101101987654321").to_s(16) # => 1a249b1f61599cd7eab1
+puts BigInt.new("123456789101101987654321").to_s(36) # => k3qmt029k48nmpd
+puts BigInt.new("123456789101101987654321").to_s(8)  # => 32111154373025463465765261
+puts Color.new(1) # => "Green"
+puts Color.new(10) # => "10"
+puts ary  # => [[5, 2], [3, 4]]
+puts ary # => [[1], [1], [1]]
+puts ary # => [[2], [1], [1]]
+puts ary # => [[2], [2], [2]]
+puts ary2 # => [[1, 2], [3, 4], [7, 8]]
+puts ary2 # => [[1, 2], [3, 4]]
+puts ary2 # => [[5, 2], [3, 4], [7, 8]]
+puts ary2 # => [[5, 2], [3, 4]]
+puts ba.to_s # => "BitArray[00000]"
+puts x # => 2
+r.includes?(Xs.new(5)) # => true
+r.next_bool # => true
+r.next_int  # => 2223112
+r.rand      # => 0.0372991
+r.rand # => 0.0372991
+r.rand # => 0.167595
+r.to_a                 # => [Xs.new(3), Xs.new(4), Xs.new(5), Xs.new(6)]
+r.to_s                 # => "xxx..xxxxxx"
+r.to_s     # => "8243243/562828882"
+r.to_s # => "-1/3"
+r.to_s # => "7/3"
+r.to_s(16) # => "7dc82b/218c1652"
+r.to_s(36) # => "4woiz/9b3djm"
+rand     # => 0.293829
+rand(10) # => 8
+random_value = rand # => 0.627423
+raw # => StaticArray[0x34, 0x12]
+raw.to_json # => %({"value":123456789876543212345678987654321})
+raw.value   # => "123456789876543212345678987654321"
+re = /A*/                  # => "(?-imsx:A*)"
+re = /A*/i                 # => /A*/i
+re.match("Skiing")   # => #<Regex::MatchData "Skiing">
+re.match("sledding") # => #<Regex::MatchData "sledding">
+re.to_s                    # => "(?i-msx:A*)"
+reader.current_char   # => 'a'
+reader.current_char # => 'a'
+reader.current_char # => 'b'
+reader.current_char_width # => 1
+reader.current_char_width # => 2
+reader.gets # => "hello"
+reader.gets # => "world"
+reader.has_next?      # => true
+reader.next_char # => 'b'
+reader.peek_next_char # => '\0'
+reader.peek_next_char # => 'b'
+reader.pos # => 0
+reader.pos # => 1
+request.cookies.has_key?("foo") # => true
+request.cookies["foo"].value # => "bar"
+request.cookies["foo"]? # => nil
+request.cookies["foo"]?.try &.value # > "bar"
+response.body # => "..."
+response.body #=> "..."
+response.body.lines.first # => "<!doctype html>"
+response.status_code      # => 200
+result # => "one,two\nthree\n"
+rows.next # => ["one", "two"]
+rows.next # => ["three"]
+s = [1, 2, 3]          # => [1, 2, 3]
+s.empty? # => false
+s.empty? # => true
+s.includes? 5 # => false
+s.includes? 5 # => true
+s.includes? 8 # => false
+s.includes? 8 # => true
+s.includes? 9 # => false
+s.size # => 0
+s.size # => 2
+s.size # => 4
+s1 == s2 # => true
+s1 == s3 # => true
+s1.subset? s2 # => false
+s2.subset? s1 # => true
+set = Set{1, 2, 3} # => Set{1, 2, 3}
+set.class          # => Set(Int32)
+sized.gets_to_end # => ""
+sized.gets_to_end # => "abc"
+slice                 # => Bytes[49, 50, 51, 52, 53]
+slice                # => Bytes[49, 50, 51, 52, 53]
+slice          # => Bytes[0]
+slice          # => Bytes[104, 101, 108, 108]
+slice          # => Bytes[111, 101, 108, 108]
+slice      # => Bytes[97, 98, 99]
+slice # => Bytes[0, 0, 0]
+slice # => Slice[10, 10, 10]
+slice # => Slice[10, 11, 12, 13, 14]
+slice # => Slice[10, 11, 12]
+slice # => Slice[20, 11, 12, 13, 30]
+slice = array.to_slice # => Slice[2, 2, 2]
+slice = ptr.to_slice(4)                # => Slice[10, 11, 12, 13]
+slice.class                            # => Slice(Int32)
+slice.class # => Slice(Char | Int32)
+slice.hexdump # => "00000000  61 3e 3f 08 ff                                    a>?.."
+slice.hexstring # => "613e3f08ff"
+slice.size # => 0
+slice.size # => 3
+slice.to_unsafe[0] # => 10
+slice2 # => Slice[11, 12, 13]
+slice2 # => Slice[12, 13, 14]
+slice[0]    # => 1
+slice[1]    # => 'a'
+span       # => 01:00:00
+span       # => 30.00:00:00
+span.class # => Time::Span
+span.days          # => 30
+span.hours   # => 20
+span.hours # => 1
+span.minutes # => 10
+span.seconds # => 10
+span.total_hours   # => 720
+span.total_minutes # => 43200
+speak_about(**{thing: String, n: Int64}.from(data)) # => "I see 2 worlds"
+speak_about(*{String, Int64}.from(data)) # => "I see 2 worlds"
+str # => "ab"
+str # => "hello 1"
+str.index 'a' # => nil
+str.index 'e' # => 1
+str.itself.object_id == str.object_id # => true
+string # => "---\nfoo:\n- 1\n- 2\n"
+string # => "<?xml version=\"1.0\"?>\n<person id=\"1\">\n  <firstname>Jane</firstname>\n  <lastname>Doe</lastname>\n</person>\n"
+string # => "abc"
+string # => %<{"name":"foo","values":[1,2,3]}>
+string = Regex.escape("\*?{}.") # => "\\*\\?\\{\\}\\."
+string.object_id # => 4460249568
+string2.object_id == string.object_id # => true
+struct Foo # < Struct
+sums                                        # => [3, 4, 3, 5, 4, 5]
+t = [4, 5, 6, [7, 8]]  # => [4, 5, 6, [7, 8]]
+t1 == t2 # => true
+t1 == t3 # => false
+t3         # => {1, 2, "foo", "bar"}
+text = "## This is title \n This is a [link](http://crystal-lang.org)"
+three.all? { |x| x < 10 } # => true
+three.select &.odd?       # => [1, 3]
+three.to_a                # => [1, 2, 3]
+time = Time.epoch_ms(981173106789) # => 2001-02-03 04:05:06.789 UTC
+time.day     # => 15
+time.epoch # => 1452567845
+time.epoch_f # => 1452567845.678
+time.epoch_ms # => 1452567845678
+time.hour    # => 10
+time.local? # => true
+time.millisecond                   # => 789
+time.minute  # => 20
+time.monday? # => true
+time.month   # => 2
+time.second  # => 30
+time.to_local # => 2016-02-16 05:01:10 +0800
+time.to_s("%F") # => "2016-04-05"
+time.to_s("%Y-%m-%d") # => "2015-10-12"
+time.to_utc   # => 2016-02-15 21:00:00 UTC
+time.utc?   # => false
+time.year    # => 2016
+timestamp.to_json # => %({"value":1459860483856})
+timestamp.value   # => 2016-04-05 12:48:03.856 UTC
+true  # A Bool that is true
+true & false  # => false
+true & true   # => true
+true ^ false  # => true
+true ^ true   # => false
+true | false  # => true
+true | true   # => true
+tuple       # => {1, "hello", 'x'}
+tuple = {1, "hello", 'x'} # Tuple(Int32, String, Char)
+tuple.at(0) # => 1
+tuple.at(0) { 10 } # => 1
+tuple.at(3) { 10 } # => 10
+tuple.class # => Tuple(Int32, String, Char)
+tuple.empty? # => false
+tuple.fetch("name") { "Unknown" } # => "Crystal"
+tuple.fetch("other") { 0 }        # => 0
+tuple.fetch("year", 0)        # => 2011
+tuple.fetch(:name) { "Unknown" } # => "Crystal"
+tuple.fetch(:name, "Unknown") # => "Crystal"
+tuple.fetch(:other) { 0 }        # => 0
+tuple.fetch(:other, 0)        # => 0
+tuple.first # => 1
+tuple.first? # => 1
+tuple.has_key?(:name)  # => true
+tuple.has_key?(:other) # => false
+tuple.keys # => {:name, :year}
+tuple.last # => 2.5
+tuple.last? # => 2.5
+tuple.map &.to_s # => {"1", "2.5", "a"}
+tuple.map { |k, v| "#{k}: #{v}" } # => ["name: Crystal", "year: 2011"]
+tuple.reverse # => {"a", 2.5, 1}
+tuple.size # => 2
+tuple.to_a # => [{:name, "Crystal"}, {:year, 2011}]
+tuple.to_h # => {:name => "Crystal", :year => 2011}
+tuple.to_s # => "{1, \"hello\"}"
+tuple.to_s # => %({name: "Crystal", year: 2011})
+tuple.types # => Tuple(Int32, String, Char)
+tuple.values # => {"Crystal", 2011}
+tuple1 == tuple2 # => true
+tuple1 == tuple3 # => false
+tuple1 == tuple4 # => true
+tuple[0]                  # => 1
+tuple[0] # => 1 (Int32)
+tuple[0]? # => 1
+tuple[1]                  # => "hello"
+tuple[2]                  # => 'x'
+tuple[3]? # => nil
+tuple[i] # => 1 (Int32 | String | Char)
+tuple[key] # => "Crystal"
+tuple[key] # => 2011
+tuple[key]? # => "Crystal"
+tuple[key]? # => nil
+typeof(Color::Red) # => Color
+typeof(klass.cast(number)) # => Int32
+typeof(number)             # => (String | Int32)
+typeof(t3) # => Tuple(Int32, Int32, String, String)
+typeof(value) # => Int32 | String
+typeof(value[0])      # => JSON::Any
+typeof(value[0].as_i) # => Int32
+u = [9, [10, 11].each] # => [9, #<Indexable::ItemIterator>]
+uri = URI.parse "http://foo.com/posts?id=30&limit=5#time=1305298413"
+uri = URI.parse("http://crystal-lang.org") # => #<URI:0x1068a7e40 @scheme="http", @host="crystal-lang.org", ... >
+uri.full_path # => "/posts?id=30&limit=5"
+uri.host                                   # => "crystal-lang.org"
+uri.host   # => "foo.com"
+uri.query  # => "id=30&limit=5"
+uri.scheme                                 # => "http"
+uri.scheme # => "http"
+uri.to_s   # => "http://foo.com/posts?id=30&limit=5#time=1305298413"
+uri.userinfo # => "admin:password"
+value                    # => "heyhey"
+value         # => "hello"
+value # => "bar"
+value # => "qux"
+value = JSON.parse("[1, 2, 3]") # : JSON::Any
+value = multiply(*tuple) # same as multiply tuple[0], tuple[1]
+value.class   # => String
+value[0]              # => 1
+value[0].as_i         # => 1
+value[0].as_i + 10 # => 11
+wrapper.capitalize     # => "Hello"
+wrapper.downcase       # => "hello"
+wrapper.empty?         # => false
+wrapper.gsub(/E/, "A") # => "HALLO"
+x...y # an exclusive range, in mathematics: [x, y)
+x..y  # an inclusive range, in mathematics: [x, y]
+yaml = YAML.dump({hello: "world"})                               # => "---\nhello: world\n"
+yaml = {hello: "world"}.to_yaml                               # => "---\nhello: world\n"
+zeros.first(3).to_a # => [0, 0, 0]
+zeros.to_a # => [0, 0, 0, 0, 0]
+{"a" => 1, "b" => 2, "c" => 3, "d" => 4}.reject("a", "c") # => {"b" => 2, "d" => 4}
+{"a" => 1, "b" => 2, "c" => 3, "d" => 4}.select("a", "c") # => {"a" => 1, "c" => 3}
+{"a" => 1, "b" => 2, "c" => 3, "d" => 4}.values_at("a", "c") # => {1, 3}
+{"a", "a", "c"} <=> {"a", "b", "c"} # => -1
+{"foo" => "bar", "baz" => "bar"}.invert # => {"bar" => "baz"}
+{"foo" => "bar"}.invert                 # => {"bar" => "foo"}
+{'a', 'b'}.size # => 2
+{/o+/, "bar"} === {"foo", "bar"} # => true
+{1, 2, 3, 4, 5, 6} <=> {1, 2}       # => +1
+{1, 2} <=> {1, 2.0}                 # => 0
+{1, 2} === {1, 2, 3}             # => false
+{1, 2} === {1, 2} # => true
+{1, 2} === {1, 3} # => false
+{name, value.lstrip} # => {"Server", "nginx"}
