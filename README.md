@@ -42,6 +42,30 @@ This library is a **line based** parser. So, following partial code is processed
 end # => [1,2]
 ```
 
+## Strategies
+
+This library extract a comment from source by using three parsers.
+
+#### 1. `LexerParser` : Strictly parser
+
+This parses the code by using `Crystal::Lexer`. Although this can strictly parse codes, therefore it would raise error when the case of partial or invalid codes.
+
+```
+struct Foo # a some comment here
+# or
+[] # raises error
+```
+
+`Crystal::Parser` would fail with unexpected `:EOF`.
+
+#### 2. `RegexParser` : Roughly parser
+
+This parses the code by using `Regex`. This simply scans a code with `/#/` and split it into **code** and **comment**. So, somtimes the parsing result would be wrong, but never fails.
+
+#### 3. `CommentSpec` : Hybrid Parser
+
+This basically uses `LexerParser` and fallback with `RegexParser`. So, it's easy to use for API because `CommentSpec.parse(line)` can parse almost codes with best effort.
+
 ## Development
 
 ```shell
