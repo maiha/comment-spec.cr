@@ -4,6 +4,8 @@ class CommentSpec::Lexer
   getter code : String
   getter? doc : String?
 
+  property ignored_methods : Set(String) = Default::IGNORED_METHODS.dup
+  
   def initialize(@line : String)
     parser = Crystal::Parser.new(@line + "\ndef  1;end")
     parser.wants_doc = true
@@ -49,8 +51,9 @@ class CommentSpec::LexerParser < CommentSpec::Lexer
   end
 
   def builder
+    ignore = @ignored_methods.to_a.join("|")
     case code
-    when /\.(object_id|mtime|hash|sample|to_utc|to_local|local_offset_in_minutes)\b/
+    when /\.(#{ignore})\b/
       # Dynamic Values
       build Nop
     end

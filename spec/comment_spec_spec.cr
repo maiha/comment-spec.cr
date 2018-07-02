@@ -20,6 +20,10 @@ private macro comment_out(line)
   CommentSpec.parse({{line}}).should eq("# " + {{line}})
 end
 
+private def ignored_methods
+  CommentSpec::Default::IGNORED_METHODS
+end
+
 describe "CommentSpec" do
   describe ".parse" do
     it "require" do
@@ -34,6 +38,19 @@ describe "CommentSpec" do
       nop "time.to_utc # => xxx"
       nop "time.to_local # => xxx"
       nop "time.local_offset_in_minutes # => xxx"
+    end
+
+    context "(ignored_methods)" do
+      it "respects ignored_methods" do
+        preserve = ignored_methods.dup
+        begin
+          ignored_methods << "to_s"
+          nop "1.to_s # => nil"
+        ensure
+          ignored_methods.clear
+          ignored_methods.concat(preserve)
+        end
+      end
     end
 
     it "raises" do

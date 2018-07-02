@@ -9,10 +9,17 @@ class CommentSpec::RegexParser
   end
 
   Rules = [] of Rule
+  alias LazyRegex = Proc(Regex)
 
-  record Rule, pattern : Regex, builder : Proc(String, Regex::MatchData, Builder) do
+  record Rule, pattern : Regex | LazyRegex, builder : Proc(String, Regex::MatchData, Builder) do
     def builder?(line : String) : Builder?
-      line.match(pattern).try{|md| builder.call(line, md)}
+      regex =
+        case pattern
+        when Regex; pattern
+        when LazyRegex; pattern.as(LazyRegex).call
+        else ; abort "[BUG] pattern got #{pattern.class}"
+        end.as(Regex)
+      line.match(regex).try{|md| builder.call(line, md)}
     end
   end
 
@@ -38,7 +45,10 @@ class CommentSpec::RegexParser
   )
 
   rule(
-    regex: /^(.*?)\.(object_id|mtime|hash|sample|to_utc|to_local|local_offset_in_minutes)\b[^#]*#\s*=>/,
+    regex: ->{
+      methods = CommentSpec::Default::IGNORED_METHODS.to_a.join("|")
+      /^(.*?)\.(#{methods})\b[^#]*#\s*=>/
+    },
     klass: Nop
   )
 
