@@ -76,7 +76,7 @@ class CommentSpec::LexerParser < CommentSpec::Lexer
     when /^=>\s+(\d{0,4})\.?(\d{2}):(\d{2}):(\d{2})\.?(\d{0,7})$/
       build ExpectEqual, {code: code, eq: to_time_span($1, $2, $3, $4, $5)}
 
-    when /^=>\s+(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(.*?))$/
+    when /^=>\s+(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})(.*?)$/
       build ExpectEqual, {code: code, eq: to_time($1, $2)}
 
     when /^=>\s*[^#].*?#/
@@ -132,6 +132,7 @@ private def to_time_span(d, h, m, s, ms)
 end
 
 private def to_time(str, opt)
+  opt = opt.sub(/^\.0 /, ".000 ")
   fmt =
     case opt
     when /^\.\d{3}$/    then "%F %T.%L"
@@ -139,6 +140,5 @@ private def to_time(str, opt)
     when /^ \S+/        then "%F %T %z"
     else                ;    "%F %T"
     end
-
-  %(Time.parse("%s", "%s")) % [str, fmt]
+  %(Time.parse("%s%s", "%s")) % [str, opt, fmt]
 end

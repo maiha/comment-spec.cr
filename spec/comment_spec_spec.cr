@@ -74,6 +74,7 @@ describe "CommentSpec" do
       parse "value # => 2016-04-05 12:36:21", "( value ).should eq( Time.parse(\"2016-04-05 12:36:21\", \"%F %T\") )"
       parse "value # => 2016-04-05 12:36:21 UTC", "( value ).should eq( Time.parse(\"2016-04-05 12:36:21 UTC\", \"%F %T %z\") )"
       parse "value # => 2016-04-05 12:36:21.023 UTC", "( value ).should eq( Time.parse(\"2016-04-05 12:36:21.023 UTC\", \"%F %T.%L %z\") )"
+      parse "value # => 2016-04-05 12:36:21.0 UTC", "( value ).should eq( Time.parse(\"2016-04-05 12:36:21.000 UTC\", \"%F %T.%L %z\") )" # 0.25.x
     end
 
     it "`=>` found but nop" do
