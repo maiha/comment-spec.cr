@@ -4,7 +4,7 @@ Comment driven spec builder for [Crystal](http://crystal-lang.org/).
 
 - This **is** a spec string generator.
 - This **is not** a kind of spec tools.
-- crystal: 0.20.3
+- crystal: 0.26.1
 
 ## Installation
 

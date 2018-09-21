@@ -156,7 +156,7 @@ class CommentSpec::RegexParser
 
   # Default  
   rule(
-    regex: //,
+    regex: /.*/,
     klass: Nop
   )
 end
