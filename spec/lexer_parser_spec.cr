@@ -28,6 +28,8 @@ describe "LexerParser" do
     spec "value # => #<XXX>", "( value ).class.to_s.should eq( \"XXX\" )"
     spec "# => 1", "# => 1"
     spec "a # foo", "a # foo"
-#    spec "struct Foo # < Struct", "struct Foo # < Struct"
+
+    spec %Q{uri.query_params # => HTTP::Params(@raw_params={"id" => ["30"], "limit" => ["5"]})}, "( uri.query_params ).to_s.should eq( \"HTTP::Params(@raw_params={\\\"id\\\" => [\\\"30\\\"], \\\"limit\\\" => [\\\"5\\\"]})\" )"
+    #    spec "struct Foo # < Struct", "struct Foo # < Struct"
   end
 end

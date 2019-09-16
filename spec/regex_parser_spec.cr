@@ -93,10 +93,13 @@ describe CommentSpec::RegexParser do
   expect_rule ExpectStringEqual, "value # => 1.0 + 0.0i",
        {code: "value", eq: "1.0 + 0.0i"}
 
-  # CSV::Token
+  # Class with instance variables
   expect_rule ExpectStringEqual, "value # => CSV::Token(@kind=Cell, @value=\"one\")",
        {code: "value", eq: "CSV::Token(@kind=Cell, @value=\\\"one\\\")"}
-  
+
+  expect_rule ExpectStringEqual, %Q{uri.query_params # => HTTP::Params(@raw_params={"id" => ["30"], "limit" => ["5"]})},
+       {code: "uri.query_params", eq: "HTTP::Params(@raw_params={\\\"id\\\" => [\\\"30\\\"], \\\"limit\\\" => [\\\"5\\\"]})"}
+
   # Compilation Errors
   expect_rule CommentOut, "[] # syntax error"
 

@@ -136,7 +136,18 @@ class CommentSpec::RegexParser
 
   # FoundLiteral
   rule(
-    regex: /^(.*?)\s*#\s*=>\s*(\d{20,}|\d+\/\d+|BitArray\[.*?|.*?\d+\.\d+i|CSV::Token.*?)$/,
+    regex: /^(.*?)\s*#\s*=>\s*(\d{20,}|\d+\/\d+|BitArray\[.*?|.*?\d+\.\d+i)$/,
+    klass: ExpectStringEqual,
+    value: {code: md[1], eq: md[2]}
+  )
+
+  # Class with instance variables
+  # ```
+  # value # => CSV::Token(@kind=Cell, @value="one")
+  # uri.query_params # => HTTP::Params(@raw_params={"id" => ["30"], "limit" => ["5"]})}
+  # ```
+  rule(
+    regex: /^(.*?)\s*#\s*=>\s*([A-Z][A-zA-Z0-9_]+(::[A-Z][A-zA-Z0-9_]+)*\(@.*)$/,
     klass: ExpectStringEqual,
     value: {code: md[1], eq: md[2].gsub(/"/, %(\\"))}
   )

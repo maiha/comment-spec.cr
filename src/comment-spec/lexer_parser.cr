@@ -97,10 +97,13 @@ class CommentSpec::LexerParser < CommentSpec::Lexer
         build ExpectTryFloat, data
       end
 
-    when /^=>\s*(\d{20,}|\d+\/\d+|BitArray\[.*?|.*?\d+\.\d+i|CSV::Token.*?)$/
+    when /^=>\s*(\d{20,}|\d+\/\d+|BitArray\[.*?|.*?\d+\.\d+i)$/
       # FoundLiteral
       build ExpectStringEqual, {code: code, eq: $1.gsub(/"/, "\\\"")}
 
+    when /^=>\s*([A-Z][A-zA-Z0-9_]+(::[A-Z][A-zA-Z0-9_]+)*\(@.*)$/
+      build ExpectStringEqual, {code: code, eq: $1.gsub(/"/, "\\\"")}
+      
     when /^=>\s*"(.*?)"$/
       build ExpectStringEqual, {code: code, eq: $1}
 
