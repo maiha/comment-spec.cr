@@ -14,7 +14,7 @@ Add this to your application's `shard.yml`:
 dependencies:
   comment-spec:
     github: maiha/comment-spec.cr
-    version: 0.4.0
+    version: 1.0.0
 ```
 
 ## Usage
